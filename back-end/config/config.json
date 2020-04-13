@@ -1,0 +1,41 @@
+{
+  "development": {
+    "username": "root",
+    "password": "123456",
+    "database": "samoim",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "timezone": "+09:00",
+    "define": {
+      "timestamps": false,
+      "underscored" : true
+  }
+  },
+  "aws_development": {
+    "username": "root",
+    "password": "abcproject",
+    "database": "samoim",  
+    "host": "15.164.245.201",
+    "dialect": "mysql",
+    "timezone": "+09:00",
+    "operatorsAliases": false,
+    "logging": true,
+    "dialectOptions": {
+      "dateStrings": true, 
+      "typeCast": true 
+    },
+    "define": {
+      "timestamps": false,
+      "underscored" : true
+  }
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}

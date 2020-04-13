@@ -1,0 +1,3 @@
+#!/bin/bash
+PORT=`netstat -tnlp | grep 8000 | awk '{print $7}' | sed 's/[^0-9]//g'`
+kill -9 $PORT
