@@ -1,5 +1,7 @@
 # __SSAFY AI Project__
 
+release branch 
+
 ---
 
 ![version](https://img.shields.io/badge/version-2.1.0-orange?logo=star)
