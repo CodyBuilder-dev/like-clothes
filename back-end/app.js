@@ -7,6 +7,7 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import routes from "./routes"
 import userRouter from "./routers/userRouter"
+import swaggerDoc from "./swagger/swaggerDoc"
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(helmet()); // 보안을 위한 것
 app.use(morgan("dev"));
+
+app.use(swaggerDoc);
 
 app.use(routes.users, userRouter);
 

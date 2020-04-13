@@ -1,0 +1,35 @@
+# AWS cert.pem
+cert.pem
+
+# model files
+*.h5
+!resnet50_weights_tf_dim_ordering_tf_kernels.h5
+
+# jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# vscode
+.vscode/
+
+# Image Files
+images/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configure vscode 
+.vscode
+# 압축파일
+*.tar
+*.tar.gz
+*.gz
+*.zip
+
+# Python
+venv/
+requirements.txt
+
+# Back-end
+node_modules/
