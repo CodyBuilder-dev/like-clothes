@@ -1,6 +1,6 @@
 # __SSAFY AI Project__
 
-release branch 
+develop branch 
 
 ---
 
