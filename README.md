@@ -116,7 +116,7 @@
 
 ---
 
-- https://jira.ssafy.com/projects/S02P22A401/
+- https://jira.ssafy.com/projects/S02P23A401/
 
 
 
