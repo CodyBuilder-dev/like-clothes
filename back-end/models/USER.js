@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('USER', {
+module.exports = function (sequelize, DataTypes) {
+
+const users = sequelize.define('USER', {
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
@@ -63,13 +64,17 @@ module.exports = function(sequelize, DataTypes) {
     },
     created: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     updated: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
   }, {
     tableName: 'USER'
   });
+
+  return users;
 };

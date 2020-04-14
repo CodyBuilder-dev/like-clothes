@@ -1,7 +1,9 @@
 
+import {USER} from "../models"
+
 export const signin = async function (req, res) {
     try {
-       
+
     } catch (err) {
     }
 };
@@ -13,10 +15,30 @@ export const social_signin = async function (req, res) {
     }
 
 }
-export const read_user = async (req, res) => {
+export const create_user = async (req, res) => {
     try {
-        // const user_name = req.body.user_name;
-        res.send("현철!")
+        const user = await users.create(
+            {
+                email: "abc@naver.com",
+                password: "123123",
+                name: "lee",
+                nickname: "soo",
+                address: "address",
+                age: "phone",
+                gender: "M"
+            })
+
+        res.send(user);
+
+    } catch (err) {
+    }
+}
+
+export const read_all_user = async (req, res) => {
+    try {
+        const user = await USER.findAll();
+        res.send(user);
+        
     } catch (err) {
     }
 }

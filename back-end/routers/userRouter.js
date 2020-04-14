@@ -2,12 +2,13 @@ import express from "express"
 import routes from "../routes"
 import path from "path"
 import { 
-    read_users, 
-    read_user, 
+    read_all_user, 
+    create_user, 
 } from "../controllers/userController"
 
 const userRouter = express.Router();
 
-userRouter.get(routes.home, read_user);
+userRouter.post(routes.home, create_user);
+userRouter.get(routes.home, read_all_user);
                             
 export default userRouter;
