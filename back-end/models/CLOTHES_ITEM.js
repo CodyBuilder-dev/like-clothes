@@ -8,18 +8,41 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    clothes_spec_id: {
+    clothes_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true,
       references: {
-        model: 'CLOTHES_SPEC',
+        model: 'CLOTHES',
         key: 'id'
       }
     },
-    status: {
-      type: DataTypes.STRING(30),
+    color: {
+      type: DataTypes.STRING(20),
       allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING(200),
+      allowNull: true
+    },
+    status: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.STRING(10),
+      allowNull: false
+    },
+    length: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    shoulder: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    waist: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
     },
     created: {
       type: DataTypes.DATE,
