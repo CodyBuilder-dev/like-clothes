@@ -1,0 +1,1 @@
+// reducer들을 통합할 configureStore 파일을 정의한다.
