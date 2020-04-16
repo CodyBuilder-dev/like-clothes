@@ -1,14 +1,33 @@
 import express from "express"
 import routes from "../routes"
 import path from "path"
-import { 
-    read_all_user, 
-    create_user, 
+
+import {
+    signin,
+    social_signin,
+    create_user,
+    read_user,
+    read_all_user,
+    update_user,
+    update_password,
+    delete_user,
 } from "../controllers/userController"
 
 const userRouter = express.Router();
 
-userRouter.post(routes.home, create_user);
+userRouter.post(routes.signin, signin);
+userRouter.post(routes.social_signin, social_signin);
+userRouter.post(routes.create_user, create_user);
+
+userRouter.get(routes.read_user, read_user);
+userRouter.get(routes.read_all_user, read_all_user);
+
+userRouter.put(routes.update_user, update_user);
+userRouter.put(routes.update_password, update_password);
+
+userRouter.delete(routes.delete_user, delete_user);
+
+// userRouter.post(routes.home, create_user);
 /**
  * @swagger
  * definitions:
@@ -54,6 +73,6 @@ userRouter.post(routes.home, create_user);
  *          items:
  *           $ref: '#/definitions/USER'
  */
-userRouter.get(routes.home, read_all_user);
+// userRouter.get(routes.home, read_all_user);
                             
 export default userRouter;

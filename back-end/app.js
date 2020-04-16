@@ -20,7 +20,7 @@ app.use(helmet()); // 보안을 위한 것
 app.use(morgan("dev"));
 
 app.use(swagger);
-app.use(routes.users, userRouter);
+app.use(routes.user, userRouter);
 
 export default app;
 

@@ -62,6 +62,24 @@ export const create_user = async (req, res) => {
     }
 };
 
+export const read_user = async (req, res) => {
+    try {
+        const user = await USER.findOne({ where: { email: req.params.email } });
+        if (user) {
+            res.send({
+                state: "success",
+                user
+            });
+        } else { throw new Error("User does not exist") }
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "Read all user failed",
+            err
+        });
+    }
+};
+
 export const read_all_user = async (req, res) => {
     try {
         const user = await USER.findAll();
@@ -112,11 +130,11 @@ export const update_password = async (req, res) => {
 
         if (user && (user.email == email)) {
             USER.findOne({ where: { email: user.email } })
-                .then(user => {
-                    const pwd = await user.verify(password);
+                .then(async (user) => {
+                    const pwd = await USER.verify(password);
                     if (pwd) {
                         const new_pwd = await USER.hash(new_password);
-                        const updated_user = USER.update({ password: new_pwd }, { where: { email: user.email } });
+                        const updated_user = await USER.update({ password: new_pwd }, { where: { email: user.email } });
                         if (updated_user) {
                             res.send({
                                 state: "success",
