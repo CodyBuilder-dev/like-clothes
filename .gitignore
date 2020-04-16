@@ -12,6 +12,9 @@ prep/
 # AI Research foler
 research/
 
+# DB infromation json
+dbinfo-temp.json
+
 # jupyter notebook checkpoints
 .ipynb_checkpoints/
 
