@@ -1,7 +1,9 @@
 /* jshint indent: 2 */
+import crypto from "crypto"
+import jwt from "jsonwebtoken"
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('USER', {
+module.exports = function (sequelize, DataTypes) {
+  const USER = sequelize.define('USER', {
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
@@ -74,4 +76,78 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'USER'
   });
+
+  USER.hash = function (password) {
+    return new Promise((resolve, reject) => {
+      crypto.pbkdf2(password, process.env.SECRET_KEY, 92412, 64, 'sha512', async (err, key) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(
+            key.toString('base64')
+          )
+        }
+      })
+    })
+  }
+
+  USER.prototype.verify = async function (password) {
+    const hash = await users.hash(password);
+    return this.dataValues.password === hash;
+  };
+
+  USER.prototype.getToken = function () {
+    return jwt.sign(
+      { email: this.dataValues.email },
+      process.env.JWT_KEY,
+      { expiresIn: '2h' }
+    )
+  }
+
+  USER.save = async function (user, platform_type, auth) {
+    try {
+      const {
+        email, phone, password, name, nickname, gender, profile_url, about
+      } = user;
+
+
+      if (platform_type == "local") {
+        const hash = await users.hash(password);
+        const new_user = await this.create({
+          email,
+          platform_type,
+          phone,
+          password: hash,
+          name,
+          nickname,
+          gender,
+          auth: auth || 0,
+          profile_url,
+          about
+        })
+        return new_user;
+      } else {
+        const new_user = await this.create({
+          email,
+          platform_type,
+          phone,
+          password,
+          name,
+          nickname,
+          gender,
+          auth: auth || 0,
+          profile_url,
+          about
+        })
+        return new_user;
+      }
+
+
+    } catch (err) {
+      console.log(err)
+      return false;
+    }
+  }
+
+  return USER;
 };
