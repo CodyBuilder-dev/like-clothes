@@ -8,22 +8,20 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    user_email: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'USER',
-        key: 'email'
-      }
-    },
     clothes_item_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true,
       references: {
         model: 'CLOTHES_ITEM',
         key: 'id'
+      }
+    },
+    user_email: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      references: {
+        model: 'USER',
+        key: 'email'
       }
     },
     duration: {
