@@ -2,8 +2,15 @@
 cert.pem
 
 # model files
+models/
 *.h5
-!resnet50_weights_tf_dim_ordering_tf_kernels.h5
+resnet50_weights_tf_dim_ordering_tf_kernels.h5
+
+# feature pickle files
+prep/
+
+# AI Research foler
+research/
 
 # jupyter notebook checkpoints
 .ipynb_checkpoints/
