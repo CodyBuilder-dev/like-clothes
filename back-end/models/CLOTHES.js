@@ -20,16 +20,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: true
     },
-    use: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
     img: {
       type: DataTypes.STRING(200),
-      allowNull: true
-    },
-    description: {
-      type: DataTypes.STRING(500),
       allowNull: true
     },
     created: {
