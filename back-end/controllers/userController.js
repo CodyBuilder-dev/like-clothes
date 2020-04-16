@@ -17,7 +17,7 @@ export const social_signin = async function (req, res) {
 }
 export const create_user = async (req, res) => {
     try {
-        const user = await users.create(
+        const user = await USER.create(
             {
                 email: "abc@naver.com",
                 password: "123123",
@@ -28,7 +28,7 @@ export const create_user = async (req, res) => {
                 gender: "M"
             })
 
-        res.send(user);
+        res.json(user);
 
     } catch (err) {
     }

@@ -28,7 +28,7 @@ const options = {
     },
 
     // Swagger API가 존재하는 곳, 파일에 들어간 주석을 분석한다.
-    apis: ['./controllers/*.js']
+    apis: ['./controllers/*.js', './routers/*.js']
 };
 
 const swaggerSpec = swaggerJsdoc(options);

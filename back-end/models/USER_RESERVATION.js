@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     user_email: {
       type: DataTypes.STRING(100),
@@ -41,11 +42,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     created: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'USER_RESERVATION'

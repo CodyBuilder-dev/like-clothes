@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     major: {
       type: DataTypes.STRING(50),
@@ -21,11 +22,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     created: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'CLOTHES_CLASS'
