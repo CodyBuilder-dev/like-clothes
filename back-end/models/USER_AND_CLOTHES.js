@@ -26,11 +26,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     created: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updated: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'USER_AND_CLOTHES'
