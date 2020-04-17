@@ -1,13 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import MainPage from './pages/MainPage';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
-      <Route path="/" exact render={() => <MainPage/>} />
+      <Switch>
+        <Route path="/" exact render={() => <MainPage/>} />
+        <Route path="*" component={NotFound} />
+      </Switch>
     </Router>
 
     // <div className="App">
