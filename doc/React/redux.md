@@ -238,7 +238,8 @@ class Store {
    loadingReducer.js
 
    ```javascript
-   export default function reducer(state, action) {
+   export default function reducer(state = {}, action) { // state의 초기값을
+       												//지정하지 않으면 에러가 발생
      const { type, payload } = action;
      switch (type) {
        case 'SET_LOADING': {
@@ -262,7 +263,7 @@ class Store {
    userReducer.js
 
    ```javascript
-   export default function reducer(state, action) {
+   export default function reducer(state = {}, action) {
      const { type, payload } = action;
      switch (type) {
        case 'SET_USER': {
@@ -294,3 +295,66 @@ class Store {
 3. 분리한 리듀서가 스토어에 적용될 수 있도록 스토어 설정 파일을 만든다.
 
    여러 개의 리듀서는 combineReducers() 함수로 묶어 createStore() 함수의 인자로 전달한다.
+
+   configureStore.js
+
+   ```javascript
+   
+   import { createStore, combineReducers } from 'redux';
+   import { composeWithDevTools } from 'redux-devtools-extension';
+   import reducers from './reducers';
+   
+   export default initStates => createStore(
+     combineReducers(reducers),
+     initStates,
+     composeWithDevTools(), // 미들웨어 함수가 이런 것으로 대체되었다.
+   );
+   ```
+
+4. 기존의 ReduxApp을 다음으로 수정한다.
+
+   ```javascript
+   import configureStore from './configureStore';
+   
+   ...
+   
+   /*
+     store = createStore(
+       reducer,
+       { loading: false, name: '두잇 리액트' },
+       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+     );
+     */
+    
+     store = configureStore({ loading: false, });
+   ```
+
+5. 위의 과정을 모두 거치고 리듀서의 리턴 값을 확인해보면 loading = { loading: false }의 이중 구조를 만들게 되는데, 이는 combineReducers() 과정에서 index.js에 지정한 리듀서 이름인 loading을 키로 사용해서 리턴 값을 loading 키의 반환값 형태로 만들기 때문. 리듀서의 논리 리턴으로부터 변경하자.
+
+
+
+### 액션 분리하기
+
+1. dispatch() 함수에 적용했던 액션을 분리하기 위해 loadingActions.js 파일로 구성한다.
+
+   ```javascript
+   export const SET_LOADING = 'loading/SET_LOADING';
+   export const RESET_LOADING = 'loading/RESET_LOADING';
+   
+   export const setLoading = loading => ({ //
+     type: SET_LOADING,
+     payload: loading,
+   });
+   
+   export const resetLoading = () => ({
+     type: RESET_LOADING,
+   });
+   ```
+
+   타입에 'loading/SET_LOADING'을 직접 선언함으로 loading에 사용되는 것임을 강조해준다.
+
+2. 기존의  loadingReducer.js 파일의 case 값들을 위와 맞추어 바꿔준다. import하고 값을 지정하게 하면 값이 달라져도 관리가 되겠죠?
+
+3. ReduxApp에도 수정사항 적용해주기.
+
+4. user action도 마찬가지로 변경해준다.
