@@ -2,8 +2,18 @@
 cert.pem
 
 # model files
+models/
 *.h5
-!resnet50_weights_tf_dim_ordering_tf_kernels.h5
+resnet50_weights_tf_dim_ordering_tf_kernels.h5
+
+# feature pickle files
+prep/
+
+# AI Research foler
+research/
+
+# DB infromation json
+dbinfo-temp.json
 
 # jupyter notebook checkpoints
 .ipynb_checkpoints/
@@ -33,3 +43,4 @@ requirements.txt
 
 # Back-end
 node_modules/
+package-lock.json
