@@ -1,0 +1,28 @@
+.section {
+    margin: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.imageTitle {
+    display: inline-block;
+}
+
+.tablestyle {
+    border: 1px solid gray;
+}
+
+.tableinput {
+    width: 10vw;
+}
+
+th {
+    font-weight: normal;
+}
+
+.submitButton {
+    margin: 20px;
+}
