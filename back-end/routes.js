@@ -11,6 +11,7 @@ const READ_ALL_USER = "/read-all-user";
 const UPDATE_USER = "/update-user";
 const UPDATE_PASSWORD = "/update-password";
 const DELETE_USER = "/delete-user/:email";
+const FOLLOW_USER_TOGGLE = "/follow-user-toggle"
 
 const routes = {
     // Home
@@ -26,5 +27,6 @@ const routes = {
     update_user: UPDATE_USER,
     update_password: UPDATE_PASSWORD,
     delete_user: DELETE_USER,
+    follow_user_toggle: FOLLOW_USER_TOGGLE,
 }
 export default routes;

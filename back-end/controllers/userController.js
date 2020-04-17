@@ -1,4 +1,4 @@
-import { USER } from "../models"
+import { USER, USER_AND_USER } from "../models"
 
 export const signin = async function (req, res) {
     try {
@@ -168,3 +168,38 @@ export const delete_user = async (req, res) => {
         });
     }
 };
+
+export const follow_user_toggle = async (req, res) => {
+    try {
+        const fallower_email = req.locals.user.email;
+        const { fallowing_email } = req.body;
+        if (fallower_email) {
+            const isFollow = await USER_AND_USER.findOne({ where: { fallower_email, fallowing_email } });
+            if (isFollow) {
+                USER_AND_USER.destroy(isFollow)
+                    .then(user_and_user => {
+                        res.send({
+                            state: "success",
+                            desc: "unFollow",
+                            user_and_user
+                        })
+                    })
+            } else {
+                USER_AND_USER.create({ fallower_email, fallowing_email })
+                    .then(user_and_user => {
+                        res.send({
+                            state: "success",
+                            desc: "Follow",
+                            user_and_user
+                        })
+                    })
+            }
+        } else { throw new Error("Not logged in") }
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "Failed to follow user",
+            err
+        });
+    }
+}
