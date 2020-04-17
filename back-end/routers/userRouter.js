@@ -16,6 +16,7 @@ import {
 
 const userRouter = express.Router();
 
+
 userRouter.post(routes.signin, signin);
 userRouter.post(routes.social_signin, social_signin);
 userRouter.post(routes.create_user, create_user);
@@ -30,6 +31,7 @@ userRouter.put(routes.update_password, update_password);
 userRouter.delete(routes.delete_user, delete_user);
 
 export default userRouter;
+
 
 /**
  * @swagger
@@ -150,16 +152,3 @@ export default userRouter;
  *          items:
  *           $ref: '#/definitions/boardItem'
  */
-
-userRouter.post(routes.signin, signin);
-userRouter.post(routes.social_signin, social_signin);
-userRouter.post(routes.create_user, create_user);
-userRouter.post(routes.follow_user_toggle, follow_user_toggle);
-
-userRouter.get(routes.read_user, read_user);
-userRouter.get(routes.read_all_user, read_all_user);
-
-userRouter.put(routes.update_user, update_user);
-userRouter.put(routes.update_password, update_password);
-
-userRouter.delete(routes.delete_user, delete_user);
