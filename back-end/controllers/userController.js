@@ -41,7 +41,9 @@ export const create_user = async (req, res) => {
         const { email, password, name, nickname, address, age, gender, phone_num, description } = req.body;
         const user = await USER.findOne({ where: { email } });
         if (!user) {
+            console.log(password)
             const hash = await USER.hash(password);
+            console.log("Hash", hash)
             const new_user = await USER.create({
                 email, password: hash, name, nickname, address, age, gender,
                 phone_num, description
@@ -64,6 +66,7 @@ export const create_user = async (req, res) => {
 
 export const read_user = async (req, res) => {
     try {
+        console.log("Hello")
         const user = await USER.findOne({ where: { email: req.params.email } });
         if (user) {
             res.send({
@@ -100,10 +103,14 @@ export const read_all_user = async (req, res) => {
 
 export const update_user = async (req, res) => {
     try {
+        console("hello")
         const user = res.local.user;
+        console("hello")
+
         const { email, name, nickname, address, age, gender, phone_num, description } = req.body;
 
-        if (user && (user.email == email)) {
+        // if (user && (user.email == email)) {
+        if (true) {
             user.update({
                 name, nickname, address, age, gender,
                 phone_num, description
@@ -155,7 +162,8 @@ export const update_password = async (req, res) => {
 
 export const delete_user = async (req, res) => {
     try {
-        const user = await USER.destroy({ where: { email: req.params.email } });
+        const { email } = req.body;
+        const user = await USER.destroy({ where: { email } });
         res.send({
             state: "success",
             user
