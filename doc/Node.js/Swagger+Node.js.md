@@ -25,45 +25,55 @@
 ```javascript
 // app.js
 
-import swaggerDoc from './swaggerDoc'
+import swagger from './swaggerSetting.js'
 
-app.use(swaggerDoc);
+app.use(swagger);
 ```
 
 ```javascript
-// SwaggerDoc.js
+// swaggerSetting.js
 
-import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
-import express from 'express';
+import swaggerUi from 'swagger-ui-express'
+import swaggerJsdoc from 'swagger-jsdoc'
+import express from 'express'
 
 const router = express.Router();
 
 const options = {
-    // Swagger 설정
+    // API 문서 설정
     swaggerDefinition: {
-        info: {
-            title: 'AI_Project',
-            version: '1.0.0',
-            description: 'Swagger for API Management',
+        info: { // API informations (required)
+            title : 'AI_Project', // Title (required)
+            version: '1.0.0', // Version (required)
+            description: 'Swagger for API Management' // Description (optional)
         },
-        host: 'localhost:8000',
-        basePath: '/'
+        host: 'localhost:8000', // Host (optional)
+        basePath: '/', // Base path (optional)
+
+        // securityDefinitions: {
+        //     jwt: {
+        //       type: 'apiKey',
+        //       name: 'Authorization',
+        //       in: 'header'
+        //     }
+        // },
+        // security: [
+        //     { jwt: [] }
+        // ]
     },
-    
-    // Swagger API들의 위치
+
+    // Swagger API가 존재하는 곳, 파일에 들어간 주석을 분석한다.
     apis: ['./controllers/*.js']
 };
 
-const specs = swaggerJsdoc(options);
-
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+const swaggerSpec = swaggerJsdoc(options);
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default router;
 ```
 
 ```javascript
-// board.js (게시판 CRUD 예시) 추후 변경 예정
+// board.js (게시판 CRUD 예시)
 
 import express from 'express';
 import db from '../models';
@@ -286,6 +296,98 @@ export default router;
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/CE01dwNEkEU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
+
+## 5. Swagger Form
+
+```javascript
+/**
+ * @swagger
+ *  /boards/:id:
+ *    post:
+ *      tags:
+ *      - board
+ *      description: 게시글을 수정한다.
+ *      produces:
+ *      - applicaion/json
+ *      parameters:
+ *      - name: boardTtile
+ *        in: body
+ *        description: "게시글 제목"
+ *        required: true
+ *        type: string
+ *      - name: boardContent
+ *        in: body
+ *        description: "게시글 내용"
+ *        required: true
+ *        type: string
+ *      - name: boardState
+ *        in: body
+ *        description: "게시글 상태"
+ *        required: true
+ *        type: boolean
+ *      - name: boardType
+ *        in: body
+ *        description: "게시글 타입"
+ *        required: true
+ *        type: string
+ *      responses:
+ *       200:
+ *        description: board of selected id column list
+ *        schema:
+ *          type: array
+ *          items:
+ *           $ref: '#/definitions/boardItem'
+ */
+
+/*
+@swagger
+	- swagger를 입력하면 그 부분부터 파싱
+/boards/:id:
+	- route 입력
+post:
+	- 데이터의 전송 방식
+tags:
+	- 해당하는 API 의 Tag 지정
+description:
+	- API description 입력
+produces:
+	- Parameter content type을 입력(applicaion/json)
+parameters:
+	- API Parameter 입력
+    
+- name: boardTitle
+  in: body
+  description: "게시글 제목"
+  required: true
+  type: string
+와 같은 형식으로 API 
+*/
+```
+
+
+
+@swagger
+	- swagger를 입력하면 그 부분부터 파싱
+/boards/:id:
+	- route 입력
+post:
+	- 데이터의 전송 방식
+tags:
+	- 해당하는 API 의 Tag 지정
+description:
+	- API description 입력
+produces:
+	- Parameter content type을 입력(applicaion/json)
+parameters:
+	- API Parameter 입력
+    
+
+- name: boardTtile
+  in: body
+  description: "게시글 제목"
+  required: true
+  type: string
+와 같은 형식으로 게시글 입력
 
 ## [ Reference ]
 

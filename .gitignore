@@ -43,3 +43,4 @@ requirements.txt
 
 # Back-end
 node_modules/
+package-lock.json
