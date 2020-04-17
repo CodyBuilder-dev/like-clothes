@@ -1,4 +1,4 @@
-import { USER } from "../models"
+import { USER, USER_AND_USER } from "../models"
 
 export const signin = async function (req, res) {
     try {
@@ -62,6 +62,24 @@ export const create_user = async (req, res) => {
     }
 };
 
+export const read_user = async (req, res) => {
+    try {
+        const user = await USER.findOne({ where: { email: req.params.email } });
+        if (user) {
+            res.send({
+                state: "success",
+                user
+            });
+        } else { throw new Error("User does not exist") }
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "Read all user failed",
+            err
+        });
+    }
+};
+
 export const read_all_user = async (req, res) => {
     try {
         const user = await USER.findAll();
@@ -112,11 +130,11 @@ export const update_password = async (req, res) => {
 
         if (user && (user.email == email)) {
             USER.findOne({ where: { email: user.email } })
-                .then(user => {
-                    const pwd = await user.verify(password);
+                .then(async (user) => {
+                    const pwd = await USER.verify(password);
                     if (pwd) {
                         const new_pwd = await USER.hash(new_password);
-                        const updated_user = USER.update({ password: new_pwd }, { where: { email: user.email } });
+                        const updated_user = await USER.update({ password: new_pwd }, { where: { email: user.email } });
                         if (updated_user) {
                             res.send({
                                 state: "success",
@@ -150,3 +168,38 @@ export const delete_user = async (req, res) => {
         });
     }
 };
+
+export const follow_user_toggle = async (req, res) => {
+    try {
+        const fallower_email = req.locals.user.email;
+        const { fallowing_email } = req.body;
+        if (fallower_email) {
+            const isFollow = await USER_AND_USER.findOne({ where: { fallower_email, fallowing_email } });
+            if (isFollow) {
+                USER_AND_USER.destroy(isFollow)
+                    .then(user_and_user => {
+                        res.send({
+                            state: "success",
+                            desc: "unFollow",
+                            user_and_user
+                        })
+                    })
+            } else {
+                USER_AND_USER.create({ fallower_email, fallowing_email })
+                    .then(user_and_user => {
+                        res.send({
+                            state: "success",
+                            desc: "Follow",
+                            user_and_user
+                        })
+                    })
+            }
+        } else { throw new Error("Not logged in") }
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "Failed to follow user",
+            err
+        });
+    }
+}
