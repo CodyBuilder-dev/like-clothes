@@ -8,6 +8,7 @@ import {
 
 const userRouter = express.Router();
 
+
 userRouter.post(routes.home, create_user);
 /**
  * @swagger
