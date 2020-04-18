@@ -12,13 +12,15 @@ const READ_ALL_USER = "/read-all-user";
 const UPDATE_USER = "/update-user";
 const UPDATE_PASSWORD = "/update-password";
 const DELETE_USER = "/delete-user";
-const FOLLOW_USER_TOGGLE = "/follow-user-toggle"
+const FOLLOW_USER_TOGGLE = "/follow-user-toggle";
 
 
 // Clothes
-const CLOTHES = '/clothes'
-const SEARCH_CLOTHES = "/search-clothes"
-const SEARCH_CLOTHES_TAG = "/search-clothes-tag"
+const CLOTHES = "/clothes";
+const SEARCH_CLOTHES = "/search-clothes";
+const SEARCH_CLOTHES_TAG = "/search-clothes-tag";
+const MYCLOSET = "/mycloset";
+const CLOTHES_ITEM = "/clothes-item"
 
 const routes = {
     // Home
@@ -39,6 +41,8 @@ const routes = {
     // Clothes
     clothes : CLOTHES,
     search_clothes : SEARCH_CLOTHES,
-    search_clothes_tag : SEARCH_CLOTHES_TAG
+    search_clothes_tag : SEARCH_CLOTHES_TAG,
+    mycloset : MYCLOSET,
+    clothes_item : CLOTHES_ITEM
 }
 export default routes;

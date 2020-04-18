@@ -92,7 +92,7 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   USER.prototype.verify = async function (password) {
-    const hash = await users.hash(password);
+    const hash = await USER.hash(password);
     return this.dataValues.password === hash;
   };
 
