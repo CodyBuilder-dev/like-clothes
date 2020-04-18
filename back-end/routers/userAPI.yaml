@@ -1,0 +1,377 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'AI_Project'
+  description: 'Swagger for AI_Project API Management'
+  
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.html
+  
+# Added by API Auto Mocking Plugin
+# host: i02a401.p.ssafy.io
+# host: localhost:8000
+# basePath: /
+# schemes:
+#  - http
+ 
+tags: 
+- name: USER
+  description: USER API
+  
+definitions:
+  signin_Request:
+    type: object
+    required:
+    - email
+    - password
+    properties:
+      email:
+        type: string
+        description: 사용자 E-mail
+      password:
+        type: string
+        description: 사용자 password
+        
+  social-signin_Request:
+    type: object
+    required:
+    - email
+    - password
+    properties:
+      email:
+        type: string
+        description: 사용자 E-mail
+      password:
+        type: string
+        description: 사용자 password
+  
+  create-user_Request:
+    type: object
+    required: 
+    - email
+    - password
+    - name
+    - nickname
+    - address
+    - age
+    - gender
+    properties:
+      email:
+        type: string
+        description: 사용자 E-mail
+      password:
+        type: string
+        description: 사용자 Password
+      name:
+        type: string
+        description: 사용자 이름
+      nickname:
+        type: string
+        description: 사용자 닉네임
+      address:
+        type: string
+        description: 사용자 실 거주지
+      phone_num:
+        type: string
+        description: 사용자 전화번호
+      age:
+        type: integer
+        description: 사용자 나이
+      gender:
+        type: string
+        description: 사용자 성별
+      description:
+        type: string
+        description: 사용자 자기소개
+    
+  read-user_Response:
+    type: object
+    required: 
+    - email
+    - password
+    - name
+    - nickname
+    - address
+    - age
+    - gender
+    properties:
+      email:
+        type: string
+        description: 사용자 E-mail
+      password:
+        type: string
+        description: 사용자 Password
+      name:
+        type: string
+        description: 사용자 이름
+      nickname:
+        type: string
+        description: 사용자 닉네임
+      address:
+        type: string
+        description: 사용자 실 거주지
+      phone_num:
+        type: string
+        description: 사용자 전화번호
+      age:
+        type: integer
+        description: 사용자 나이
+      gender:
+        type: string
+        description: 사용자 성별
+      description:
+        type: string
+        description: 사용자 자기소개
+        
+  update-user_Request:
+    type: object
+    required: 
+    - email
+    - name
+    - nickname
+    - address
+    - age
+    - gender
+    properties:
+      email:
+        type: string
+        description: 사용자 E-mail
+      name:
+        type: string
+        description: 사용자 이름
+      nickname:
+        type: string
+        description: 사용자 닉네임
+      address:
+        type: string
+        description: 사용자 실 거주지
+      phone_num:
+        type: string
+        description: 사용자 전화번호
+      age:
+        type: integer
+        description: 사용자 나이
+      gender:
+        type: string
+        description: 사용자 성별
+      description:
+        type: string
+        description: 사용자 자기소개
+        
+  update-password_Request:
+    type: object
+    required: 
+    - password
+    - new_password
+    properties:
+      password:
+        type: string
+        description: 이전 Password
+      new_password:
+        type: string
+        description: 새로운 Password
+        
+  delete-user_Request:
+    type: object
+    required: 
+    - email
+    properties:
+      email:
+        type: string
+        description: 삭제할 계정 E-mail
+        
+  follow-user-toggle_Request:
+    type: object
+    required:
+    - follower_email
+    - following_email
+    properties:
+      follower_email:
+        type: string
+        description: Follower 사용자의 이메일(자기 자신)
+      following_email:
+        type: string
+        description: Following 이메일  
+        
+paths:
+  /user/signin:
+    post:
+      tags:
+      - USER
+      summary: /user/signin
+      description: User Login
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: signin_body
+        description: /user/signin
+        schema:
+          $ref: '#/definitions/signin_Request'
+      
+      responses:
+        200:
+          description: OK
+  
+  /user/social-signin:
+    post:
+      tags:
+      - USER
+      summary: /user/social-signin
+      description: User Social Login
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: create-user_body
+        description: /user/create-user
+        schema:
+          $ref: '#/definitions/social-signin_Request'
+      
+      responses:
+        200:
+          description: OK
+  
+  /user/create-user:
+    post:
+      tags:
+      - USER
+      summary: /user/create-user
+      description: User Signup
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: create-user_body
+        description: /user/create-user
+        schema:
+          $ref: '#/definitions/create-user_Request'
+      
+      responses:
+        200:
+          description: OK
+          
+  /user/read-user/{email}:
+    get:
+      tags:
+      - USER
+      summary: /user/read-user/{email}
+      description: Read a User
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: email
+        description: User E-mail what you want to find
+        type: string
+        required: true
+        
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/read-user_Response'
+      
+    
+  /user/read-all-user:
+    get:
+      tags:
+      - USER
+      summary: /user/read-all-user
+      description: Read all User
+      produces:
+      - application/json
+        
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/read-user_Response'
+              
+  /user/update-user:
+    put:
+      tags:
+      - USER
+      summary: /user/update-user
+      description: Update User Info
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: update-user_body
+        description: /user/update-user
+        schema:
+          $ref: '#/definitions/update-user_Request'
+      
+      responses:
+        200:
+          description: OK
+  
+  /user/update-password:
+    put:
+      tags:
+      - USER
+      summary: /user/update-password
+      description: Update User Password
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: update-password_body
+        description: /user/update-password
+        schema:
+          $ref: '#/definitions/update-password_Request'
+          
+      responses:
+        200:
+          description: OK
+          
+  /user/delete-user:
+    delete:
+      tags:
+      - USER
+      summary: /user/delete-user
+      description: Delete User Info
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: delete-user_body
+        description: /user/delete-user
+        schema:
+          $ref: '#/definitions/delete-user_Request'
+          
+      responses:
+        200:
+          description: OK
+
+  /user/follow-user-toggle:
+    post:
+      tags:
+      - USER
+      summary: /user/follow-user-toggle
+      description: Follow or Unfollow User
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: follow-user-toggle_body
+        description: /user/follow-user-toggle
+        schema:
+          $ref: '#/definitions/follow-user-toggle_Request'
+          
+      responses:
+        200:
+          description: OK
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /SupergrammerKim/AI_Project/1.0.0
+schemes:
+ - https
+ - http
