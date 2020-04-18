@@ -7,6 +7,7 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import routes from "./routes"
 import userRouter from "./routers/userRouter"
+import clothesRouter from "./routers/clothesRouter"
 import swagger from "./swagger/swaggerSetting"
 
 const app = express();
@@ -21,6 +22,6 @@ app.use(morgan("dev"));
 
 app.use(swagger);
 app.use(routes.user, userRouter);
-
+app.use(routes.clothes, clothesRouter);
 export default app;
 
