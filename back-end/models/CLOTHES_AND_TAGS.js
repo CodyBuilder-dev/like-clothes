@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
+const { QueryTypes } = require('sequelize');
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('CLOTHES_AND_TAGS', {
+  const CLOTHES_AND_TAGS = sequelize.define('CLOTHES_AND_TAGS', {
     clothes_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -19,4 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'CLOTHES_AND_TAGS'
   });
+
+
+  return CLOTHES_AND_TAGS
 };
