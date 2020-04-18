@@ -5,9 +5,9 @@ export const signin = async function (req, res) {
         const { email, password } = req.body;
         const user = await USER.findOne({ where: { email } });
         if (user) {
-            const pwd = await USER.verify(password);
+            const pwd = await user.verify(password);
             if (pwd) {
-                const accessToken = await USER.getToken()
+                const accessToken = await user.getToken()
                 res.send({
                     state: "success",
                     user: {

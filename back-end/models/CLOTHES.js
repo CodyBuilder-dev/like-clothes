@@ -91,5 +91,40 @@ module.exports = function (sequelize, DataTypes) {
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
+  CLOTHES.read_mycloset = function (user_email, in_closet) {
+    let sql = "SELECT * FROM USER_AND_CLOTHES AS uc \
+                LEFT JOIN CLOTHES_ITEM AS ci ON uc.clothes_item_id = ci.id \
+                LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+                LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
+                LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+                WHERE uc.user_email='" + user_email + "'";
+    if (in_closet == 1) sql += " AND uc.in_closet=1";
+    else if (in_closet == 0) sql += " AND uc.in_closet=0"
+
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+  CLOTHES.read_clothes_item = function (clothes_item_id) {
+    let sql = "SELECT * FROM USER_AND_CLOTHES AS uc \
+                LEFT JOIN CLOTHES_ITEM AS ci ON uc.clothes_item_id = ci.id \
+                LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+                LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
+                LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+                WHERE uc.clothes_item_id=" + clothes_item_id;
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+  CLOTHES.read_clothes_item_tag = function (clothes_item_id) {
+    let sql = "SELECT ct.tag FROM CLOTHES_ITEM AS ci \
+                LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+                LEFT JOIN CLOTHES_AND_TAGS AS ct ON ci.id = ct.clothes_id";
+    sql += " where ci.id=" + clothes_item_id;
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+
+
+
+
   return CLOTHES
 };
