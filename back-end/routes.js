@@ -1,3 +1,4 @@
+
 // Home
 const HOME = "/";
 
@@ -10,8 +11,14 @@ const READ_USER = "/read-user/:email";
 const READ_ALL_USER = "/read-all-user";
 const UPDATE_USER = "/update-user";
 const UPDATE_PASSWORD = "/update-password";
-const DELETE_USER = "/delete-user/:email";
+const DELETE_USER = "/delete-user";
 const FOLLOW_USER_TOGGLE = "/follow-user-toggle"
+
+
+// Clothes
+const CLOTHES = '/clothes'
+const SEARCH_CLOTHES = "/search-clothes"
+const SEARCH_CLOTHES_TAG = "/search-clothes-tag"
 
 const routes = {
     // Home
@@ -28,5 +35,10 @@ const routes = {
     update_password: UPDATE_PASSWORD,
     delete_user: DELETE_USER,
     follow_user_toggle: FOLLOW_USER_TOGGLE,
+
+    // Clothes
+    clothes : CLOTHES,
+    search_clothes : SEARCH_CLOTHES,
+    search_clothes_tag : SEARCH_CLOTHES_TAG
 }
 export default routes;
