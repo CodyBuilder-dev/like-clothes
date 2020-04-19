@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-// import '../css/ClothesResisterPage.css';
+import '../css/ClothesResisterPage.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+
+import SearchClothes from '../components/SearchClothes';
 
 
 function ClothesResister() {
   const [ previewURL, setPreviewURL ] = useState([]);
   const [ fileState, setFileState ] = useState([]);
-  const [ lenState, setLenstate ] = useState([0]);
 
   const handleFileInput = e => {
     let file = e.target.files;
     let fileindex = Object.keys(file);
-    setLenstate(fileindex);
 
     fileindex.map((i) => {
       let reader = new FileReader();
@@ -25,36 +25,63 @@ function ClothesResister() {
       }
     })
   }
-  console.log(lenState, fileState, previewURL, '되었냐???')
-  
-  const imagesPreview = lenState.map((i) => {
-    console.log(previewURL[i])
-    return <img src={previewURL[i]}></img>
-  });
 
-  const handlePost = async () => {
-    const formData = new FormData();
-    formData.append('file', fileState.selectedFile)
-
-    const res = await axios.post("/api/upload", formData);
-    console.log(res);
+  const lenfile = fileState.length;
+  let lenList = []
+  for (let i = 0; i < lenfile; i++) {
+    lenList.push(i.toString());
   }
 
+  const handleImageDelete = (i) => {
+    console.log(i,'i는?')
+    const calc = (i) => {
+      let filterFile = [];
+      for (let key=0; key<fileState.length; key++) {
+        if (key != i) filterFile.push(fileState[key]);
+      }
+      return filterFile
+    }
+    setFileState(calc)
+    // setFileState(fileState.filter((i) => (i !== key)))
+    setPreviewURL(previewURL.splice(i, 1))
+  }
+
+  console.log(fileState, previewURL, 'state체크')
+  
+  // const handlePost = async () => {
+  //   const formData = new FormData();
+  //   formData.append('file', fileState.selectedFile)
+
+  //   const res = await axios.post("/api/upload", formData);
+  //   console.log(res);
+  // }
+
+  const imagesPreview = lenList.map((i) => {
+      return (
+        <div className="imagesPreviewDiv">
+          <img className="imagesPreview" 
+            src={previewURL[i]} width="150px" height="150px">
+          </img>
+            <button className="imageDeleteButton" 
+              onClick={() => handleImageDelete(i)}>삭제버튼</button>
+        </div>
+      )
+  });
 
   return (
     <div className="WriteClothes">
       <div className="section">
+        <SearchClothes></SearchClothes>
+      </div>
+      <div className="section">
         <p className="title imageTitle">이미지 등록</p>
         <input 
+          style={{display:"block"}}
           type="file" multiple 
           name="file" 
           onChange={handleFileInput} />
-        <button className="addImageButton" onclick={handlePost}>추가</button>
-        <div className="imagesPreview">
+        <div className="imagesPreviewContainer">
           {imagesPreview}
-          <img></img>
-          <img></img>
-          이미지 추가욤
         </div>
       </div>
       <div className="section">
