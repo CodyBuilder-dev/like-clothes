@@ -32,7 +32,7 @@ function ClothesResister() {
     lenList.push(i.toString());
   }
 
-  const handleImageDelete = (i) => {
+  const handleImageDelete = (e, i) => {
     console.log(i,'i는?')
     const calc = (i) => {
       let filterFile = [];
@@ -46,7 +46,7 @@ function ClothesResister() {
     setPreviewURL(previewURL.splice(i, 1))
   }
 
-  console.log(fileState, previewURL, 'state체크')
+  // console.log(fileState, previewURL, 'state체크')
   
   // const handlePost = async () => {
   //   const formData = new FormData();
@@ -63,7 +63,7 @@ function ClothesResister() {
             src={previewURL[i]} width="150px" height="150px">
           </img>
             <button className="imageDeleteButton" 
-              onClick={() => handleImageDelete(i)}>삭제버튼</button>
+              onClick={(e) => handleImageDelete(e, i)}>삭제버튼</button>
         </div>
       )
   });
