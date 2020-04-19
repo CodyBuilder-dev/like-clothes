@@ -1,6 +1,9 @@
 /* jshint indent: 2 */
 import crypto from "crypto"
 import jwt from "jsonwebtoken"
+const { QueryTypes } = require('sequelize');
+import { getSearchSql } from "../sql";
+
 
 module.exports = function (sequelize, DataTypes) {
   const USER = sequelize.define('USER', {
@@ -92,7 +95,7 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   USER.prototype.verify = async function (password) {
-    const hash = await users.hash(password);
+    const hash = await USER.hash(password);
     return this.dataValues.password === hash;
   };
 
@@ -149,5 +152,22 @@ module.exports = function (sequelize, DataTypes) {
     }
   }
 
+  // 사용자를 follower로 지정한 유저들 반환
+  USER.read_following_user = function (signin_user_email) {
+    let sql = " SELECT * FROM USER_AND_USER as uu \
+	                LEFT JOIN USER as u ON uu.following_email = u.email \
+                  WHERE uu.follower_email = '" + signin_user_email + "'";
+
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+  // 사용자가 follower로 지정한 유저들 반환
+  USER.read_folloer_user = function (signin_user_email) {
+    let sql = " SELECT * FROM USER_AND_USER as uu \
+    LEFT JOIN USER as u ON uu.follower_email = u.email \
+    WHERE uu.following_email = '" + signin_user_email + "'";
+
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
   return USER;
 };

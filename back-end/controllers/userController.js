@@ -5,9 +5,9 @@ export const signin = async function (req, res) {
         const { email, password } = req.body;
         const user = await USER.findOne({ where: { email } });
         if (user) {
-            const pwd = await USER.verify(password);
+            const pwd = await user.verify(password);
             if (pwd) {
-                const accessToken = await USER.getToken()
+                const accessToken = await user.getToken()
                 res.send({
                     state: "success",
                     user: {
@@ -36,14 +36,12 @@ export const social_signin = async function (req, res) {
     }
 };
 
-export const create_user = async (req, res) => {
+export const signup = async (req, res) => {
     try {
         const { email, password, name, nickname, address, age, gender, phone_num, description } = req.body;
         const user = await USER.findOne({ where: { email } });
         if (!user) {
-            console.log(password)
             const hash = await USER.hash(password);
-            console.log("Hash", hash)
             const new_user = await USER.create({
                 email, password: hash, name, nickname, address, age, gender,
                 phone_num, description
@@ -66,7 +64,6 @@ export const create_user = async (req, res) => {
 
 export const read_user = async (req, res) => {
     try {
-        console.log("Hello")
         const user = await USER.findOne({ where: { email: req.params.email } });
         if (user) {
             res.send({
@@ -103,12 +100,10 @@ export const read_all_user = async (req, res) => {
 
 export const update_user = async (req, res) => {
     try {
-        console("hello")
         const user = res.local.user;
-        console("hello")
-
         const { email, name, nickname, address, age, gender, phone_num, description } = req.body;
 
+        // 비밀번호 입력을 더 받아서 확인해주면 좋을 듯
         // if (user && (user.email == email)) {
         if (true) {
             user.update({
@@ -177,32 +172,66 @@ export const delete_user = async (req, res) => {
     }
 };
 
+export const read_following_user = async (req, res) => {
+    try {
+        //const signin_user = req.locals.user;
+        const { signin_user_email } = req.body;
+        const following_users = await USER_AND_USER.read_following_user(sigin_user_email);
+        res.send(following_users)
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "User does not exist",
+            err
+        });
+    }
+}
+
+export const read_follower_user = async (req, res) => {
+    try {
+        //const signin_user = req.locals.user;
+        const { signin_user_email } = req.body;
+        const follower_users = await USER_AND_USER.read_follower_user(sigin_user_email);
+        res.send(follower_users)
+    } catch (err) {
+        res.send({
+            state: "failure",
+            desc: "User does not exist",
+            err
+        });
+    }
+}
+
 export const follow_user_toggle = async (req, res) => {
     try {
-        const fallower_email = req.locals.user.email;
-        const { fallowing_email } = req.body;
-        if (fallower_email) {
-            const isFollow = await USER_AND_USER.findOne({ where: { fallower_email, fallowing_email } });
-            if (isFollow) {
-                USER_AND_USER.destroy(isFollow)
-                    .then(user_and_user => {
-                        res.send({
-                            state: "success",
-                            desc: "unFollow",
-                            user_and_user
-                        })
+        //const fallower_email = req.locals.user.email;
+        const { follower_email, following_email } = req.body;
+        // if (fallower_email) {
+        // console.log("AAAsd")
+        const isFollow = await USER_AND_USER.findOne({ where: { follower_email, following_email } });
+        // console.log("AAA")
+        if (isFollow) {
+            console.log("AAA")
+            USER_AND_USER.destroy(isFollow)
+                .then(user_and_user => {
+                    res.send({
+                        state: "success",
+                        desc: "unFollow",
+                        user_and_user
                     })
-            } else {
-                USER_AND_USER.create({ fallower_email, fallowing_email })
-                    .then(user_and_user => {
-                        res.send({
-                            state: "success",
-                            desc: "Follow",
-                            user_and_user
-                        })
+                })
+        } else {
+            console.log("A")
+            USER_AND_USER.create({ follower_email, following_email })
+                .then(user_and_user => {
+                    res.send({
+                        state: "success",
+                        desc: "Follow",
+                        user_and_user
                     })
-            }
-        } else { throw new Error("Not logged in") }
+                })
+        }
+        // } else { throw new Error("Not logged in") }
     } catch (err) {
         res.send({
             state: "failure",
