@@ -123,3 +123,8 @@ const MyContext = React.createContext(defaultValue); // defaultValue는 {} 요�
    ```
 
    
+   
+   추가적으로 Context API를 배울 수 있는 react 공식 예시의 링크를 [참고](https://ko.reactjs.org/docs/context.html)해보자.
+
+
+

@@ -505,3 +505,537 @@ class LoggingButton extends React.Component {
 ```
 
 위의 두 가지 형태 모두 가능.
+
+
+
+## 조건부 렌더링
+
+React에서 조건부 렌더링은 JavaScript에서의 조건 처리와 같이 동작한다. [`if`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/if...else) 나 [`조건부 연산자`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) 와 같은 JavaScript 연산자를 현재 상태를 나타내는 엘리먼트를 만드는 데에 사용하자! 그러면 React는 현재 상태에 맞게 UI를 업데이트할 것. 아래는 **함수를 props로 전달하는 방식**과 함께 
+
+```react
+function LoginButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  );
+}
+```
+
+```react
+class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <LoginControl />,
+  document.getElementById('root')
+);
+```
+
+if를 통해 서로 다른 컴포넌트를 출력하는 것은 좋은 방법. 하지만 더 짧은 코드를 사용하고 싶다면, 아래의 방법들을 이용하자.
+
+### && 연산자로 if를 인라인 표현하기
+
+JSX 안에는 중괄호를 이용해서 [표현식을 포함](https://ko.reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx) 할 수 있다.
+
+```react
+return (
+    <div>
+        <h1>Hello!</h1>
+        {unreadMessages.length > 0 &&
+            <h2>
+                You have {unreadMessages.length} unread messages.
+            </h2>
+        }
+    </div>
+);
+```
+
+### 조건부 연산자로 if-else구문 인라인 표현하기
+
+[`condition ? true: false`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)를 사용하는 것
+
+```react
+return (
+    <div>
+        The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.
+    </div>
+);
+```
+
+아래처럼 사용도 가능.
+
+```react
+<div>
+    {isLoggedIn
+        ? <LogoutButton onClick={this.handleLogoutClick} />
+        : <LoginButton onClick={this.handleLoginClick} />
+    }
+</div>
+```
+
+### 컴포넌트가 렌더링하는 것 막기
+
+가끔 다른 컴포넌트에 의해 렌더링될 때 컴포넌트 자체를 숨기고 싶을 때가 있을 수 있다. 이때 렌더링 결과를 출력하는 대신 `null`을 반환하면 해결할 수 있다.
+
+```react
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+
+
+## 리스트와 Key
+
+### map() 함수를 사용한 리스트 다루기
+
+```react
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number * 2);
+console.log(doubled);
+```
+
+이를 이용하여 여러개의 컴포넌트를 렌더링 하는 방법은 아래와 같다.
+
+```react
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li>{number}</li>
+);
+```
+
+```react
+ReactDOM.render(
+    <ul>{listItems}</ul>,
+    document.getElementById('root')
+);
+```
+
+#### 기본 리스트 컴포넌트
+
+위의 예제를 numbers 배열을 받아서 순서 없는 엘리먼트 리스트를 출력하는 컴포넌트로 리팩토링해보자.
+
+```react
+function NumberList(props) {
+    const doubled = props.numbers.map((number) => (
+    	<li>{number * 2}</li>
+    ));
+    return (
+    	<ul>{doubled}</ul>
+    )
+}
+
+const numbers = [1, 2, 3, 4, 5];
+
+<NumberList numbers={numbers} />
+```
+
+이 코드를 실행하면 리스트의 각 항목에 **key**를 넣어야 한다는 경고가 표시된다. key는 **엘리먼트 리스트를 만들 때 포함해야 하는 특수한 문자열 어트리뷰트이다. 다음 섹션에서 key의 중요성에 대해서 더 설명하겠다! 위의 li 엘리먼트를 아래와 같이 수정하면 key 문제를 해결할 수 있다.
+
+```react
+<li key={number.toString()}>{number * 2}</li>
+```
+
+
+
+### Key
+
+Key는 React가 어떤 항목을 변경, 추가 또는 삭제할지 식별하는 것을 돕는다. key는 엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 한다.
+
+Key를 선택하는 가장 좋은 방법은 리스트의 다른 항목들 사이에서 해당 항목을 고유하게 식별할 수 있는 문자열을 사용하는 것인데, 대부분의 경우 데이터의 ID를 key로 사용한다.
+
+렌더링 한 항목에 대한 안정적인 ID가 없다면 최후의 수단으로 항목의 인덱스를 key로 사용한다.
+
+```react
+const todoItems = todos.map((todo, index) =>
+  // Only do this if items have no stable IDs
+  <li key={index}>
+    {todo.text}
+  </li>
+);
+```
+
+항목의 순서가 바뀔 수 있는 경우 key에 인덱스를 사용하는 것은 권장하지 않는다. 이로 인해 성능이 저하되거나 컴포넌트의 state와 관련된 문제가 발생할 수 있기 때문. Robin Pokorny’s가 작성한 글인 [인덱스를 key로 사용할 경우 부정적인 영향에 대한 상세 설명](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318)을 참고하시길 바랍니다. 만약 리스트 항목에 명시적으로 key를 지정하지 않으면 React는 기본적으로 인덱스를 key로 사용합니다.더 자세히 알고 싶다면 [왜 key가 필요한가에 대한 더 자세한 설명](https://ko.reactjs.org/docs/reconciliation.html#recursing-on-children)을 읽어보세요.
+
+
+
+### Key로 컴포넌트 추출하기
+
+키는 주변 배열의 context에서만 의미가 있다. 예를 들어 `ListItem` 컴포넌트를 [추출](https://ko.reactjs.org/docs/components-and-props.html#extracting-components) 한 경우 **ListItem 안에 있는  엘리먼트가 아니라 배열의 엘리먼트가 key를 가져야 한다.**
+
+```react
+function ListItem(props) {
+  // 맞습니다! 여기에는 key를 지정할 필요가 없습니다.
+  return <li>{props.value}</li>;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    // 맞습니다! 배열 안에 key를 지정해야 합니다.
+    <ListItem key={number.toString()}              value={number} />
+
+  );
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  );
+}
+```
+
+React에서 key는 힌트를 제공하지만 컴포넌트로 전달하지는 않는다. 컴포넌트에서 key와 동일한 값이 필요하면 다른 이름의 prop으로 명시적으로 전달해야 한다.
+
+```react
+const content = posts.map((post) =>
+  <Post
+    key={post.id}
+    id={post.id}
+    title={post.title} />
+);
+```
+
+위 예제에서 `Post` 컴포넌트는 `props.id`를 읽을 수 있지만 `props.key`는 읽을 수 없다.
+
+### JSX에 map() 포함시키기
+
+```react
+function NumberList(props) {
+  const numbers = props.numbers;
+  // const listItems = numbers.map((number) =>
+  //                              <ListItem key={number.toString()}
+  //                                  value={number} />
+  //                             );
+  return (
+    <ul>
+      {numbers.map((number) =>
+        <ListItem key={number.toString()}
+                  value={number} />
+      )}
+    </ul>
+  );
+}
+```
+
+
+
+## 폼
+
+HTML 폼 엘리먼트는 **폼 엘리먼트 자체가 내부 상태를 가지기 때문에, React의 다른 DOM 엘리먼트와 조금 다르게 동작**한다.
+
+```react
+<form>
+  <label>
+    Name:
+    <input type="text" name="name" />
+  </label>
+  <input type="submit" value="Submit" />
+</form>
+```
+
+대부분의 경우, JavaScript 함수로 폼의 제출을 처리하고 사용자가 폼에 입력한 데이터에 접근하도록 하는 것이 편리하다. 이를 위한 표준 방식은 **제어 컴포넌트 (controlled components)라고 불리는 기술을 이용하는 것**이다.
+
+
+
+### 제어 컴포넌트(Controlled Component)
+
+HTML에서 `<input>`, `<textarea>`, `<select>`와 같은 폼 엘리먼트는 일반적으로 사용자의 입력을 기반으로 자신의 state를 관리한다. React에서는 변경할 수 있는 state가 일반적으로 컴포넌트의 state 속성에 유지되며 [`setState()`](https://ko.reactjs.org/docs/react-component.html#setstate)에 의해 업데이트된다. 우리는 React state를 **신뢰 가능한 단일 출처 (single source of truth)**로 만들어 두 요소를 결합할 수 있는데, 그러면 **폼을 렌더링하는 React 컴포넌트는 폼에 발생하는 사용자 입력값을 제어**할 수 있다. 이러한 방식으로 React에 의해 값이 제어되는 입력 폼 엘리먼트를 **제어 컴포넌트**라 한다.
+
+```react
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+
+
+### textarea
+
+```react
+class EssayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Please write an essay about your favorite DOM element.'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('An essay was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Essay:
+          <textarea value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+
+
+### select
+
+HTML에서 `<select>`는 드롭 다운 목록을 만든다. 예를 들어, 이 HTML은 과일 드롭 다운 목록을 만든다.
+
+```react
+<select>
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option selected value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+
+위의 HTML 태그에서는 특정 아이템에 selected 애트리뷰트를 적용했지만, 리액트에서는 이를 제어하는 최상단 select 태그에 value 애트리뷰트를 사용함으로 해결한다.
+
+```react
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+또 select 태그에 multiple 옵션을 허용한다면, value 애트리뷰트에 배열을 전달할 수 있다.
+
+```react
+<select multiple={true} value={['B', 'C']}>
+```
+
+
+
+### file input 태그
+
+HTML에서 `<input type="file" />`는 사용자가 하나 이상의 파일을 자신의 장치 저장소에서 서버로 업로드하거나 [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications)를 통해 JavaScript로 조작할 수 있다.
+
+```react
+<input type="file" />
+```
+
+값이 읽기 전용이기 때문에 React에서는 **비제어** 컴포넌트이다.
+
+
+
+### 다중 입력 제어하기
+
+여러 `input` 엘리먼트를 제어해야할 때, 각 엘리먼트에 `name` 어트리뷰트를 추가하고 `event.target.name` 값을 통해 핸들러가 어떤 작업을 할 지 선택할 수 있게 해준다.
+
+```react
+class Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.name === 'isGoing' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+    );
+  }
+}
+```
+
+```react
+this.setState({
+  [name]: value
+});
+```
+
+위의 구문은 state 객체에 name이라는 프로퍼티가 없으면 추가해준다!! 꿀!
+
+
+
+### 제어되는 input null값
+
+제어 컴포넌트에 value prop을 지정하면 의도하지 않는 한 사용자가 변경할 수 없다. `value`를 설정했는데 여전히 수정할 수 있다면 실수로 `value`를 `undefined`나 `null`로 설정했을 수 있다. 아래는 처음 1초 간은 사용자가 input 폼을 수정할 수 없지만, 1초 뒤부터 수정 가능해진다.
+
+```react
+ReactDOM.render(<input value="hi" />, mountNode);
+
+setTimeout(function() {
+  ReactDOM.render(<input value={null} />, mountNode);
+}, 1000);
+```
+
+
+
+## 비제어 컴포넌트
+
