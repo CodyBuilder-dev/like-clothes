@@ -25,4 +25,27 @@ th {
 
 .submitButton {
     margin: 20px;
+} 
+
+.imagesPreviewDiv {
+    position: relative;
+    display: inline;
+    width: 150px;
+    height: 150px;
+}
+
+.imageDeleteButton {
+    position: absolute;
+    top: -130px;
+    right: 0px;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.imageDeleteButton a {
+    z-index: 1;
+}
+
+.imagesPreviewDiv:hover .imageDeleteButton {
+    opacity: 1;
 }
