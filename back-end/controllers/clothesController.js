@@ -147,7 +147,6 @@ export const search_clothes = async (req, res) => {
         // { tags, brands, code_names, majors, middles, minors }
         let payload = req.body
         const clothes = await CLOTHES.search_clothes(payload)
-        console.log(clothes)
         res.send(clothes)
     } catch (err) {
         res.send({

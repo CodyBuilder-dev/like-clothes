@@ -5,7 +5,7 @@ import path from "path"
 import {
     signin,
     social_signin,
-    create_user,
+    signup,
     read_user,
     read_all_user,
     update_user,
@@ -18,16 +18,16 @@ const userRouter = express.Router();
 
 userRouter.post(routes.signin, signin);
 userRouter.post(routes.social_signin, social_signin);
-userRouter.post(routes.create_user, create_user);
+userRouter.post(routes.signup, signup);
 userRouter.post(routes.follow_user_toggle, follow_user_toggle);
 
-userRouter.get(routes.read_user, read_user);
-userRouter.get(routes.read_all_user, read_all_user);
+userRouter.get(routes.user_email, read_user);
+userRouter.get(routes.home, read_all_user);
 
-userRouter.put(routes.update_user, update_user);
-userRouter.put(routes.update_password, update_password);
+userRouter.put(routes.home, update_user);
+userRouter.put(routes.password, update_password);
 
-userRouter.delete(routes.delete_user, delete_user);
+userRouter.delete(routes.home, delete_user);
 
 export default userRouter;
 

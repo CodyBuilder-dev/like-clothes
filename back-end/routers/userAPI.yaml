@@ -369,6 +369,26 @@ paths:
         200:
           description: OK
 
+  /clothes/search-clothes:
+    get:
+      tags:
+      - CLOTHES
+      summary: 옷 검색하기
+      description: Follow or Unfollow User
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: follow-user-toggle_body
+        description: /user/follow-user-toggle
+        schema:
+          $ref: '#/definitions/follow-user-toggle_Request'
+          
+      responses:
+        200:
+          description: OK
+
+
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 basePath: /SupergrammerKim/AI_Project/1.0.0
