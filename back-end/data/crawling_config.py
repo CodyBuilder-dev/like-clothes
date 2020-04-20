@@ -4,8 +4,8 @@ import json
 # Config.py 파일 생성
 parser = argparse.ArgumentParser()
 
-page = '2'
-start_category = 38
+page = '1'
+start_category = 0
 end_category = 40
 save_json_name = 'data1.json'
 
