@@ -4,10 +4,10 @@ import json
 # Config.py 파일 생성
 parser = argparse.ArgumentParser()
 
-page = '1'
+page = '2'
 start_category = 0
 end_category = 40
-save_json_name = 'data1.json'
+save_json_name = 'musinsa_page02.json'
 
 parser.add_argument('--base_url', type=str, default='https://store.musinsa.com')
 
@@ -20,6 +20,6 @@ parser.add_argument('--database_host', type=str, default='i02a401.p.ssafy.io')
 parser.add_argument('--database_port', type=int, default=3306)
 parser.add_argument('--database_user', type=str, default='root')
 parser.add_argument('--database_passwd', type=str, default='likeclothes')
-parser.add_argument('--database_name', type=str, default='AI_Project')
+parser.add_argument('--database_name', type=str, default='LikeClothes')
 
 config = parser.parse_args()
