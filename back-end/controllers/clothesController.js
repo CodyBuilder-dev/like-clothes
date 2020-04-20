@@ -3,24 +3,25 @@ import { CLOTHES, CLOTHES_ITEM, USER_AND_CLOTHES } from "../models"
 // CLOTHES_ITEM, USER_AND_CLOTHES 등록
 export const register_clothes_item = async (req, res) => {
     try {
-        const reg_user = res.locals.user;
+        // const reg_user = res.locals.user;
         const { clothes_id, color, description, status, size, length, shoulder, waist } = req.body;
-
+        // console.log()
         const clothes_item = await CLOTHES_ITEM.create({
             clothes_id,
             color,
             description,
-            status,
+            // status,
             size,
             length,
             shoulder,
             waist
         })
-        USER_AND_CLOTHES.create({
-            user_email: reg_user.email,
-            clothes_item_id: clothes_item.id,
-            in_closet: 1
-        })
+        // USER_AND_CLOTHES.create({
+        //     user_email: reg_user.email,
+        //     clothes_item_id: clothes_item.id,
+        //     in_closet: 1
+        // })
+        res.send(clothes_item)
     } catch (err) {
         res.send({
             state: "failure",
@@ -145,9 +146,10 @@ export const search_clothes_tag = async (req, res) => {
 export const search_clothes = async (req, res) => {
     try {
         // { tags, brands, code_names, majors, middles, minors }
-        let payload = req.body
+        let payload = req.query
+        console.log(payload)
         const clothes = await CLOTHES.search_clothes(payload)
-        console.log(clothes)
+        // console.log(clothes)
         res.send(clothes)
     } catch (err) {
         res.send({
