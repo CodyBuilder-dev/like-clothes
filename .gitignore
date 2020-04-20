@@ -23,6 +23,7 @@ dbinfo-temp.json
 
 # Image Files
 images/
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
