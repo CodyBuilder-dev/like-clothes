@@ -246,6 +246,8 @@ path:
       description: Show User Closet
       produces:
       - application/json
+      security:
+      - Bearer: []
         
       responses:
         200:
