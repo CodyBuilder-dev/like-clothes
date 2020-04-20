@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import '../css/ClothesResisterPage.css';
-// import Search from 'react-search'
 const axios = require('axios');
 
 
