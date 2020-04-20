@@ -149,7 +149,6 @@ export const search_clothes = async (req, res) => {
         let payload = req.query
         console.log(payload)
         const clothes = await CLOTHES.search_clothes(payload)
-        // console.log(clothes)
         res.send(clothes)
     } catch (err) {
         res.send({
