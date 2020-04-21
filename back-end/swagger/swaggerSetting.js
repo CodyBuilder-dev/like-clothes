@@ -12,7 +12,7 @@ const options = {
             version: '1.0.0', // Version (required)
             description: 'Swagger for API Management' // Description (optional)
         },
-        host: 'localhost:8000',//'i02a401.p.ssafy.io:8000', // Host (optional)
+        host: 'i02a401.p.ssafy.io:8000', // Host (optional)
         basePath: '/', // Base path (optional)
 
         securityDefinitions: {
