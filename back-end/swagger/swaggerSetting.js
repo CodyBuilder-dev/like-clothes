@@ -8,7 +8,7 @@ const options = {
     // API 문서 설정
     swaggerDefinition: {
         info: { // API informations (required)
-            title : 'AI_Project', // Title (required)
+            title: 'AI_Project', // Title (required)
             version: '1.0.0', // Version (required)
             description: 'Swagger for API Management' // Description (optional)
         },
@@ -28,7 +28,7 @@ const options = {
     },
 
     // Swagger API가 존재하는 곳, 파일에 들어간 주석을 분석한다.
-    apis: ['./routers/*.yaml']
+    apis: ['./routers/*.yaml', './swagger/*.yaml']
 };
 
 const swaggerSpec = swaggerJsdoc(options);

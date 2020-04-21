@@ -274,6 +274,7 @@ path:
       description: Read A Clothes Item
       produces:
       - application/json
+
       parameters:
       - in: query
         name: clothes_item_id
