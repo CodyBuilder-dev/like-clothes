@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import '../css/ClothesResisterPage.css';
+import '../css/ClothesRegisterPage.css';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
 
 import SearchClothes from '../components/SearchClothes';
 
 
-function ClothesResister() {
+function ClothesRegister() {
   const [ previewURL, setPreviewURL ] = useState([]);
   const [ fileState, setFileState ] = useState([]);
 
@@ -132,4 +132,4 @@ function ClothesResister() {
 }
   
 
-export default ClothesResister;
+export default ClothesRegister;

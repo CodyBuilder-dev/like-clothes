@@ -22,16 +22,29 @@ const showImages = imagePathList.map((imageObj, index) => {
 });
 
 class MainPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: 'help..',
+    };
+  }
 
   componentDidMount() {
     getImage();
   }
 
+
   render() {
+    const { setUser } = this.props;
     return (
       <div>
         { imagePathList.length && showImages }
-          
+        <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
+        <br/>
+        내 이름: {this.props.userName}
+        <br/>
+        내 이메일: {this.props.userEmail}
+        <br/>
       </div>
     )
   };
