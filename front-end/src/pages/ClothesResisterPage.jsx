@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import '../css/ClothesResisterPage.css';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
+import '../css/ClothesResisterPage.css';
 import SearchClothes from '../components/SearchClothes';
 
 
 function ClothesResister() {
+  // 유저가 옷 이미지 업로드 (여러장)
   const [ previewURL, setPreviewURL ] = useState([]);
   const [ fileState, setFileState ] = useState([]);
 
@@ -31,8 +32,22 @@ function ClothesResister() {
   for (let i = 0; i < lenfile; i++) {
     lenList.push(i.toString());
   }
+  
+  // 유저가 업로드한 옷 사진 미리보기
+  const imagesPreview = lenList.map((i) => {
+    return (
+      <div className="imagesPreviewDiv">
+        <img className="imagesPreview" 
+          src={previewURL[i]} width="150px" height="150px">
+        </img>
+          <button className="imageDeleteButton" 
+            onClick={(e) => handleImageDelete(e, i)}>삭제버튼</button>
+      </div>
+    )
+  });
 
-  const handleImageDelete = (i) => {
+  // 유저가 업로드한 옷 삭제 - 미완성!!! 삭제 이상함 ㅠ ㅠ
+  const handleImageDelete = (e, i) => {
     console.log(i,'i는?')
     const calc = (i) => {
       let filterFile = [];
@@ -46,8 +61,7 @@ function ClothesResister() {
     setPreviewURL(previewURL.splice(i, 1))
   }
 
-  console.log(fileState, previewURL, 'state체크')
-  
+  // 페이지 제출 시 참고하려고 가져왔던 코드
   // const handlePost = async () => {
   //   const formData = new FormData();
   //   formData.append('file', fileState.selectedFile)
@@ -56,17 +70,6 @@ function ClothesResister() {
   //   console.log(res);
   // }
 
-  const imagesPreview = lenList.map((i) => {
-      return (
-        <div className="imagesPreviewDiv">
-          <img className="imagesPreview" 
-            src={previewURL[i]} width="150px" height="150px">
-          </img>
-            <button className="imageDeleteButton" 
-              onClick={() => handleImageDelete(i)}>삭제버튼</button>
-        </div>
-      )
-  });
 
   return (
     <div className="WriteClothes">
@@ -130,6 +133,5 @@ function ClothesResister() {
     </div>
   );
 }
-  
 
 export default ClothesResister;
