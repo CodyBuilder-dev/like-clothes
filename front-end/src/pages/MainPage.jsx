@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import ClassificationDropdown from '../components/ClassificationDropdown';
-import { findByLabelText } from "@testing-library/react";
+import MultipleSelect from '../components/MultipleSelect';
 // import axios from 'axios';
 
 let imagePathList = [
@@ -79,6 +79,8 @@ class MainPage extends PureComponent {
         <div style={{ display: "flex", }}>
           <ClassificationDropdown type="대분류" setSearchState={this.setSearchState}/>
           <ClassificationDropdown type="중분류" setSearchState={this.setSearchState}/>
+          <MultipleSelect />
+          
         </div>
 
         { imagePathList.length && showImages }
