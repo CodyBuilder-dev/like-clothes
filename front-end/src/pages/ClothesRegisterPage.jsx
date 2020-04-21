@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/ClothesRegisterPage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -6,8 +7,7 @@ import '../css/ClothesResisterPage.css';
 import SearchClothes from '../components/SearchClothes';
 
 
-function ClothesResister() {
-  // 유저가 옷 이미지 업로드 (여러장)
+function ClothesRegister() {
   const [ previewURL, setPreviewURL ] = useState([]);
   const [ fileState, setFileState ] = useState([]);
 
@@ -134,4 +134,4 @@ function ClothesResister() {
   );
 }
 
-export default ClothesResister;
+export default ClothesRegister;
