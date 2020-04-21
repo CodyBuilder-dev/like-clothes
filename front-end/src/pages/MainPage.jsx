@@ -1,4 +1,6 @@
 import React, { PureComponent } from "react";
+import ClassificationDropdown from '../components/ClassificationDropdown';
+import { findByLabelText } from "@testing-library/react";
 // import axios from 'axios';
 
 let imagePathList = [
@@ -34,10 +36,21 @@ class MainPage extends PureComponent {
   }
 
 
+  onTest = (text) => {
+    this.setState(text);
+    console.log(this.state.test);
+  }
   render() {
     const { setUser } = this.props;
+
     return (
       <div>
+        <div style={{ display: "flex", }}>
+          <ClassificationDropdown type="대분류" onTest={this.onTest}/>
+          <ClassificationDropdown type="중분류"/>
+          <ClassificationDropdown type="소분류"/>
+        </div>
+
         { imagePathList.length && showImages }
         <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
         <br/>
