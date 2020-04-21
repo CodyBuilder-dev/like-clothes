@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import '../css/ClothesResisterPage.css';
 const axios = require('axios');
 
+// import '../css/ClothesResisterPage.css';
 
 class SearchClothes extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class SearchClothes extends Component {
     this.handleSearchClick = this.handleSearchClick.bind(this);
   }
 
+  // 검색하는 input 값의 변화를 setState
   handleInputChange(e) {
     const tgname = e.target.name;
     this.setState({
@@ -26,6 +27,7 @@ class SearchClothes extends Component {
     });
   }
 
+  // 옷의 정보를 쿼리로 요청해서 DB데이터를 검색
   handleSearchClick() {
     console.log(this.state.majors, this.state.middles, this.state.minors)
     let url = `http://i02a401.p.ssafy.io:8000/clothes/search-clothes?tags=${this.state.tags}&code_names=${this.state.name}&majors=${this.state.majors}&minors=${this.state.minors}&middles=${this.state.middles}&brands=${this.state.brands}`;
@@ -38,7 +40,6 @@ class SearchClothes extends Component {
       .then((res) => {
         let responseOK = res && res.status === 200 && res.statusText === 'OK';
         if (responseOK) {
-          console.log(res.data, '레스데이터뭐냐')
           this.setState({
             searchDataList: res.data
           })
@@ -46,6 +47,7 @@ class SearchClothes extends Component {
       });
   }
 
+  // 응답으로 온 이미지 중 한 가지를 선택
   searchDataSelect = (e) => {
     let searchDataList = this.state.searchDataList
     for (let i=0; i<searchDataList.length; i++) {
@@ -57,6 +59,7 @@ class SearchClothes extends Component {
       }
     }
   }
+
 
   render() {
     return (
@@ -103,8 +106,6 @@ class SearchClothes extends Component {
               <img src={searchData.img} width="150px" height="150px" onClick={this.searchDataSelect}></img>
             </div>
           )) : null}
-
-          {/* {console.log(this.state.searchDataList, '서치데이터')} */}
         </div>
       </div>
     )
