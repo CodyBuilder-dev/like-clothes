@@ -1,7 +1,7 @@
 import express from "express"
 import routes from "../routes"
 import path from "path"
-
+import { onlyPrivate } from "../middleware"
 import {
     signin,
     social_signin,
@@ -12,6 +12,8 @@ import {
     update_password,
     delete_user,
     follow_user_toggle,
+    read_following_user,
+    read_follower_user
 } from "../controllers/userController"
 
 const userRouter = express.Router();
@@ -19,13 +21,16 @@ const userRouter = express.Router();
 userRouter.post(routes.signin, signin);
 userRouter.post(routes.social_signin, social_signin);
 userRouter.post(routes.signup, signup);
-userRouter.post(routes.follow_user_toggle, follow_user_toggle);
+userRouter.post(routes.follow_user_toggle, onlyPrivate, follow_user_toggle);
 
+userRouter.get(routes.following_user, onlyPrivate, read_following_user);
+userRouter.get(routes.follower_user, onlyPrivate, read_follower_user);
 userRouter.get(routes.user_email, read_user);
 userRouter.get(routes.home, read_all_user);
 
-userRouter.put(routes.home, update_user);
-userRouter.put(routes.password, update_password);
+
+userRouter.put(routes.home, onlyPrivate, update_user);
+userRouter.put(routes.password, onlyPrivate, update_password);
 
 userRouter.delete(routes.home, delete_user);
 
