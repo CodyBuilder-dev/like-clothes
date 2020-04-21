@@ -11,12 +11,14 @@ prep/
 
 # AI Research foler
 research/
+!auto-tagging.ipynb
 
 # DB infromation json
 dbinfo-temp.json
 
 # jupyter notebook checkpoints
 .ipynb_checkpoints/
+checkpoints/
 
 # vscode
 .vscode/
