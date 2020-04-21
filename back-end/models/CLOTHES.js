@@ -94,26 +94,36 @@ module.exports = function (sequelize, DataTypes) {
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
-  CLOTHES.read_mycloset = function (user_email, in_closet) {
-    let sql = "SELECT * FROM USER_AND_CLOTHES AS uc \
-                LEFT JOIN CLOTHES_ITEM AS ci ON uc.clothes_item_id = ci.id \
+  CLOTHES.read_clothes_items_in_wish_list = function (user_email) {
+    let sql = "SELECT * FROM WISH_LIST AS wl \
+                LEFT JOIN CLOTHES_ITEM AS ci ON wl.clothes_item_id = ci.id \
                 LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
                 LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
                 LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
-                WHERE uc.user_email='" + user_email + "'";
-    if (in_closet == 'wish_list') sql += " AND uc.in_closet=0";
-    else if (in_closet == 'in_closet') sql += " AND uc.in_closet=1"
+                WHERE wl.user_email='" + user_email + "'";
+
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+  CLOTHES.read_clothes_items_in_closet = function (user_email) {
+    let sql = "SELECT * FROM CLOTHES_ITEM AS ci \
+	              LEFT JOIN USER AS u ON ci.owner_email = u.email \
+                LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+                LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
+	              LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+                WHERE ci.owner_email='" + user_email + "'";
 
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
   CLOTHES.read_clothes_item = function (clothes_item_id) {
-    let sql = "SELECT * FROM USER_AND_CLOTHES AS uc \
-                LEFT JOIN CLOTHES_ITEM AS ci ON uc.clothes_item_id = ci.id \
+    let sql = "SELECT * FROM CLOTHES_ITEM AS ci \
+                LEFT JOIN USER AS u ON ci.owner_email = u.email \
                 LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
                 LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
                 LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
-                WHERE uc.clothes_item_id=" + clothes_item_id;
+                WHERE ci.id=" + clothes_item_id;
+
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 

@@ -1,5 +1,9 @@
 tags: 
-- name: CLOTHES
+- name: CLOTHES SEARCH
+  description: CLOTHES API
+- name: CLOTHES ITEM (WISH LIST)
+  description: CLOTHES API
+- name: CLOTHES ITEM (CLOSET)
   description: CLOTHES API
 
 definitions:
@@ -31,6 +35,9 @@ definitions:
       waist:
         type: integer
         description: 옷의 허리둘레(길이)
+      in_closet:
+        type: string
+        description: 옷장 이름
         
   deregister-clothes-item_Request:
     type: object
@@ -41,7 +48,7 @@ definitions:
         type: integer
         description: 삭제하고자 하는 clothes_item의 ID
   
-  register-closet_Request:
+  register-closet_  Request:
     type: object
     required:
     - clothes_item_id
@@ -180,7 +187,7 @@ path:
   /clothes/wish-list:
     get:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (WISH LIST)
       summary: 위시 리스트에 옷 반환
       description: Deregister Clothes Item from DB
       produces:
@@ -192,7 +199,7 @@ path:
 
     post:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (WISH LIST)
       summary: 위시 리스트에 옷 추가
       description: Deregister Clothes Item from DB
       produces:
@@ -210,7 +217,7 @@ path:
 
     delete:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (WISH LIST)
       summary: 위시 리스트에 옷 삭제
       description: Deregister Clothes Item from DB
       produces:
@@ -229,7 +236,7 @@ path:
   /clothes/mycloset:
     get:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (CLOSET)
       summary: 유저-옷장에 있는 옷들 반환
       description: Show User Closet
       produces:
@@ -252,8 +259,25 @@ path:
   /clothes/clothes-item:
     post:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (CLOSET)
       summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 등록
+      description: Register Clothes Item in DB
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: register-clothes-item_body
+        description: /clothes/register-clothes-item
+        schema:
+          $ref: '#/definitions/register-clothes-item_Request'
+          
+      responses:
+        200:
+          description: OK
+    put:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 옷 정보 (컬러, 사이즈, 등) 수정
       description: Register Clothes Item in DB
       produces:
       - application/json
@@ -269,9 +293,9 @@ path:
           description: OK
     get:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (CLOSET)
       summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 반환
-      description: Read A Clothes Item
+      description: Read Clothes Item
       produces:
       - application/json
 
@@ -292,7 +316,7 @@ path:
 
     delete:
       tags:
-      - CLOTHES
+      - CLOTHES ITEM (CLOSET)
       summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 삭제 (유저가 직접 삭제 NO)
       description: Read A Clothes Item
       produces:
@@ -316,7 +340,7 @@ path:
   /clothes/search-clothes-tag:
     get:
       tags:
-      - CLOTHES
+      - CLOTHES SEARCH
       summary: 태그로 검색
       description: Search Clothes from Input Tag
       produces:
@@ -339,7 +363,7 @@ path:
   /clothes/search-clothes:
     get:
       tags:
-      - CLOTHES
+      - CLOTHES SEARCH
       summary: 태그, 브랜드, 이름, 카테고리로 검색
       description: Search Clothes from Input Tag
       produces:
