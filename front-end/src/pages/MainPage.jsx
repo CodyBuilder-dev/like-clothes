@@ -27,7 +27,11 @@ class MainPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      test: 'help..',
+      searchState: {
+        majors: [],
+        middles: [],
+        minors: [],
+      },
     };
   }
 
@@ -35,20 +39,46 @@ class MainPage extends PureComponent {
     getImage();
   }
 
+  setSearchState = (type, optionList) => {
+    if (type === '대분류') 
+      this.setState(
+        {...this.state,
+          searchState: {
+            ...this.state.searchState,
+            majors: optionList,
+          }
+        }
+      );
+    else if (type === '중분류')
+      this.setState(
+        {...this.state,
+          searchState: {
+            ...this.state.searchState,
+            middles: optionList,
+          }
+        }
+      );
+    else if (type === '소분류')
+      this.setState(
+        {...this.state,
+          searchState: {
+            ...this.state.searchState,
+            minors: optionList,
+          }
+        }
+      );
+    else alert('타입 선택 에러');
+  };
 
-  onTest = (text) => {
-    this.setState(text);
-    console.log(this.state.test);
-  }
   render() {
     const { setUser } = this.props;
 
     return (
       <div>
+        {console.log(this.state)}
         <div style={{ display: "flex", }}>
-          <ClassificationDropdown type="대분류" onTest={this.onTest}/>
-          <ClassificationDropdown type="중분류"/>
-          <ClassificationDropdown type="소분류"/>
+          <ClassificationDropdown type="대분류" setSearchState={this.setSearchState}/>
+          <ClassificationDropdown type="중분류" setSearchState={this.setSearchState}/>
         </div>
 
         { imagePathList.length && showImages }
