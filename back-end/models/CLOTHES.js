@@ -46,7 +46,10 @@ module.exports = function (sequelize, DataTypes) {
                 JOIN CLOTHES AS c ON t.clothes_id = c.id";
 
     const tag_sql = getSearchSql(tags, 'tag');
-    sql = tag_sql ? sql + ' where ' + tag_sql : sql
+    
+    if (tag_sql) sql = sql + ' where ' + tag_sql
+    else return []    
+    
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
@@ -98,8 +101,8 @@ module.exports = function (sequelize, DataTypes) {
                 LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
                 LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
                 WHERE uc.user_email='" + user_email + "'";
-    if (in_closet == 1) sql += " AND uc.in_closet=1";
-    else if (in_closet == 0) sql += " AND uc.in_closet=0"
+    if (in_closet == 'wish_list') sql += " AND uc.in_closet=0";
+    else if (in_closet == 'in_closet') sql += " AND uc.in_closet=1"
 
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
