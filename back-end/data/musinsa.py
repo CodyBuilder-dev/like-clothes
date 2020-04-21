@@ -46,7 +46,7 @@ def get_product(product_link):
     img = soup.select_one('div.product-img img')
     product_['img'] = img['src']
     
-    tags = product[product_idx].select('a')
+    tags = soup.select_one('li.article-tag-list').select('a')
     for tag in tags:
         tags_.append(tag.get_text())
     product_['tags'] = tags_
@@ -154,10 +154,12 @@ def get_insert_clothes_class_sql(major, middle, minor):
 
 
 ## SELECT SQL
-def get_select_clothes_sql(brand, code_name):
+def get_select_clothes_sql(brand, code_name, season, img):
     sql = """SELECT * FROM CLOTHES WHERE brand=
     '""" + brand + """' and code_name=
-    '""" + code_name + """';"""
+    '""" + code_name + """' and season= 
+    '""" + season + """' and img=
+    '""" + img + """';"""
     print(sql)
     cursor.execute(sql)
     row = cursor.fetchone()
@@ -205,11 +207,11 @@ def insert_clothes_info(products):
             get_insert_clothes_class_sql(product['major'], product['middle'], product['minor'])
             clothes_class = get_select_clothes_class_sql(product['major'], product['middle'], product['minor'])
     
-        clothes = get_select_clothes_sql(product['brand'], product['code_name'])
+        clothes = get_select_clothes_sql(product['brand'], product['code_name'], product['season'], product['img'])
         if clothes == None:
-            print('Update: ', product['brand'], product['code_name'])
+            print('Update: ', product['brand'], product['code_name'], product['season'], product['img'])
             get_insert_clothes_sql(product['brand'], product['code_name'], product['season'], product['img'])
-            clothes = get_select_clothes_sql(product['brand'], product['code_name'])
+            clothes = get_select_clothes_sql(product['brand'], product['code_name'], product['season'], product['img'])
     
         clothes_id = clothes[0]
         clothes_class_id = clothes_class[0]
@@ -220,6 +222,7 @@ def insert_clothes_info(products):
             clothes_and_clothes_class = get_select_clothes_and_clothes_class_sql(clothes_id, clothes_class_id)
 
         for tag in product['tags']:
+            tag = tag.replace('\'', '\\\'')
             clothes_and_tags = get_select_clothes_and_tags_sql(clothes_id, tag)
             if clothes_and_tags == None:
                 print("Tag Update: ", clothes_id, tag)

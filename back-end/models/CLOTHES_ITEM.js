@@ -16,16 +16,20 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
+    owner_email: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      references: {
+        model: 'USER',
+        key: 'email'
+      }
+    },
     color: {
       type: DataTypes.STRING(20),
       allowNull: false
     },
     description: {
       type: DataTypes.STRING(200),
-      allowNull: true
-    },
-    status: {
-      type: DataTypes.STRING(45),
       allowNull: true
     },
     size: {
@@ -53,6 +57,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    in_closet: {
+      type: DataTypes.STRING(45),
+      allowNull: true
     }
   }, {
     tableName: 'CLOTHES_ITEM'
