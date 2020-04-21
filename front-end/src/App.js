@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import MainReduxContainer from './store/Container/MainReduxContainer';
+import MainReduxContainer from './store/Containers/MainReduxContainer';
 import ClothesResister from './pages/ClothesRegisterPage';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
