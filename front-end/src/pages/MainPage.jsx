@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import ClothesInfo from "./ClothesInfo";
 // import axios from 'axios';
 
 let imagePathList = [
@@ -31,7 +32,7 @@ class MainPage extends PureComponent {
     return (
       <div>
         { imagePathList.length && showImages }
-          
+        <ClothesInfo></ClothesInfo>
       </div>
     )
   };
