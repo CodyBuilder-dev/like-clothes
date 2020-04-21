@@ -3,7 +3,6 @@ import '../css/ClothesRegisterPage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import '../css/ClothesResisterPage.css';
 import SearchClothes from '../components/SearchClothes';
 
 
