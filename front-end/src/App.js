@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 import MainPage from './pages/MainPage';
+import AppHeader from './components/AppHeader'
 
 import ClothesResister from './pages/ClothesResisterPage';
 import Closet from './pages/ClosetPage';
@@ -12,6 +13,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <Router>
+      <AppHeader></AppHeader>
       <Switch>
         <Route path="/" exact render={() => <MainPage/>} />
         <Route path="/clothesresister" exact component={ClothesResister} />
