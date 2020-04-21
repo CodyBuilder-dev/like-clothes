@@ -11,11 +11,11 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true
     },
     brand: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     code_name: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     season: {

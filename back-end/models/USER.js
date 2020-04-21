@@ -22,7 +22,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     address: {
       type: DataTypes.STRING(200),
