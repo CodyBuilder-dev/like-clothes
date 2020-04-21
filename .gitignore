@@ -9,9 +9,8 @@ resnet50_weights_tf_dim_ordering_tf_kernels.h5
 # feature pickle files
 prep/
 
-# AI Research foler
-research/
-!auto-tagging.ipynb
+# AI Research folder
+
 
 # DB infromation json
 dbinfo-temp.json
