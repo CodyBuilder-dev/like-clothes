@@ -1,4 +1,4 @@
-import { CLOTHES, CLOTHES_ITEM, USER_AND_CLOTHES } from "../models"
+import { CLOTHES, CLOTHES_ITEM, WISH_LIST } from "../models"
 import { errChk } from "./errChk"
 
 
@@ -8,12 +8,11 @@ export const register_wish_list_item = async (req, res) => {
         const signin_user = res.locals.user;
         const { clothes_item_id } = req.body;
 
-        const user_and_clothes = USER_AND_CLOTHES.create({
+        const wish_list = await WISH_LIST.create({
             user_email: signin_user.email,
             clothes_item_id,
-            in_closet: 0
         })
-        res.send(user_and_clothes)
+        res.send(wish_list)
     } catch (err) {
         errChk(res, err, "Register wishlist clothes item failed");
     }
@@ -25,14 +24,13 @@ export const deregister_wish_list_item = async (req, res) => {
         const signin_user = res.locals.user;
         const { clothes_item_id } = req.body;
 
-        const user_and_clothes = USER_AND_CLOTHES.destroy({
+        const wish_list = await WISH_LIST.destroy({
             where: {
                 user_email: signin_user.email,
                 clothes_item_id: clothes_item_id,
-                in_closet: 0
             }
         });
-        res.send(user_and_clothes);
+        res.send({state:"success", wish_list});
     } catch (err) {
         errChk(res, err, "Deregister wishlist clothes item failed");
     }
@@ -42,7 +40,7 @@ export const deregister_wish_list_item = async (req, res) => {
 export const read_wishlist = async (req, res) => {
     try {
         const signin_user = res.locals.user;
-        const clothes = await CLOTHES.read_mycloset(signin_user.email, 'wish_list');
+        const clothes = await CLOTHES.read_clothes_items_in_wish_list(signin_user.email, 'wish_list');
         res.send(clothes);
     } catch (err) {
         errChk(res, err, "Read mycloset clothes item failed");
@@ -56,17 +54,13 @@ export const register_clothes_item_in_mycloset = async (req, res) => {
         const { clothes_id, color, description, size, length, shoulder, waist } = req.body;
         const clothes_item = await CLOTHES_ITEM.create({
             clothes_id,
+            owner_email: signin_user.email,
             color,
             description,
             size,
             length,
             shoulder,
-            waist
-        })
-        USER_AND_CLOTHES.create({
-            user_email: signin_user.email,
-            clothes_item_id: clothes_item.dataValues.id,
-            in_closet: 1
+            waist,
         })
         res.send(clothes_item)
     } catch (err) {
@@ -95,7 +89,16 @@ export const deregister_clothes_item_in_mycloset = async (req, res) => {
 export const update_clothes_item_in_mycloset = async (req, res) => {
     try {
         const signin_user = res.locals.user;
-        const { clothes_item_id } = req.body;
+        const { 
+            clothes_item_id, 
+            color,
+            description,
+            size,
+            length,
+            shoulder,
+            waist,
+            in_closet } = req.body;
+
         const clothes_item = await CLOTHES_ITEM.update({
             color,
             description,
@@ -103,6 +106,7 @@ export const update_clothes_item_in_mycloset = async (req, res) => {
             length,
             shoulder,
             waist,
+            in_closet,
             where: {
                 clothes_item_id
             }
@@ -118,7 +122,7 @@ export const update_clothes_item_in_mycloset = async (req, res) => {
 export const read_mycloset = async (req, res) => {
     try {
         const user_email = req.query.user_email;
-        const clothes = await CLOTHES.read_mycloset(user_email, 'inmycloset');
+        const clothes = await CLOTHES.read_clothes_items_in_closet(user_email);
         res.send(clothes);
     } catch (err) {
         errChk(res, err, "Read mycloset clothes item failed");

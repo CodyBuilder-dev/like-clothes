@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "likeclothes",
-    "database": "AI_Project",
+    "database": "LikeClothes",
     "host": "i02a401.p.ssafy.io",
     "dialect": "mysql",
     "operatorsAliases": false,

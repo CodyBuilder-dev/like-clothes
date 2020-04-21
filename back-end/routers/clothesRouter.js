@@ -19,9 +19,9 @@ const clothesRouter = express.Router();
 
 clothesRouter.get(routes.clothes_item, read_clothes_item);
 clothesRouter.get(routes.mycloset, read_mycloset);
+clothesRouter.get(routes.wish_list, onlyPrivate, read_wishlist);
 clothesRouter.get(routes.search_clothes_tag, search_clothes_tag);
 clothesRouter.get(routes.search_clothes, search_clothes);
-clothesRouter.get(routes.wish_list, onlyPrivate, read_wishlist);
 
 clothesRouter.post(routes.clothes_item, onlyPrivate, register_clothes_item_in_mycloset);
 clothesRouter.post(routes.wish_list, onlyPrivate, register_wish_list_item);
