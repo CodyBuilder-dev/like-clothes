@@ -16,8 +16,13 @@ info:
 #  - http
  
 tags: 
-- name: USER
+- name: USER LOGIN
   description: USER API
+- name: USER INFO
+  description: USER API
+- name: USER FOLLOW
+  description: USER API
+
   
 definitions:
   signin_Request:
@@ -46,7 +51,7 @@ definitions:
         type: string
         description: 사용자 password
   
-  create-user_Request:
+  signup_Request:
     type: object
     required: 
     - email
@@ -127,16 +132,12 @@ definitions:
   update-user_Request:
     type: object
     required: 
-    - email
     - name
     - nickname
     - address
     - age
     - gender
     properties:
-      email:
-        type: string
-        description: 사용자 E-mail
       name:
         type: string
         description: 사용자 이름
@@ -184,12 +185,8 @@ definitions:
   follow-user-toggle_Request:
     type: object
     required:
-    - follower_email
     - following_email
     properties:
-      follower_email:
-        type: string
-        description: Follower 사용자의 이메일(자기 자신)
       following_email:
         type: string
         description: Following 이메일  
@@ -198,8 +195,8 @@ paths:
   /user/signin:
     post:
       tags:
-      - USER
-      summary: /user/signin
+      - USER LOGIN
+      summary: 로그인 하기
       description: User Login
       produces:
       - application/json
@@ -217,8 +214,8 @@ paths:
   /user/social-signin:
     post:
       tags:
-      - USER
-      summary: /user/social-signin
+      - USER LOGIN
+      summary: 소셜 로그인 하기
       description: User Social Login
       produces:
       - application/json
@@ -233,30 +230,30 @@ paths:
         200:
           description: OK
   
-  /user/create-user:
+  /user/signup:
     post:
       tags:
-      - USER
-      summary: /user/create-user
+      - USER LOGIN
+      summary: 회원가입 하기 
       description: User Signup
       produces:
       - application/json
       parameters:
       - in: body
         name: create-user_body
-        description: /user/create-user
+        description: /user/signup
         schema:
-          $ref: '#/definitions/create-user_Request'
+          $ref: '#/definitions/signup_Request'
       
       responses:
         200:
           description: OK
           
-  /user/read-user/{email}:
+  /user/{email}:
     get:
       tags:
-      - USER
-      summary: /user/read-user/{email}
+      - USER INFO
+      summary: 유저 정보 반환
       description: Read a User
       produces:
       - application/json
@@ -274,13 +271,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/read-user_Response'
-      
+            
     
-  /user/read-all-user:
+  /user:
     get:
       tags:
-      - USER
-      summary: /user/read-all-user
+      - USER INFO
+      summary: 모든 유저 정보 반환(폐기 예정)
       description: Read all User
       produces:
       - application/json
@@ -292,12 +289,11 @@ paths:
             type: array
             items:
               $ref: '#/definitions/read-user_Response'
-              
-  /user/update-user:
+
     put:
       tags:
-      - USER
-      summary: /user/update-user
+      - USER INFO
+      summary: 유저 정보 업데이트
       description: Update User Info
       produces:
       - application/json
@@ -311,31 +307,11 @@ paths:
       responses:
         200:
           description: OK
-  
-  /user/update-password:
-    put:
-      tags:
-      - USER
-      summary: /user/update-password
-      description: Update User Password
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: update-password_body
-        description: /user/update-password
-        schema:
-          $ref: '#/definitions/update-password_Request'
-          
-      responses:
-        200:
-          description: OK
-          
-  /user/delete-user:
+
     delete:
       tags:
-      - USER
-      summary: /user/delete-user
+      - USER INFO
+      summary: 유저 회원 탈퇴
       description: Delete User Info
       produces:
       - application/json
@@ -349,12 +325,32 @@ paths:
       responses:
         200:
           description: OK
+  
+  /user/password:
+    put:
+      tags:
+      - USER INFO
+      summary: 비밀번호 변경
+      description: Update User Password
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: update-password_body
+        description: /user/password
+        schema:
+          $ref: '#/definitions/update-password_Request'
+          
+      responses:
+        200:
+          description: OK
+          
 
   /user/follow-user-toggle:
     post:
       tags:
-      - USER
-      summary: /user/follow-user-toggle
+      - USER FOLLOW
+      summary: 팔로우 맺기/해제(토글)
       description: Follow or Unfollow User
       produces:
       - application/json
@@ -369,20 +365,27 @@ paths:
         200:
           description: OK
 
-  /clothes/search-clothes:
+  /user/following-user:
     get:
       tags:
-      - CLOTHES
-      summary: 옷 검색하기
-      description: Follow or Unfollow User
+      - USER FOLLOW
+      summary: 팔로잉 멤버 반환
+      description: return followig user
       produces:
       - application/json
-      parameters:
-      - in: body
-        name: follow-user-toggle_body
-        description: /user/follow-user-toggle
-        schema:
-          $ref: '#/definitions/follow-user-toggle_Request'
+          
+      responses:
+        200:
+          description: OK
+
+  /user/follower-user:
+    get:
+      tags:
+      - USER FOLLOW
+      summary: 팔로워 멤버 반환
+      description: return follower user
+      produces:
+      - application/json
           
       responses:
         200:

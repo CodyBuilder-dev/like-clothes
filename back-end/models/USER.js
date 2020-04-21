@@ -22,7 +22,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     nickname: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     address: {
       type: DataTypes.STRING(200),
@@ -162,7 +163,7 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   // 사용자가 follower로 지정한 유저들 반환
-  USER.read_folloer_user = function (signin_user_email) {
+  USER.read_follower_user = function (signin_user_email) {
     let sql = " SELECT * FROM USER_AND_USER as uu \
     LEFT JOIN USER as u ON uu.follower_email = u.email \
     WHERE uu.following_email = '" + signin_user_email + "'";
