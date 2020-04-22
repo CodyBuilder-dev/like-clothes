@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import MainPage from './pages/MainPage';
 
+import Landing from './pages/LandingPage';
 import ClothesResister from './pages/ClothesResisterPage';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
@@ -14,6 +15,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact render={() => <MainPage/>} />
+        <Route path="/intro" exact component={Landing} />
         <Route path="/clothesresister" exact component={ClothesResister} />
         <Route path="/closet" exact component={Closet} />
         <Route path="*" component={NotFound} />
