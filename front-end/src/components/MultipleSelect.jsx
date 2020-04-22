@@ -54,7 +54,7 @@ export default function MultipleSelect(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-  const { type, setSearchState } = props;
+  const { type, setSearchFilter } = props;
 
   const handleTypeToList = () => {
     switch (type) {
@@ -77,7 +77,7 @@ export default function MultipleSelect(props) {
       else reject('error : event.target.value');
     })
   ).then((res) => {
-    setSearchState(type, res); // 이름을 추가
+    setSearchFilter(type, res); // 이름을 추가
   }).catch((err) => {alert(err)});
 
   return (
