@@ -5,6 +5,7 @@ import MainReduxContainer from './store/Containers/MainReduxContainer';
 import ClothesRegister from './pages/ClothesRegisterPage';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
+import RecommendPage from './pages/RecommendPage'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" exact render={() => <MainReduxContainer />} />
         <Route path="/clothesregister" exact component={ClothesRegister} />
         <Route path="/closet" exact component={Closet} />
+        <Route path="/recommend" exact component={RecommendPage} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
