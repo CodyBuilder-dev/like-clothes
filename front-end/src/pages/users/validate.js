@@ -1,60 +1,39 @@
 const validator = require("validator");
 
 const validateSignUpForm = payload => {
-  const errors = {};
-  let message = "";
-  let isFormValid = true;
-
-  if (
-    !payload ||
-    typeof payload.nickname !== "string" ||
-    payload.nickname.trim().length === 0
-  ) {
-    isFormValid = false;
-    errors.nickname = "Please provide a user name.";
-  }
+  let errors = [];
+  var checkNumber = payload.password.trim().search(/[0-9]/g);
+  var checkEnglish = payload.password.trim().search(/[a-z]/ig);
 
   if (
     !payload ||
     typeof payload.email !== "string" ||
     !validator.isEmail(payload.email)
   ) {
-    isFormValid = false;
-    errors.email = "Please provide a correct email address.";
+    errors = "정확한 이메일 형식을 입력해주세요.";
   }
 
-  if (
+  else if (
     !payload ||
     typeof payload.password !== "string" ||
     !/^[a-zA-Z0-9]{8,}$/.test(payload.password.trim())
   ) {
-    isFormValid = false;
-    errors.password = "비밀번호는 영문/숫자 혼용 8자 이상 설정해야 합니다.";
+    errors = "비밀번호 양식을 확인해 주세요.";
   }
 
-  var checkNumber = payload.password.trim().search(/[0-9]/g);
-  var checkEnglish = payload.password.trim().search(/[a-z]/ig);
-
-  if(checkNumber <0 || checkEnglish <0){
-
-    errors.password = "비밀번호는 영문/숫자 혼용 8자 이상 설정해야 합니다.";
-
-    isFormValid = false;
-
+  else if (checkNumber <0 || checkEnglish <0) {
+    errors = "비밀번호 양식을 확인해 주세요.";
   }
-
-  // if (!payload || payload.pwconfirm !== payload.password) {
-  //   isFormValid = false;
-  //   errors.pwconfirm = "Password confirmation doesn't match.";
-  // }
-
-  if (!isFormValid) {
-    message = "Check the form for errors.";
+  
+  else if (
+    !payload ||
+    typeof payload.nickname !== "string" ||
+    payload.nickname.trim().length === 0
+  ) {
+    errors = "닉네임을 입력해 주세요.";
   }
 
   return {
-    success: isFormValid,
-    message,
     errors
   };
 };
@@ -64,7 +43,6 @@ const validateOnChangeForm = payload => {
   if (
     typeof payload.email === "string" &&
     validator.isEmail(payload.email) &&
-    // typeof payload.password === "string" &&
     payload.password.trim().length >= 8 &&
     payload.email && payload.password
   ) {
@@ -80,7 +58,7 @@ const validateOnChangeForm = payload => {
 
 
 const validateLoginForm = payload => {
-  const errors = {};
+  let errors = {};
   let message = "";
   let isFormValid = true;
 
@@ -90,7 +68,7 @@ const validateLoginForm = payload => {
     !validator.isEmail(payload.email)
   ) {
     isFormValid = false;
-    errors.email = "Please provide a correct email address.";
+    errors = "Please provide a correct email address.";
   }
 
   if (
@@ -99,7 +77,7 @@ const validateLoginForm = payload => {
     payload.password.trim().length === 0
   ) {
     isFormValid = false;
-    errors.password = "Please provide your password.";
+    errors = "Please provide your password.";
   }
 
   if (
@@ -108,7 +86,7 @@ const validateLoginForm = payload => {
     payload.password.trim().length < 8
   ) {
     isFormValid = false;
-    errors.password = "Password must have at least 8 characters.";
+    errors = "Password must have at least 8 characters.";
   }
 
   if (!isFormValid) {

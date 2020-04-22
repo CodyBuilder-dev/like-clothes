@@ -11,7 +11,7 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
-      errors: {},
+      errors: [],
       user: {
         email: "",
         password: "",
@@ -82,14 +82,14 @@ class SignUp extends Component {
         if (res.data.state === 'success') {
           localStorage.token = res.data.token;
           localStorage.isAuthenticated = true;
-          // window.location.href = '/';
           console.log('회원가입 성공!')
-          alert('회원가입 성공!')
           this.setState({isSuccess:true});
         } else {
-          this.setState({
-            errors: { message: res.data.message }
-          });
+          alert('회원가입 실패')
+          window.location.href = '/signup'
+          // this.setState({
+          //   isSuccess: false
+          // });
         }
       })
       .catch(err => {
@@ -117,9 +117,9 @@ class SignUp extends Component {
       };
       this.submitSignup(user);
     } else {
-      const errors = payload.errors;
+      const error = payload.errors;
       this.setState({
-        errors
+        errors: error
       });
     }
   }
@@ -137,7 +137,7 @@ class SignUp extends Component {
             isSuccess={this.state.isSuccess}
           />
         </Zoom>
-        {this.state.isSuccess && <Redirect to='signin'></Redirect>}
+        {this.state.isSuccess && <Link to='signin'></Link>}
       </div>
     );
   }

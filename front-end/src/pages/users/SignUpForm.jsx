@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, TextField, RadioGroup, Radio, FormControlLabel, FormLabel, Popover } from '@material-ui/core';
+import { Button, TextField, RadioGroup, Radio, Popover,
+  FormControlLabel, FormLabel, FormHelperText } from '@material-ui/core';
 import DaumPostcode from 'react-daum-postcode';
 import "../../css/style.css";
 
@@ -30,11 +31,9 @@ const SignUpForm = ({
 
   const open = addrChange ? false : (Boolean(anchorEl)===true ? true : false);
 
-
   return (
     <div className="loginBox" style={{marginBottom: '70px', transform: 'translate(-50%, 10%)'}}>
       <h1>회원가입</h1>
-      {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
 
       <div style={{width: '76%', marginLeft: '13%'}}><form onSubmit={onSubmit}>
         <div style={{marginTop: '20px'}}><TextField
@@ -44,7 +43,9 @@ const SignUpForm = ({
         <div style={{marginTop: '2px'}}><TextField
           type='password' name='password' label='Password' value={user.password} fullWidth='true'
           onChange={onChange} errorText={errors.password}
-        /></div>
+        />
+        <FormHelperText>영문,숫자 혼합 8자 이상</FormHelperText>
+        </div>
         <div style={{marginTop: '2px'}}><TextField
           type='text' name='name' label='Name' value={user.name} fullWidth='true'
           onChange={onChange} errorText={errors.password}
@@ -104,8 +105,11 @@ const SignUpForm = ({
           </RadioGroup>
         </div>
 
-        <Button variant="outlined" type="submit" style={{marginTop: '20px'}} color='primary'
+        <div style={{marginTop: '20px'}}>
+        {errors && <p style={{ color: "red" }}>{errors}</p>}
+        <Button variant="outlined" type="submit" color='primary'
         >가입</Button>
+        </div>
       </form></div>
 
       <p style={{marginTop: '10px'}}>
