@@ -1,0 +1,27 @@
+#root, .App, .landingPage{
+    margin:0; 
+    padding:0; 
+    width:100%; 
+    height:100%;
+}
+
+.box{ 
+    width:100%; 
+    height:100%; 
+    position:relative; 
+    /* color:#ffffff; */
+}
+
+.page2{
+    background:linear-gradient(#015668, black);
+}
+
+.page4_profil{
+    border-radius: 100px;
+    width:200px;
+    height: 200px;
+    display:inline-block;
+    color:#ffffff;
+    border: 2px solid white;
+    margin:30px;
+}
