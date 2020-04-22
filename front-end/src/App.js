@@ -36,7 +36,6 @@ function App() {
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
-      <div>123</div>
     </Router>
   );
 }
