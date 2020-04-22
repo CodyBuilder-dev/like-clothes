@@ -1,0 +1,178 @@
+.myInfo {
+    margin: 20px;
+    padding-top: 40px;
+    padding-left: 50px;
+    height: 100px;
+    border: 1px solid gray;
+}
+
+.myProfile {
+    display: inline;
+    margin: 40px;
+}
+
+.follow {
+    display: inline;
+    width: 20px;
+}
+
+
+.followTag {
+    position: relative;
+    margin: 10px;
+}
+
+.followerCnt, .followingCnt {
+    position: absolute;
+    margin-top: 25px;
+    margin-left: -50px;
+}
+
+.followerList {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: -50px;
+}
+
+.followerBtn {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.followerDrop {
+    display: none;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px ;
+    z-index: 1;
+}
+
+.followerDrop a {
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+
+.followerDrop a:hover {
+    background-color: #f1f1f1;
+}
+
+.followerList:hover .followerDrop {
+    display: block;
+}
+.followerList:hover .followerBtn {
+    background-color: #b2dae0;
+}
+
+.closet {
+    margin: 20px;
+}
+
+.clothesWrite {
+    display: inline-block;
+    text-align: right;
+    width: 68%;
+}
+
+/* dropdown */
+/* Major */
+.dropMajorBtn {
+    padding: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.dropMajorDiv {
+    position: relative;
+    display: inline-block;
+}
+.dropMajorContent {
+    display: none;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px ;
+    z-index: 1;
+}
+.dropMajorContent a {
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+.dropMajorContent a:hover {
+    background-color: #f1f1f1;
+}
+.dropMajorDiv:hover .dropMajorContent {
+    display: block;
+}
+.dropMajorDiv:hover .dropMajorBtn {
+    background-color: #b2dae0;
+}
+
+/* Middle */
+.dropMiddleBtn {
+    padding: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.dropMiddleDiv {
+    position: relative;
+    display: inline-block;
+}
+.dropMiddleContent {
+    display: none;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px ;
+    z-index: 1;
+}
+.dropMiddleContent a {
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+.dropMiddleContent a:hover {
+    background-color: #f1f1f1;
+}
+.dropMiddleDiv:hover .dropMiddleContent {
+    display: block;
+}
+.dropMiddleDiv:hover .dropMiddleBtn {
+    background-color: #b2dae0;
+}
+
+/* Minor */
+.dropMinorBtn {
+    padding: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.dropMinorDiv {
+    position: relative;
+    display: inline-block;
+}
+.dropMinorContent {
+    display: none;
+    position: absolute;
+    box-shadow: 0px 8px 16px 0px ;
+    z-index: 1;
+}
+.dropMinorContent a {
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+.dropMinorContent a:hover {
+    background-color: #f1f1f1;
+}
+.dropMinorDiv:hover .dropMinorContent {
+    display: block;
+}
+.dropMinorDiv:hover .dropMinorBtn {
+    background-color: #b2dae0;
+}
+
+
+.clothesImage {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid gray;
+}

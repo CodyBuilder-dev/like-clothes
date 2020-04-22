@@ -1,32 +1,48 @@
+
 // Home
 const HOME = "/";
 
 // User
 const USER = "/user";
 const SIGNIN = "/signin";
+const SIGNUP = "/signup";
 const SOCIAL_SIGNIN = "/social-signin";
-const CREATE_USER = "/create-user";
-const READ_USER = "/read-user/:email";
-const READ_ALL_USER = "/read-all-user";
-const UPDATE_USER = "/update-user";
-const UPDATE_PASSWORD = "/update-password";
-const DELETE_USER = "/delete-user/:email";
-const FOLLOW_USER_TOGGLE = "/follow-user-toggle"
+const USER_EMAIL = "/:email";
+const PASSWORD = "/password";
+const FOLLOW_USER_TOGGLE = "/follow-user-toggle";
+const FOLLOWING_USER = "/following-user"
+const FOLLOWER_USER = "/follower-user"
+
+
+// Clothes
+const CLOTHES = "/clothes";
+const SEARCH_CLOTHES = "/search-clothes";
+const SEARCH_CLOTHES_TAG = "/search-clothes-tag";
+const MYCLOSET = "/mycloset";
+const CLOTHES_ITEM = "/clothes-item"
+const WISH_LIST = "/wish-list"
 
 const routes = {
     // Home
     home: HOME,
 
     // User
-    user: USER,
-    signin: SIGNIN,
+    user : USER,
+    signin : SIGNIN,
+    signup : SIGNUP,
     social_signin: SOCIAL_SIGNIN,
-    create_user: CREATE_USER,
-    read_user: READ_USER,
-    read_all_user: READ_ALL_USER,
-    update_user: UPDATE_USER,
-    update_password: UPDATE_PASSWORD,
-    delete_user: DELETE_USER,
+    user_email: USER_EMAIL,
+    password: PASSWORD,
     follow_user_toggle: FOLLOW_USER_TOGGLE,
+    following_user : FOLLOWING_USER,
+    follower_user : FOLLOWER_USER,
+
+    // Clothes
+    clothes : CLOTHES,
+    search_clothes : SEARCH_CLOTHES,
+    search_clothes_tag : SEARCH_CLOTHES_TAG,
+    mycloset : MYCLOSET,
+    clothes_item : CLOTHES_ITEM,
+    wish_list : WISH_LIST
 }
 export default routes;
