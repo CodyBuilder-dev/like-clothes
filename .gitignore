@@ -7,7 +7,7 @@ models/
 resnet50_weights_tf_dim_ordering_tf_kernels.h5
 
 # feature pickle files
-prep/
+prep_data/
 
 # AI Research folder
 
