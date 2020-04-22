@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Menu, Search, MoveToInbox, Mail } from '@material-ui/icons';
 import ScrollToTopButton from './ScrollToTopButton'
 
-const drawerWidth = 240;
+const drawerWidth = '240px';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,15 +37,35 @@ export default function SearchAppBar(props) {
 
   return (
     <div className={styles.root}>
-      <CssBaseline />
-      <AppBar position="static" className={styles.appBar}>
-        <Toolbar id="back-to-top-anchor">
-          <Typography variant="h6" noWrap>
-            Permanent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <ScrollToTopButton></ScrollToTopButton>
+      <Drawer
+        className={styles.drawer}
+        variant="persistent"
+        open="true"
+        styles={{
+          paper: styles.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={styles.toolbar} />
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </div>
   );
 }
