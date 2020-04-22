@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 
+import AppSideDrawer from './components/AppSideDrawer'
 import MainReduxContainer from './store/Containers/MainReduxContainer';
 import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
@@ -9,18 +11,32 @@ import ClothesRegister from './pages/ClothesRegisterPage';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
 
+const useStyles = makeStyles((theme) => ({
+  contents: {
+    width: '100%',
+    display: 'flex',
+    marginLeft: '240px',
+    padding: theme.spacing(3),
+  }
+}));
+
 function App() {
+  const styles = useStyles();
+
   return (
     <Router>
-      <AppHeader></AppHeader>
-      <Switch>
-        <Route path="/" exact render={() => <MainReduxContainer />} />
-        <Route path="/intro" exact component={Landing} />
-        <Route path="/" exact render={() => <MainPage/>} />
-        <Route path="/clothesregister" exact component={ClothesRegister} />
-        <Route path="/closet" exact component={Closet} />
-        <Route path="*" component={NotFound} />
-      </Switch>
+      <AppSideDrawer></AppSideDrawer>
+      <div className={styles.contents}>
+        <Switch>
+          <Route path="/" exact render={() => <MainReduxContainer />} />
+          <Route path="/intro" exact component={Landing} />
+          <Route path="/" exact render={() => <MainPage />} />
+          <Route path="/clothesregister" exact component={ClothesRegister} />
+          <Route path="/closet" exact component={Closet} />
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </div>
+      <div>123</div>
     </Router>
   );
 }
