@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import MainReduxContainer from './store/Containers/MainReduxContainer';
-import Landing from './pages/LandingPage';
+// import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
 import Closet from './pages/ClosetPage';
@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact render={() => <MainReduxContainer />} />
-        <Route path="/intro" exact component={Landing} />
+        {/* <Route path="/intro" exact component={Landing} /> */}
         <Route path="/" exact render={() => <MainPage/>} />
         <Route path="/clothesregister" exact component={ClothesRegister} />
         <Route path="/closet" exact component={Closet} />
