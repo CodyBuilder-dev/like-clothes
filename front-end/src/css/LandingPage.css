@@ -1,27 +1,19 @@
-#root, .App, .landingPage{
-    margin:0; 
-    padding:0; 
-    width:100%; 
-    height:100%;
+#root, .App, .landingPage {
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100%;
 }
 
-.box{ 
-    width:100%; 
-    height:100%; 
-    position:relative; 
-    /* color:#ffffff; */
+.box { 
+    position: relative;
+    width: 100%; 
+    height: 100%; 
 }
 
-.page2{
-    background:linear-gradient(#015668, black);
-}
-
-.page4_profil{
-    border-radius: 100px;
-    width:200px;
-    height: 200px;
-    display:inline-block;
-    color:#ffffff;
-    border: 2px solid white;
-    margin:30px;
+.mainLink {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
 }
