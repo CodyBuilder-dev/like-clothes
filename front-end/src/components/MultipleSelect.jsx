@@ -6,6 +6,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+const names = {
+  majors: ['남', '아동', '여'],
+  middles: ['바지', '상의', '스커트', '스포츠/용품', '아우터', '원피스'],
+  minors: [],
+};
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -35,19 +41,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -57,40 +50,50 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect() {
+export default function MultipleSelect(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const { type, setSearchFilter } = props;
 
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
-  };
-
-  const handleChangeMultiple = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
+  const handleTypeToList = () => {
+    switch (type) {
+      case '대분류':
+        return names.majors;
+      case '중분류':
+        return names.middles;
+      case '소분류':
+        return names.minors;
+      default:
+        return [{ key: 0, text: '오류', value: '오류' }];
     }
-    setPersonName(value);
   };
+  const handleChange = (event) => (
+    new Promise((resolve, reject) => {
+      if (event.target.value) {
+        setPersonName(event.target.value);
+        resolve(event.target.value);
+      }
+      else reject('error : event.target.value');
+    })
+  ).then((res) => {
+    setSearchFilter(type, res); // 이름을 추가
+  }).catch((err) => {alert(err)});
 
   return (
-    <div>
+    <div style={{width:"150px"}}>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
+        <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
         <Select
           labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
+          id={type}
           multiple
           value={personName}
           onChange={handleChange}
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {handleTypeToList().map((name) => (
             <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
               {name}
             </MenuItem>
