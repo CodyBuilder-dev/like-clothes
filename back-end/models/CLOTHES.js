@@ -47,9 +47,10 @@ module.exports = function (sequelize, DataTypes) {
 
     const tag_sql = getSearchSql(tags, 'tag');
     
-    if (tag_sql) sql = sql + ' where ' + tag_sql
+    if (tag_sql) sql = sql + ' WHERE ' + tag_sql
     else return []    
     
+    sql = sql + ' LIMIT 500';
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
@@ -90,7 +91,8 @@ module.exports = function (sequelize, DataTypes) {
 
     search_sql += category_minor_sql ? concat_sql + category_minor_sql : '';
 
-    sql = search_sql ? sql + ' where ' + search_sql : sql
+    sql = search_sql ? sql + ' WHERE ' + search_sql : sql
+    sql = sql + ' LIMIT 500';
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
