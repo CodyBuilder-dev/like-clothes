@@ -3,7 +3,7 @@
 const HOME = "/";
 
 // User
-const USER = "/user";
+const USER = "/api/user";
 const SIGNIN = "/signin";
 const SIGNUP = "/signup";
 const SOCIAL_SIGNIN = "/social-signin";
@@ -15,7 +15,7 @@ const FOLLOWER_USER = "/follower-user"
 
 
 // Clothes
-const CLOTHES = "/clothes";
+const CLOTHES = "/api/clothes";
 const SEARCH_CLOTHES = "/search-clothes";
 const SEARCH_CLOTHES_TAG = "/search-clothes-tag";
 const MYCLOSET = "/mycloset";

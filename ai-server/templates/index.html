@@ -1,0 +1,31 @@
+<section>
+    <h3 class="h3 text-center mb-5">추천받은 의상 보여주기</h3>
+    <div class="row wow fadeIn">
+      <div class="col-lg-6 col-md-12 px-4">
+        <form action="/ai-server" method="post">
+          <div class="form-group">
+            <label for="formGroupExampleInput">이미지 url을 넣어주세용</label>
+            <input type="text" name="img_url" class="form-control" placeholder="http:// 필수!.">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-md pull-right">추천하기</button>
+        </form>
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+        {% if best_images %}
+          {% for image in best_images %}
+          <h5 class="text-center mt-3">추천받은 이미지: {{ image }}</h5>
+          <img src={{image}}>
+          {% endfor %}
+        {% endif %}
+
+        {% if worst_images %}
+          {% for image in worst_images %}
+          <h5 class="text-center mt-3">추천받은 이미지: {{ image }}</h5>
+          <img src={{image}}>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </section>

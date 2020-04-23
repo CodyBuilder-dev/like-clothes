@@ -184,7 +184,7 @@ definitions:
         description: 옷의 이미지 주소
 
 path:
-  /clothes/wish-list:
+  /api/clothes/wish-list:
     get:
       tags:
       - CLOTHES ITEM (WISH LIST)
@@ -233,7 +233,7 @@ path:
         200:
           description: OK
           
-  /clothes/mycloset:
+  /api/clothes/mycloset:
     get:
       tags:
       - CLOTHES ITEM (CLOSET)
@@ -256,7 +256,7 @@ path:
             items:
               $ref: '#/definitions/mycloset_Response'
 
-  /clothes/clothes-item:
+  /api/clothes/clothes-item:
     post:
       tags:
       - CLOTHES ITEM (CLOSET)
@@ -337,7 +337,7 @@ path:
               $ref: '#/definitions/clothes-item_Response'
               
               
-  /clothes/search-clothes-tag:
+  /api/clothes/search-clothes-tag:
     get:
       tags:
       - CLOTHES SEARCH
@@ -360,7 +360,7 @@ path:
             items:
               $ref: '#/definitions/search-clothes-tag_Response'
               
-  /clothes/search-clothes:
+  /api/clothes/search-clothes:
     get:
       tags:
       - CLOTHES SEARCH
