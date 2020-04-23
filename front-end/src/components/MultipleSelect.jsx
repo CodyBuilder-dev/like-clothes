@@ -1,10 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { Input, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 
 const names = {
   majors: ['남', '아동', '여'],
@@ -16,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300,
+    maxWidth: 120,
   },
   chips: {
     display: 'flex',
@@ -78,28 +74,26 @@ export default function MultipleSelect(props) {
     })
   ).then((res) => {
     setSearchFilter(type, res); // 이름을 추가
-  }).catch((err) => {alert(err)});
+  }).catch((err) => { alert(err) });
 
   return (
-    <div style={{width:"150px"}}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id={type}
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {handleTypeToList().map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl className={classes.formControl}>
+      <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
+      <Select style={{ variant: 'outlined' }}
+        labelId="demo-mutiple-name-label"
+        id={type}
+        multiple
+        value={personName}
+        onChange={handleChange}
+        input={<Input />}
+        MenuProps={MenuProps}
+      >
+        {handleTypeToList().map((name) => (
+          <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
+import ScrollToTopButton from '../components/ScrollToTopButton'
 
 const drawerWidth = 240;
 const Logo = require('./Logo3.png')
@@ -46,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   buttonLogout: {
     position: 'absolute',
     bottom: theme.spacing(2),
-    height: '40px',
+    height: '37px',
     fontSize: '15px',
-    opacity: 0.85
+    opacity: 0.9
   },
   listContent: {
     width: '100%',
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '15px',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     opacity: 0.9
-  }
+  },
 }));
 
 export default function SearchAppBar() {
@@ -107,7 +108,7 @@ export default function SearchAppBar() {
           <Divider />
           <List className={styles.drawer}>
             <NavLink
-              activeStyle={{ color: 'black', textDecoration: 'none' }}
+              style={{ color: 'black', textDecoration: 'none' }}
               to='/'>
               <ListItem button className={styles.listContent}>
                 <ListItemIcon><HomeOutlined /></ListItemIcon>
@@ -115,7 +116,7 @@ export default function SearchAppBar() {
               </ListItem>
             </NavLink>
             <NavLink
-              activeStyle={{ color: 'black', textDecoration: 'none' }}
+              style={{ color: 'black', textDecoration: 'none' }}
               to='/mypage'>
               <ListItem button className={styles.listContent}>
                 <ListItemIcon><FaceOutlined /></ListItemIcon>
@@ -123,7 +124,7 @@ export default function SearchAppBar() {
               </ListItem>
             </NavLink>
             <NavLink
-              activeStyle={{ color: 'black', textDecoration: 'none' }}
+              style={{ color: 'black', textDecoration: 'none' }}
               to='/recommend'>
               <ListItem button className={styles.listContent}>
                 <ListItemIcon><LocalMallOutlined /></ListItemIcon>
@@ -134,16 +135,16 @@ export default function SearchAppBar() {
           <Divider />
           <Divider />
 
-          {user === undefined &&
+          {user === true &&
             <Button variant="contained" size="medium" color="secondary" className={styles.buttonLogout} style={{ width: 'calc(100% - 16px)', marginBottom: 5, marginLeft: 8, marginRight: 8 }}
-              display="flex"
-              alignItems="flex-end">
+              display="flex">
               <ExitToApp style={{ marginRight: 20 }} />
               Log Out
             </Button>
           }
         </div>
       </Drawer>
+      <ScrollToTopButton></ScrollToTopButton>
     </div>
   );
 }

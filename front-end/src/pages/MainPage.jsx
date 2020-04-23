@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { Card } from '@material-ui/core'
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
@@ -27,9 +28,9 @@ class MainPage extends PureComponent {
     console.log(this.state);
     if (searchDataList.length > 0)
       this.setState({
-          ...this.state,
-          searchDataList: searchDataList,
-          page: 0,
+        ...this.state,
+        searchDataList: searchDataList,
+        page: 0,
       });
     else alert('검색 결과가 없습니다.');
   };
@@ -70,26 +71,18 @@ class MainPage extends PureComponent {
     // const { setUser } = this.props;
 
     return (
-      <div>
+      <Card variant="outlined" style={{padding: 10}}>
         {console.log(this.state)}
         <div style={{ display: "flex", }}>
           <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
           <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
-          <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>        
+          <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>
         </div>
 
-        { this.state.searchDataList.length > 0 &&
-          <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage}/>
+        {this.state.searchDataList.length > 0 &&
+          <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} />
         }
-
-        {/* <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
-        <br/>
-        내 이름: {this.props.userName}
-        <br/>
-        내 이메일: {this.props.userEmail}
-        <br/> */}
-        
-      </div>
+      </Card>
     )
   };
 };
