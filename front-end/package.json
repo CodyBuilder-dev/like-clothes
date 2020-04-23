@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "jquery": "^3.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -20,7 +21,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start .env",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
