@@ -3,7 +3,21 @@ import { Link } from 'react-router-dom';
 import { Button, TextField, RadioGroup, Radio, Popover,
   FormControlLabel, FormLabel, FormHelperText } from '@material-ui/core';
 import DaumPostcode from 'react-daum-postcode';
-import "../../css/style.css";
+import { makeStyles } from '@material-ui/core/styles'
+
+const boxStyle = makeStyles({
+  root: {
+    width: '320px', 
+    textAlign: 'center',
+    position: 'relative',
+    left: '50%',
+    transform: 'translate(-50%, 10%)',
+    padding: '20px',
+    backgroundColor: 'white',
+    boxShadow: '0 0 20px 2px rgba(0, 0, 0, 0.4)',
+    marginBottom: '70px',
+  },
+});
 
 const SignUpForm = ({
   onSubmit,
@@ -12,6 +26,8 @@ const SignUpForm = ({
   errors,
   user,
 }) => {
+  const classes = boxStyle();
+
   // Address Popover
   const [ addrChange, setaddrChange ] = useState('');
   const [ anchorEl, setAnchorEl ] = useState(null);
@@ -32,10 +48,10 @@ const SignUpForm = ({
   const open = addrChange ? false : (Boolean(anchorEl)===true ? true : false);
 
   return (
-    <div className="loginBox" style={{marginBottom: '70px', transform: 'translate(-50%, 10%)'}}>
+    <div className={classes.root}>
       <h1>회원가입</h1>
 
-      <div style={{width: '76%', marginLeft: '13%'}}><form onSubmit={onSubmit}>
+      <div style={{width: '96%', marginLeft: '2%'}}><form onSubmit={onSubmit}>
         <div style={{marginTop: '20px'}}><TextField
           type='text' name='email' label='E-mail' value={user.email} fullWidth='true'
           onChange={onChange} errorText={errors.email}
@@ -44,7 +60,7 @@ const SignUpForm = ({
           type='password' name='password' label='Password' value={user.password} fullWidth='true'
           onChange={onChange} errorText={errors.password}
         />
-        <FormHelperText>영문,숫자 혼합 8자 이상</FormHelperText>
+        <FormHelperText>영문/숫자 혼합 8자 이상</FormHelperText>
         </div>
         <div style={{marginTop: '2px'}}><TextField
           type='text' name='name' label='Name' value={user.name} fullWidth='true'
@@ -61,7 +77,7 @@ const SignUpForm = ({
           onChange={onChange} errorText={errors.address} 
         />
         <Button variant="outlined" onClick={handleClick} 
-          style={{marginTop: '12px', marginLeft: '4%'}}>
+          style={{marginTop: '12px', marginLeft: '2%'}}>
           주소 검색
         </Button>
         <Popover
@@ -85,23 +101,18 @@ const SignUpForm = ({
           onChange={onChange} errorText={errors.phone}
         /></div>
 
-        <div style={{marginTop: '2px'}}><TextField
-          type='number' name='birth' label='Age' value={user.birth} fullWidth='true'
-          onChange={onChange}
-        /></div>
-        {/* <div style={{marginTop: '20px'}}>
+        <div style={{marginTop: '20px'}}>
         <FormLabel component='legend'>birth</FormLabel>
         <TextField
           type='date' name='birth' value={user.birth} fullWidth='true'
           onChange={onChange} errorText={errors.birth}
-        /></div> */}
+        /></div>
 
         <div style={{marginTop: '20px'}}>
           <FormLabel component='legend'>gender</FormLabel>
           <RadioGroup aria-label='gender' style={{display: 'block'}}>
-            <FormControlLabel value="0" control={<Radio />} label="male" name='gender' onChange={onChange} />
-            <FormControlLabel value="1" control={<Radio />} label="female" name='gender' onChange={onChange} />
-            <FormControlLabel value="2" control={<Radio />} label="other" name='gender' onChange={onChange} />
+            <FormControlLabel value="M" control={<Radio />} label="Male" name='gender' onChange={onChange} />
+            <FormControlLabel value="F" control={<Radio />} label="Female" name='gender' onChange={onChange} />
           </RadioGroup>
         </div>
 

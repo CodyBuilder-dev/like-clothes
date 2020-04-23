@@ -54,11 +54,11 @@ class SignIn extends Component {
       axios
         .post("http://i02a401.p.ssafy.io:8000/user/signin/", params)
         .then(res => {
-					console.log(res)
+					console.log(res.data.user.accessToken)
           if (res.data.state === 'success') {
-            localStorage.token = res.data.accessToken;
+            localStorage.token = res.data.user.accessToken;
 						localStorage.isAuthenticated = true;
-            window.location.href = "/";
+            // window.location.href = "/";
           } else {
 						alert('로그인 실패')
           }

@@ -2,6 +2,7 @@ const validator = require("validator");
 
 const validateSignUpForm = payload => {
   let errors = [];
+  let isFormValid = true;
   var checkNumber = payload.password.trim().search(/[0-9]/g);
   var checkEnglish = payload.password.trim().search(/[a-z]/ig);
 
@@ -10,6 +11,7 @@ const validateSignUpForm = payload => {
     typeof payload.email !== "string" ||
     !validator.isEmail(payload.email)
   ) {
+    isFormValid = false;
     errors = "정확한 이메일 형식을 입력해주세요.";
   }
 
@@ -18,10 +20,12 @@ const validateSignUpForm = payload => {
     typeof payload.password !== "string" ||
     !/^[a-zA-Z0-9]{8,}$/.test(payload.password.trim())
   ) {
+    isFormValid = false;
     errors = "비밀번호 양식을 확인해 주세요.";
   }
 
   else if (checkNumber <0 || checkEnglish <0) {
+    isFormValid = false;
     errors = "비밀번호 양식을 확인해 주세요.";
   }
   
@@ -30,10 +34,16 @@ const validateSignUpForm = payload => {
     typeof payload.nickname !== "string" ||
     payload.nickname.trim().length === 0
   ) {
+    isFormValid = false;
     errors = "닉네임을 입력해 주세요.";
   }
 
+  if (!isFormValid) {
+    errors = "Check the form for errors.";
+  }
+
   return {
+    success: isFormValid,
     errors
   };
 };

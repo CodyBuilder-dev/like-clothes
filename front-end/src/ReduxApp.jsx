@@ -2,7 +2,10 @@ import React from 'react';
 import configureStore, { initState } from './store/configureStore';
 import { PureComponent } from 'react';
 import { Provider } from 'react-redux';
-import App from './App'
+import App from './App';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default class ReduxApp extends PureComponent {
   store = configureStore(initState);

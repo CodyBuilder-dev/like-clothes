@@ -3,6 +3,8 @@ import { Link, Redirect } from 'react-router-dom';
 import Zoom from '@material-ui/core/Zoom';
 import SignUpForm from "./SignUpForm";
 
+const baseUrl = process.env.REACT_APP_URL
+
 const axios = require("axios");
 const validateSignUpForm = require("./validate").validateSignUpForm;
 
@@ -19,7 +21,7 @@ class SignUp extends Component {
         nickname: "",
         address: "",
         phone: "",
-        birth: null,
+        birth: "",
         gender: "",
         description: ""
       },
@@ -55,16 +57,6 @@ class SignUp extends Component {
     });
   }
 
-  // changeAddr = (addr) => {
-  //   this.setState({
-  //     ...this.state,
-  //     user: {
-  //       ...this.state.user,
-  //       address: addr,
-  //     }
-  //   });
-  // }
-
   handleChange(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -75,25 +67,26 @@ class SignUp extends Component {
   }
 
   submitSignup(params) {
+    console.log(baseUrl, 'url')
     axios
-      .post("http://i02a401.p.ssafy.io:8000/user/signup/", params)
+      .post(baseUrl + "/user/signup/", params)
       .then(res => {
-        console.log(res)
         if (res.data.state === 'success') {
-          localStorage.token = res.data.token;
+          alert('받았니?')
+          localStorage.token = res.data.user.accessToken;
           localStorage.isAuthenticated = true;
           console.log('회원가입 성공!')
           this.setState({isSuccess:true});
         } else {
           alert('회원가입 실패')
           window.location.href = '/signup'
-          // this.setState({
-          //   isSuccess: false
-          // });
+          this.setState({
+            isSuccess: false
+          });
         }
       })
       .catch(err => {
-        console.log("Sign up data submit error: ", err);
+        console.log("Server Error: ", err);
       });
   }
 
@@ -125,6 +118,7 @@ class SignUp extends Component {
   }
 
   render() {
+    console.log(this.state.user, 'user')
     return (
       <div>
         <Zoom in={true}>

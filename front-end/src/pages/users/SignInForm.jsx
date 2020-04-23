@@ -1,7 +1,21 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
-import "../../css/style.css";
+import { makeStyles } from '@material-ui/core/styles'
+
+const boxStyle = makeStyles({
+  root: {
+    width: '320px', 
+    textAlign: 'center',
+    position: 'relative',
+    left: '50%',
+    transform: 'translate(-50%, 10%)',
+    padding: '20px',
+    backgroundColor: 'white',
+    boxShadow: '0 0 20px 2px rgba(0, 0, 0, 0.4)',
+    marginBottom: '70px',
+  },
+});
 
 const SignInForm = ({ 
   onSubmit,
@@ -10,11 +24,12 @@ const SignInForm = ({
   user,
   btnState
 }) => {
+  const classes = boxStyle();
   return (
-    <div className="loginBox">
+    <div className={classes.root}>
       <h1>로그인</h1>
       
-			<div style={{width: '76%', marginLeft: '13%'}}><form onSubmit={onSubmit} method="POST">
+			<div style={{width: '96%', marginLeft: '2%'}}><form onSubmit={onSubmit} method="POST">
 				<div style={{marginTop: '20px'}}>
         <TextField
           type='text' name="email" label='E-mail' value={user.email} fullWidth='true'
@@ -26,7 +41,7 @@ const SignInForm = ({
           onChange={onChange} errorText={errors.password}
         /></div>
 
-        <div style={{marginTop: '20px'}}>
+        <div style={{marginTop: '30px'}}>
         {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
         <Button variant='outlined' type="submit" color='primary' disabled={btnState}
         >로그인</Button>
