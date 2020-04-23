@@ -67,15 +67,12 @@ class SignUp extends Component {
   }
 
   submitSignup(params) {
-    console.log(baseUrl, 'url')
     axios
       .post(baseUrl + "/user/signup/", params)
       .then(res => {
         if (res.data.state === 'success') {
-          alert('받았니?')
           localStorage.token = res.data.user.accessToken;
           localStorage.isAuthenticated = true;
-          console.log('회원가입 성공!')
           this.setState({isSuccess:true});
         } else {
           alert('회원가입 실패')
@@ -118,7 +115,6 @@ class SignUp extends Component {
   }
 
   render() {
-    console.log(this.state.user, 'user')
     return (
       <div>
         <Zoom in={true}>
