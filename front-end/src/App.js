@@ -14,7 +14,7 @@ import RecommendPage from './pages/RecommendPage'
 
 const useStyles = makeStyles((theme) => ({
   contents: {
-    width: '100%',
+    width: 'calc(100% - 240px)',
     display: 'flex',
     marginLeft: '240px',
     padding: theme.spacing(3),
@@ -26,15 +26,6 @@ function App() {
 
   return (
     <Router>
-<<<<<<< HEAD
-      <Switch>
-        <Route path="/" exact render={() => <MainReduxContainer />} />
-        <Route path="/clothesregister" exact component={ClothesRegister} />
-        <Route path="/closet" exact component={Closet} />
-        <Route path="/recommend" exact component={RecommendPage} />
-        <Route path="*" component={NotFound} />
-      </Switch>
-=======
       <AppSideDrawer></AppSideDrawer>
       <div className={styles.contents}>
         <Switch>
@@ -42,11 +33,11 @@ function App() {
           <Route path="/intro" exact component={Landing} />
           <Route path="/" exact render={() => <MainPage />} />
           <Route path="/clothesregister" exact component={ClothesRegister} />
+          <Route path="/recommend" exact component={RecommendPage} />
           <Route path="/closet" exact component={Closet} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
->>>>>>> f5eef7479e368ed5f91c7fdad51e74dcc542d605
     </Router>
   );
 }

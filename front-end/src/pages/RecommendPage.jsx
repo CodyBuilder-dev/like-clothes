@@ -23,16 +23,16 @@ export default function ImageGridList() {
 
   useEffect(() => {
     // let url = 'http://i02a401.p.ssafy.io:8000/clothes/mycloset?user_email=123%40gmail.com';
-    let urls = 'http://52.78.119.248:5000/ai-server'
+    let url = 'http://52.78.119.248:5000/ai-server/recommand/clothes-feature'
     // axios.get(url).then((res) => {
     //   setImageData(res.data);
     //   console.log(res.data[0].img);
     // });
-    axios.post(urls, {
-      "img_url": 'http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg'
+    axios.post(url, {
+      "img_url": "//image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg"
     }).then((res) => {
-      setImageData(res.data);
-      console.log(res.data)
+      console.log(res.data.best_images)
+      setImageData(res.data.best_images);
     })
   }, [])
 
@@ -59,8 +59,8 @@ export default function ImageGridList() {
         <CardContent>
           <GridList cellHeight={160} className={styles.gridList} cols={3}>
             {imageData.map((image) => (
-              <GridListTile key={image.img} cols={image.cols || 1}>
-                <img src={image.img} alt={image.title} />
+              <GridListTile key={image} cols={image.cols || 1}>
+                <img src={image} />
               </GridListTile>
             ))}
           </GridList>
