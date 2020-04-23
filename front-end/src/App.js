@@ -10,6 +10,7 @@ import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
+import RecommendPage from './pages/RecommendPage'
 
 import SignUp from './pages/users/SignUp';
 import SignIn from './pages/users/SignIn';
@@ -18,7 +19,7 @@ import ChoiceStylePage from './pages/ChoiceStylePage';
 
 const useStyles = makeStyles((theme) => ({
   contents: {
-    width: '100%',
+    width: 'calc(100% - 240px)',
     display: 'flex',
     marginLeft: '240px',
     padding: theme.spacing(3),
@@ -37,6 +38,7 @@ function App() {
           <Route path="/intro" exact component={Landing} />
           <Route path="/" exact render={() => <MainPage />} />
           <Route path="/clothesregister" exact component={ClothesRegister} />
+          <Route path="/recommend" exact component={RecommendPage} />
           <Route path="/closet" exact component={Closet} />
 
           <Route path="/signup" exact component={SignUp} />
