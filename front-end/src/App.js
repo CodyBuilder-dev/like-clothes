@@ -14,6 +14,8 @@ import NotFound from './pages/NotFound';
 import SignUp from './pages/users/SignUp';
 import SignIn from './pages/users/SignIn';
 
+import ChoiceStylePage from './pages/ChoiceStylePage';
+
 const useStyles = makeStyles((theme) => ({
   contents: {
     width: '100%',
@@ -40,6 +42,7 @@ function App() {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/signin" exact component={SignIn} />
 
+          <Route path="/choicestyle" exact component={ChoiceStylePage} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
