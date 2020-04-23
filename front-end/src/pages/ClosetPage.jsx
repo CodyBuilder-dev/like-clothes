@@ -16,7 +16,7 @@ function Closet() {
   const [ routeTarget, setRouteTarget ] = useState('closet');
   const [ followerRes, setFollowerRes ] = useState([]);
   const [ followingRes, setFollowingRes ] = useState([]);
-  
+
   useEffect(() => {
     let follow = ['follower-user', 'following-user', 'follower_edmail', 'following_email']
     for (let i=0; i<2; i++){
