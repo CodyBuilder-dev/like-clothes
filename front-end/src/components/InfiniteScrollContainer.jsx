@@ -1,7 +1,7 @@
 import React from 'react';
 import { PureComponent } from 'react';
 
-let numOfAPage = 10, page, tempList = [];
+let numOfAPage = 40, page, numItemsPerRow = 4, tempList = [];
 
 export default class InfiniteScrollContainer extends PureComponent {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     this.props.dataList.forEach((data, index) => {
       tempList.push(
         <div key={ index }>
-          <img src = { data.img } alt='' width="150" height="150"></img>
+          <img src = { data.img } alt='' width="200" height="200"></img>
         </div>
       )
     });
