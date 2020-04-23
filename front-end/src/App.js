@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Card } from '@material-ui/core'
 import './App.css';
 
 import AppSideDrawer from './components/AppSideDrawer'
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: 'calc(100% - 240px)',
     display: 'flex',
     marginLeft: '240px',
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   }
 }));
 
@@ -30,7 +31,7 @@ function App() {
   return (
     <Router>
       <AppSideDrawer></AppSideDrawer>
-      <div className={styles.contents}>
+      <Card className={styles.contents} id="back-to-top-anchor">
         <Switch>
           <Route path="/" exact render={() => <MainReduxContainer />} />
           <Route path="/intro" exact component={Landing} />
@@ -44,7 +45,7 @@ function App() {
 
           <Route path="*" component={NotFound} />
         </Switch>
-      </div>
+      </Card>
     </Router>
   );
 }
