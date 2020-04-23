@@ -67,7 +67,7 @@ class MainPage extends PureComponent {
   }
 
   render() {
-    const { setUser } = this.props;
+    // const { setUser } = this.props;
 
     return (
       <div>
@@ -82,12 +82,12 @@ class MainPage extends PureComponent {
           <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage}/>
         }
 
-        <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
+        {/* <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
         <br/>
         내 이름: {this.props.userName}
         <br/>
         내 이메일: {this.props.userEmail}
-        <br/>
+        <br/> */}
         
       </div>
     )
