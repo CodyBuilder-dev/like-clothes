@@ -58,6 +58,8 @@ class SignIn extends Component {
         .then(res => {
           if (res.data.state === 'success') {
             localStorage.token = res.data.user.accessToken;
+            localStorage.email = res.data.user.email;
+            localStorage.nickname = res.data.user.nickname;
 						localStorage.isAuthenticated = true;
             window.location.href = "/";
           } else {
