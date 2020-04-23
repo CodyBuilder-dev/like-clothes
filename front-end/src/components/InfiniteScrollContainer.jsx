@@ -1,7 +1,8 @@
 import React from 'react';
 import { PureComponent } from 'react';
+import { Card, Grid, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
 
-let numOfAPage = 40, page, numItemsPerRow = 4, tempList = [];
+let numOfAPage = 40, page, numItemsPerColumn = 4, tempList = [];
 
 export default class InfiniteScrollContainer extends PureComponent {
   constructor(props) {
@@ -22,8 +23,8 @@ export default class InfiniteScrollContainer extends PureComponent {
     // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
     if (scrollHeight - innerHeight - scrollTop < 100 && !this.state.isLoading) {
       console.log("Almost Bottom Of This Browser");
-      this.setState({...this.state, isLoading: true, imageList: tempList.slice(0, numOfAPage * ++page)});
-      setTimeout(() => {this.setState({...this.state, isLoading: false,}) }, 500);
+      this.setState({ ...this.state, isLoading: true, imageList: tempList.slice(0, numOfAPage * ++page) });
+      setTimeout(() => { this.setState({ ...this.state, isLoading: false, }) }, 500);
     }
   };
 
@@ -32,12 +33,10 @@ export default class InfiniteScrollContainer extends PureComponent {
     page = 0;
     this.props.dataList.forEach((data, index) => {
       tempList.push(
-        <div key={ index }>
-          <img src = { data.img } alt='' width="200" height="200"></img>
-        </div>
+        <img src={data.img} alt='' width="200" height="200"></img>
       )
     });
-    this.setState({...this.state, isLoading: false, imageList: tempList.slice(0, numOfAPage * ++page)});
+    this.setState({ ...this.state, isLoading: false, imageList: tempList.slice(0, numOfAPage * ++page) });
     this.props.nextPage();
   }
 
@@ -55,7 +54,20 @@ export default class InfiniteScrollContainer extends PureComponent {
     return (
       <div>
         {this.props.initPage === 0 ? this.initPage() : null}
-        {this.state.imageList}
+        <Card>
+          <CardHeader>
+            Hello
+          </CardHeader>
+          <CardContent>
+            <GridList cols={numItemsPerColumn}>
+              {this.state.imageList.map((image) => (
+                <GridListTile key={image} cols={image.cols || 1}>
+                  {image}
+                </GridListTile>
+              ))}
+            </GridList>
+          </CardContent>
+        </Card>
       </div>
     );
   };
