@@ -192,7 +192,7 @@ definitions:
         description: Following 이메일  
         
 paths:
-  /user/signin:
+  /api/user/signin:
     post:
       tags:
       - USER LOGIN
@@ -211,7 +211,7 @@ paths:
         200:
           description: OK
   
-  /user/social-signin:
+  /api/user/social-signin:
     post:
       tags:
       - USER LOGIN
@@ -230,7 +230,7 @@ paths:
         200:
           description: OK
   
-  /user/signup:
+  /api/user/signup:
     post:
       tags:
       - USER LOGIN
@@ -249,7 +249,7 @@ paths:
         200:
           description: OK
           
-  /user/{email}:
+  /api/user/{email}:
     get:
       tags:
       - USER INFO
@@ -273,7 +273,7 @@ paths:
               $ref: '#/definitions/read-user_Response'
             
     
-  /user:
+  /api/user:
     get:
       tags:
       - USER INFO
@@ -326,7 +326,7 @@ paths:
         200:
           description: OK
   
-  /user/password:
+  /api/user/password:
     put:
       tags:
       - USER INFO
@@ -346,7 +346,7 @@ paths:
           description: OK
           
 
-  /user/follow-user-toggle:
+  /api/user/follow-user-toggle:
     post:
       tags:
       - USER FOLLOW
@@ -365,7 +365,7 @@ paths:
         200:
           description: OK
 
-  /user/following-user:
+  /api/user/following-user:
     get:
       tags:
       - USER FOLLOW
@@ -378,7 +378,7 @@ paths:
         200:
           description: OK
 
-  /user/follower-user:
+  /api/user/follower-user:
     get:
       tags:
       - USER FOLLOW
