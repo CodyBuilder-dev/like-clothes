@@ -21,10 +21,10 @@ function App() {
   const styles = appjs();
 
   return (
-    <div className={styles.background}>
+    <div className={styles.background} id="back-to-top-anchor">
       <Router>
         <AppSideDrawer></AppSideDrawer>
-        <div className={styles.contents} id="back-to-top-anchor">
+        <div className={styles.contents}>
           <Switch>
             <Route path="/" exact render={() => <MainReduxContainer />} />
             <Route path="/intro" exact component={Landing} />

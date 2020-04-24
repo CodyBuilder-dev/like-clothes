@@ -72,7 +72,7 @@ function ClothesRegister() {
 
 
   return (
-    <div className="WriteClothes">
+    <div className="WriteClothes" style={{backgroundColor:'white'}}>
       <div className="section">
         <SearchClothes></SearchClothes>
       </div>

@@ -96,3 +96,26 @@ export const clothesdetailjsx = makeStyles((theme) => ({
     backgroundColor: deepPurple[500],
   },
 }));
+
+export const closetjsx = makeStyles((theme) => ({
+  root: {
+    fontFamily: 'Arita-dotum-Medium',
+    flexGrow: 1,
+    padding: theme.spacing(2)
+  },
+  editBtn: {
+    marginLeft: '5px',
+    width: '17px',
+    height: '17px',
+  },
+  closetIntro: {
+    margin: '0 15px',
+  },
+  closetIntroContent: {
+    marginTop: '5px',
+  },
+  followDrop: {
+    marginLeft: '10px',
+    // position: 'absolute',
+  }
+}))
