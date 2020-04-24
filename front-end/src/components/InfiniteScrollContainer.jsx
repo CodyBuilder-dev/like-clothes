@@ -1,7 +1,7 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
-import { Card, Grid, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
+import { Card, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
 
 let numOfAPage = 40, page, numItemsPerColumn = 6, tempList = [];
 let cols = [3, 1, 2, 1, 1, 2, 1, 1, 2, 1, 3];
@@ -31,10 +31,9 @@ export default class InfiniteScrollContainer extends PureComponent {
   };
 
   initPage = () => {
-    tempList = [];
     page = 0;
-    this.props.dataList.forEach((data, index) => {
-      tempList.push(
+    tempList = this.props.dataList.map((data, index) => {
+      return (
         <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>
           <img src={data.img} width="100%" />
         </NavLink>
@@ -65,7 +64,7 @@ export default class InfiniteScrollContainer extends PureComponent {
           <CardContent>
             <GridList cellHeight={225} cols={numItemsPerColumn} style={{ width: '100%' }}>
               {this.state.imageList.map((image, index) => (
-                <GridListTile key={image} cols={cols[index % 11]}>
+                <GridListTile key={index} cols={cols[index % 11]}>
                   {image}
                 </GridListTile>
               ))}
