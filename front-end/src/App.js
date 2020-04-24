@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { Card } from '@material-ui/core'
 import './App.css';
 
@@ -17,38 +16,33 @@ import RecommendPage from './pages/RecommendPage'
 import SignUp from './pages/users/SignUp';
 import SignIn from './pages/users/SignIn';
 
-const useStyles = makeStyles((theme) => ({
-  contents: {
-    width: 'calc(100% - 272px)',
-    display: 'flex',
-    marginLeft: '256px',
-    margin: theme.spacing(2),
-  }
-}));
+import { appjs } from './css/useStyles';
 
 function App() {
-  const styles = useStyles();
+  const styles = appjs();
 
   return (
-    <Router>
-      <AppSideDrawer></AppSideDrawer>
-      <Card variant="outlined" className={styles.contents} id="back-to-top-anchor">
-        <Switch>
-          <Route path="/" exact render={() => <MainReduxContainer />} />
-          <Route path="/intro" exact component={Landing} />
-          <Route path="/" exact render={() => <MainPage />} />
-          <Route path="/clothesregister" exact component={ClothesRegister} />
-          <Route path="/recommend" exact component={RecommendPage} />
-          <Route path="/closet" exact component={Closet} />
-          <Route path="/clothesdetail" exact component={ClothesDetail} />
+    <div className={styles.background}>
+      <Router>
+        <AppSideDrawer></AppSideDrawer>
+        <div className={styles.contents} id="back-to-top-anchor">
+          <Switch>
+            <Route path="/" exact render={() => <MainReduxContainer />} />
+            <Route path="/intro" exact component={Landing} />
+            <Route path="/" exact render={() => <MainPage />} />
+            <Route path="/clothesregister" exact component={ClothesRegister} />
+            <Route path="/recommend" exact component={RecommendPage} />
+            <Route path="/closet" exact component={Closet} />
+            <Route path="/clothesdetail" exact component={ClothesDetail} />
 
-          <Route path="/signup" exact component={SignUp} />
-          <Route path="/signin" exact component={SignIn} />
+            <Route path="/signup" exact component={SignUp} />
+            <Route path="/signin" exact component={SignIn} />
 
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </Card>
-    </Router>
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </div>
+      </Router>
+    </div>
   );
 }
 
