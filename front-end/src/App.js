@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Card } from '@material-ui/core'
 import './App.css';
 
 import AppSideDrawer from './components/AppSideDrawer'
@@ -8,6 +9,7 @@ import MainReduxContainer from './store/Containers/MainReduxContainer';
 import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
+import ClothesDetail from './pages/ClothesDetail';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
 import RecommendPage from './pages/RecommendPage'
@@ -19,10 +21,10 @@ import ChoiceStylePage from './pages/ChoiceStylePage';
 
 const useStyles = makeStyles((theme) => ({
   contents: {
-    width: 'calc(100% - 240px)',
+    width: 'calc(100% - 272px)',
     display: 'flex',
-    marginLeft: '240px',
-    padding: theme.spacing(3),
+    marginLeft: '256px',
+    margin: theme.spacing(2),
   }
 }));
 
@@ -32,7 +34,7 @@ function App() {
   return (
     <Router>
       <AppSideDrawer></AppSideDrawer>
-      <div className={styles.contents}>
+      <Card variant="outlined" className={styles.contents} id="back-to-top-anchor">
         <Switch>
           <Route path="/" exact render={() => <MainReduxContainer />} />
           <Route path="/intro" exact component={Landing} />
@@ -40,6 +42,7 @@ function App() {
           <Route path="/clothesregister" exact component={ClothesRegister} />
           <Route path="/recommend" exact component={RecommendPage} />
           <Route path="/closet" exact component={Closet} />
+          <Route path="/clothesdetail:clothes_id" component={ClothesDetail} />
 
           <Route path="/signup" exact component={SignUp} />
           <Route path="/signin" exact component={SignIn} />
@@ -47,7 +50,7 @@ function App() {
           <Route path="/choicestyle" exact component={ChoiceStylePage} />
           <Route path="*" component={NotFound} />
         </Switch>
-      </div>
+      </Card>
     </Router>
   );
 }

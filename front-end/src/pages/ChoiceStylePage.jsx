@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import { Card, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 import { searchClothesFunc } from '../module/searchClothesFunc';
@@ -36,12 +35,14 @@ const searchState = {
   brands: '',
   searchKeyward: '',
 }
+const numItemsPerColumn = 5;
 
 export default class ChoiceStylePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       imgTags: [],
+      choicedCount: 0,
     }
   }
 
@@ -51,7 +52,7 @@ export default class ChoiceStylePage extends PureComponent {
         let imgList = searchDataList.map((searchData, index) => {
           return (
             <div key={ index }>
-              <img src = { searchData.img } alt='' width="300" height="300"></img>
+              <img src = { searchData.img } id={searchData.id} alt='' width="300" height="300"></img>
             </div>
           )
         });
@@ -66,6 +67,7 @@ export default class ChoiceStylePage extends PureComponent {
   };
 
   componentDidMount() {
+    // 스타일 설정을 위한 이미지 받아오는 API로 차후 변경 필수
     searchClothesFunc(searchState, this.setSearchState);
   }
 
@@ -78,13 +80,23 @@ export default class ChoiceStylePage extends PureComponent {
           <br/>
           이후에 저희 서비스에서 {nickname}님께서 좋아하실 만한 옷을 추천해드리겠습니다~
         </div>
-        <Card >
-          <Grid container spacing={1}>
-            <Grid container spacing={3}>
-              {this.state.imgTags.length > 0 && this.state.imgTags}
-            </Grid>
-          </Grid>
+        <Card>
+          <CardHeader>
+            Choice Your Style
+          </CardHeader>
+          <CardContent>
+            <GridList cols={numItemsPerColumn}>
+              {this.state.imgTags.map((img, index) => (
+                <GridListTile key={index} cols={img.cols || 1}>
+                  {img}
+                </GridListTile>
+              ))}
+            </GridList>
+          </CardContent>
         </Card>
+        <div>
+          <button >좋아욧</button>
+        </div>
       </div>
     );
   };

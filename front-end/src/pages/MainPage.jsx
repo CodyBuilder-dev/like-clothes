@@ -1,8 +1,13 @@
 import React, { PureComponent } from "react";
+import { Card, Button, AppBar, Toolbar, Typography, Divider } from '@material-ui/core'
+import { pink } from '@material-ui/core/colors'
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
 import { Redirect } from 'react-router-dom';
+
+const Background = require('../components/Background.jpg')
+
 class MainPage extends PureComponent {
   constructor(props) {
     super(props);
@@ -28,9 +33,9 @@ class MainPage extends PureComponent {
     console.log(this.state);
     if (searchDataList.length > 0)
       this.setState({
-          ...this.state,
-          searchDataList: searchDataList,
-          page: 0,
+        ...this.state,
+        searchDataList: searchDataList,
+        page: 0,
       });
     else alert('검색 결과가 없습니다.');
   };
@@ -78,29 +83,26 @@ class MainPage extends PureComponent {
     // const { setUser } = this.props;
 
     return (
+      // <Card variant="outlined" style={{padding: 10}}>
       <div>
-        {console.log(this.state)}
-        <div style={{ display: "flex", }}>
-          <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
-          <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
-          <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>        
-        </div>
-
+        <AppBar position="static" style={{ backgroundImage: `url(${Background})` }}>
+          <Toolbar style={{height: 100}}>
+            <Typography variant="h6" noWrap>
+              찾아욧
+            </Typography>
+            {console.log(this.state)}
+            <div style={{ display: "flex", }}>
+              <MultipleSelect type="대분류" style={{}} setSearchFilter={this.setSearchFilter} />
+              <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
+              <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>
+            </div>
+          </Toolbar>
+        </AppBar>
         { this.state.searchDataList.length > 0 &&
           <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId}/>
         }
-
         {/* 선택된 이미지 누르면 id를 전달함과 함께  */}
-        {this.state.choicedImgId !== -1 && <Redirect to={`clothesdetail/${this.state.choicedImgId}`}/>}
-        
-        {/* <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
-        <br/>
-        내 이름: {this.props.userName}
-        <br/>
-        내 이메일: {this.props.userEmail}
-        <br/> */}
-
-        
+        {this.state.choicedImgId !== -1 && <Redirect to={`clothesdetail/?clothes_id=${this.state.choicedImgId}`}/>}
       </div>
     )
   };

@@ -2,7 +2,8 @@ import React from 'react';
 import { PureComponent } from 'react';
 import { Card, Grid, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
 
-let numOfAPage = 40, page, numItemsPerColumn = 4, tempList = [];
+let numOfAPage = 40, page, numItemsPerColumn = 6, tempList = [];
+let cols = [3, 1, 2, 1, 1, 2, 1, 1, 2, 1, 3];
 
 export default class InfiniteScrollContainer extends PureComponent {
   constructor(props) {
@@ -60,9 +61,9 @@ export default class InfiniteScrollContainer extends PureComponent {
             Hello
           </CardHeader>
           <CardContent>
-            <GridList cols={numItemsPerColumn}>
-              {this.state.imageList.map((image) => (
-                <GridListTile key={image} cols={image.cols || 1}>
+            <GridList cellHeight={225} cols={numItemsPerColumn} style={{width: '100%'}}>
+              {this.state.imageList.map((image, index) => (
+                <GridListTile key={image} cols={cols[index % 11]}>
                   {image}
                 </GridListTile>
               ))}

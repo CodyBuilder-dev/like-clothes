@@ -23,11 +23,7 @@ export default function ImageGridList() {
 
   useEffect(() => {
     // let url = 'http://i02a401.p.ssafy.io:8000/clothes/mycloset?user_email=123%40gmail.com';
-    let url = 'http://52.78.119.248:5000/ai-server/recommand/clothes-feature'
-    // axios.get(url).then((res) => {
-    //   setImageData(res.data);
-    //   console.log(res.data[0].img);
-    // });
+    let url = 'http://52.78.119.248:5000/ai-server/recommand/clothes-feature';
     axios.post(url, {
       "img_url": "//image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg"
     }).then((res) => {
