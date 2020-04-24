@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
-
+import { Redirect } from 'react-router-dom';
 class MainPage extends PureComponent {
   constructor(props) {
     super(props);
@@ -16,6 +16,7 @@ class MainPage extends PureComponent {
       searchKeyward: '',
       searchDataList: [],
       page: 0,
+      choicedImgId: -1,
     };
   }
 
@@ -59,6 +60,13 @@ class MainPage extends PureComponent {
     }
   }
 
+  setChoicedImgId = (clothes_id) => {
+    this.setState({
+      ...this.state,
+      choicedImgId: clothes_id,
+    });
+  }
+
   nextPage = () => {
     this.setState({
       ...this.state,
@@ -79,15 +87,19 @@ class MainPage extends PureComponent {
         </div>
 
         { this.state.searchDataList.length > 0 &&
-          <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage}/>
+          <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId}/>
         }
 
+        {/* 선택된 이미지 누르면 id를 전달함과 함께  */}
+        {this.state.choicedImgId !== -1 && <Redirect to={`clothesdetail/${this.state.choicedImgId}`}/>}
+        
         {/* <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
         <br/>
         내 이름: {this.props.userName}
         <br/>
         내 이메일: {this.props.userEmail}
         <br/> */}
+
         
       </div>
     )

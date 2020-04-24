@@ -29,11 +29,12 @@ export default class InfiniteScrollContainer extends PureComponent {
   };
 
   initPage = () => {
-    tempList = [];
     page = 0;
-    this.props.dataList.forEach((data, index) => {
-      tempList.push(
-        <img src={data.img} alt='' width="200" height="200"></img>
+    tempList = this.props.dataList.map((data, index) => {
+      return (
+        <div key={index}>
+          <img src={data.img} alt='' width="200" height="200" onClick={() => this.props.setChoicedImgId(data.clothes_id) }></img>
+        </div>
       )
     });
     this.setState({ ...this.state, isLoading: false, imageList: tempList.slice(0, numOfAPage * ++page) });
