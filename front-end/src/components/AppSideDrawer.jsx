@@ -1,67 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
-// import { Link as RouterLink } from 'react-router-dom'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
 import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
 import ScrollToTopButton from '../components/ScrollToTopButton'
+import { appsidedrawerjsx } from '../css/useStyles'
 
-const drawerWidth = 240;
 const Logo = require('./Logo3.png')
-const Background = require('./Background.jpg')
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    width: `${drawerWidth}px`,
-    flexShrink: 0,
-    textAlign: 'center',
-    padding: theme.spacing(1),
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-  },
-  backImage: {
-    backgroundImage: `url(${Background})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
-  },
-  content: {
-    height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.45)',
-    padding: theme.spacing(0),
-  },
-  cardContent1: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)'
-  },
-  cardContent2: {
-    backgroundColor: 'rgba(255, 255, 255, 0)'
-  },
-  button: {
-    width: '100%',
-    height: '45px',
-    fontSize: '15px',
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    opacity: 0.9
-  },
-  buttonLogout: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    height: '37px',
-    fontSize: '15px',
-    opacity: 0.9
-  },
-  listContent: {
-    width: '100%',
-    height: '45px',
-    fontSize: '15px',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    opacity: 0.9
-  },
-}));
 
 export default function SearchAppBar() {
-  const styles = useStyles();
+  const styles = appsidedrawerjsx();
   const user = localStorage.isAuthenticated;
 
   return (
