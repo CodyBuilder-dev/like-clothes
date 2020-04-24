@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button, TextField, RadioGroup, Radio, Popover,
   FormControlLabel, FormLabel, FormHelperText } from '@material-ui/core';
 import DaumPostcode from 'react-daum-postcode';
@@ -23,6 +23,7 @@ const SignUpForm = ({
   onSubmit,
   onChange,
   onAddrChange,
+  onImgChange,
   errors,
   user,
 }) => {
@@ -51,8 +52,12 @@ const SignUpForm = ({
     <div className={classes.root}>
       <h1>회원가입</h1>
 
-      <div style={{width: '96%', marginLeft: '2%'}}><form onSubmit={onSubmit}>
-        <div style={{marginTop: '20px'}}><TextField
+      <div style={{width: '96%', marginLeft: '2%'}}><form onSubmit={onSubmit} encType='multipart/form-data'>
+        
+        <div style={{marginTop: '20px'}}>
+          <input type='file' name='profile_img' onChange={onImgChange}></input>
+        </div>
+        <div style={{marginTop: '2px'}}><TextField
           type='text' name='email' label='E-mail' value={user.email} fullWidth='true'
           onChange={onChange} errorText={errors.email}
         /></div>
