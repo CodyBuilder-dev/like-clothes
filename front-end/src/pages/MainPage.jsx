@@ -1,8 +1,11 @@
 import React, { PureComponent } from "react";
-import { Card } from '@material-ui/core'
+import { Card, Button, AppBar, Toolbar, Typography, Divider } from '@material-ui/core'
+import { pink } from '@material-ui/core/colors'
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
+
+const Background = require('../components/Background.jpg')
 
 class MainPage extends PureComponent {
   constructor(props) {
@@ -71,18 +74,25 @@ class MainPage extends PureComponent {
     // const { setUser } = this.props;
 
     return (
-      <Card variant="outlined" style={{padding: 10}}>
-        {console.log(this.state)}
-        <div style={{ display: "flex", }}>
-          <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
-          <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
-          <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>
-        </div>
-
+      // <Card variant="outlined" style={{padding: 10}}>
+      <div>
+        <AppBar position="static" style={{ backgroundImage: `url(${Background})` }}>
+          <Toolbar style={{height: 100}}>
+            <Typography variant="h6" noWrap>
+              찾아욧
+            </Typography>
+            {console.log(this.state)}
+            <div style={{ display: "flex", }}>
+              <MultipleSelect type="대분류" style={{}} setSearchFilter={this.setSearchFilter} />
+              <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
+              <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>
+            </div>
+          </Toolbar>
+        </AppBar>
         {this.state.searchDataList.length > 0 &&
           <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} />
         }
-      </Card>
+      </div>
     )
   };
 };
