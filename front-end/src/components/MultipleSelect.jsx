@@ -61,9 +61,23 @@ export default function MultipleSelect(props) {
       case '소분류':
         return names.minors;
       default:
-        return [{ key: 0, text: '오류', value: '오류' }];
+        return [];
     }
   };
+
+  const decodeTypeKorToEng = (type) => {
+    switch (type) {
+      case '대분류':
+        return 'majors';
+      case '중분류':
+        return 'middles';
+      case '소분류':
+        return 'minors';
+      default:
+        return '';
+    }
+  }
+
   const handleChange = (event) => (
     new Promise((resolve, reject) => {
       if (event.target.value) {
@@ -73,7 +87,7 @@ export default function MultipleSelect(props) {
       else reject('error : event.target.value');
     })
   ).then((res) => {
-    setSearchFilter(type, res); // 이름을 추가
+    setSearchFilter({type: decodeTypeKorToEng(type), filterList: res}); // 이름을 추가
   }).catch((err) => { alert(err) });
 
   return (

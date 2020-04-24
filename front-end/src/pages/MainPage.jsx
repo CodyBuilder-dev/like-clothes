@@ -4,7 +4,7 @@ import { pink } from '@material-ui/core/colors'
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
-import { Redirect } from 'react-router-dom';
+import SearchInput from '../components/SearchInput';
 
 const Background = require('../components/Background.jpg')
 
@@ -18,7 +18,6 @@ class MainPage extends PureComponent {
       middles: [],
       minors: [],
       brands: '',
-      searchKeyward: '',
       searchDataList: [],
       page: 0,
       choicedImgId: -1,
@@ -40,29 +39,11 @@ class MainPage extends PureComponent {
     else alert('검색 결과가 없습니다.');
   };
 
-  setSearchFilter = (type, filterList) => {
-    switch (type) {
-      case '대분류':
-        this.setState({
-          ...this.state,
-          majors: filterList,
-        });
-        break;
-      case '중분류':
-        this.setState({
-          ...this.state,
-          middles: filterList,
-        });
-        break;
-      case '소분류':
-        this.setState({
-          ...this.state,
-          minors: filterList,
-        });
-        break;
-      default:
-        alert('타입 선택 에러!');
-    }
+  setSearchFilter = ({type, filterList}) => {
+    this.setState({
+      ...this.state,
+      [type]: filterList,
+    });
   }
 
   setChoicedImgId = (clothes_id) => {
@@ -81,7 +62,6 @@ class MainPage extends PureComponent {
 
   render() {
     // const { setUser } = this.props;
-
     return (
       // <Card variant="outlined" style={{padding: 10}}>
       <div>
@@ -94,6 +74,9 @@ class MainPage extends PureComponent {
             <div style={{ display: "flex", }}>
               <MultipleSelect type="대분류" style={{}} setSearchFilter={this.setSearchFilter} />
               <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="태그" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="상품 이름" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="브랜드" setSearchFilter={this.setSearchFilter} />
               <button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>제출</button>
             </div>
           </Toolbar>
@@ -101,8 +84,6 @@ class MainPage extends PureComponent {
         { this.state.searchDataList.length > 0 &&
           <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId}/>
         }
-        {/* 선택된 이미지 누르면 id를 전달함과 함께  */}
-        {this.state.choicedImgId !== -1 && <Redirect to={`clothesdetail/?clothes_id=${this.state.choicedImgId}`}/>}
       </div>
     )
   };
