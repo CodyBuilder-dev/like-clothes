@@ -1,8 +1,6 @@
 import React from 'react';
-import { Drawer, AppBar, CssBaseline, Toolbar, List, Typography, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Divider, ListItemIcon, ListItemText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { Menu, Search, MoveToInbox, Mail } from '@material-ui/icons';
-import ScrollToTopButton from './ScrollToTopButton'
 
 const drawerWidth = 240;
 
@@ -37,7 +35,6 @@ export default function SearchAppBar(props) {
 
   return (
     <div className={styles.root}>
-      <CssBaseline />
       <AppBar position="static" className={styles.appBar}>
         <Toolbar id="back-to-top-anchor">
           <Typography variant="h6" noWrap>
@@ -45,7 +42,6 @@ export default function SearchAppBar(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <ScrollToTopButton></ScrollToTopButton>
     </div>
   );
 }
