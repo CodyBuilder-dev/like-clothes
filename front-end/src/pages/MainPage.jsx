@@ -20,7 +20,6 @@ class MainPage extends PureComponent {
       brands: '',
       searchDataList: [],
       page: 0,
-      choicedImgId: -1,
     };
   }
 
@@ -46,13 +45,6 @@ class MainPage extends PureComponent {
     });
   }
 
-  setChoicedImgId = (clothes_id) => {
-    this.setState({
-      ...this.state,
-      choicedImgId: clothes_id,
-    });
-  }
-
   nextPage = () => {
     this.setState({
       ...this.state,
@@ -65,12 +57,12 @@ class MainPage extends PureComponent {
     return (
       // <Card variant="outlined" style={{padding: 10}}>
       <div>
+        {console.log(this.state)}
         <AppBar position="static" style={{ backgroundImage: `url(${Background})` }}>
           <Toolbar style={{height: 100}}>
             <Typography variant="h6" noWrap>
               찾아욧
             </Typography>
-            {console.log(this.state)}
             <div style={{ display: "flex", }}>
               <MultipleSelect type="대분류" style={{}} setSearchFilter={this.setSearchFilter} />
               <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />

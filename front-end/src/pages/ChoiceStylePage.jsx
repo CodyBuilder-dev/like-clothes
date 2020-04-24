@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import { Card, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
-import { searchClothesFunc } from '../module/searchClothesFunc';
+import { Redirect, Link } from 'react-router-dom';
+import { searchClothesRandom } from '../module/searchClothesRandom';
 
 const styleSet = makeStyles((theme) => ({
   root: {
@@ -26,23 +27,18 @@ const styleSet = makeStyles((theme) => ({
 }));
 
 const nickname = localStorage.nickname;
-const searchState = {
-  tags: '',
-  name: '',
-  majors: [],
-  middles: [],
-  minors: [],
-  brands: '',
-  searchKeyward: '',
-}
-const numItemsPerColumn = 5;
+
+const numItemsPerColumn = 5, maxNumOfChoicedImage = 5, maxNumOfDepth = 1;
+let numOfChoicedImage = 0, numOfDepth = 0;
 
 export default class ChoiceStylePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       imgTags: [],
-      choicedCount: 0,
+      choicedItemObject: {},
+      canPush: false,
+      isSuccess: false,
     }
   }
 
@@ -52,7 +48,7 @@ export default class ChoiceStylePage extends PureComponent {
         let imgList = searchDataList.map((searchData, index) => {
           return (
             <div key={ index }>
-              <img src = { searchData.img } id={searchData.id} alt='' width="300" height="300"></img>
+              <img src = { searchData.img } id={searchData.id} alt='' width="300" height="300" onClick={() => this.handleChoicedClothesId(searchData.id)}></img>
             </div>
           )
         });
@@ -61,18 +57,61 @@ export default class ChoiceStylePage extends PureComponent {
       else reject('error : 검색 결과가 없습니다.');
     }).then((res) => {
       this.setState({
+        ...this.state,
         imgTags: res,
       });
     }).catch((err) => {alert(err)});
   };
+  handleChoicedClothesId = (img_id) => {
+    const nextChoicedItemObject = this.state.choicedItemObject;
+    if (!!this.state.choicedItemObject[img_id]) {
+      numOfChoicedImage--;
+      delete nextChoicedItemObject[img_id];
+      
+      this.setState({ choicedItemObject: nextChoicedItemObject, canPush: numOfChoicedImage >= 1, });
+      console.log(this.state);
+    }
+    else if (numOfChoicedImage < maxNumOfChoicedImage ) {
+      numOfChoicedImage++;
+      nextChoicedItemObject[img_id] = img_id;
+
+      this.setState({ choicedItemObject: nextChoicedItemObject, canPush: true, });
+    }
+    else {
+      alert('너무 많이 골랐쪄 뿌잉');
+    }
+  }
+  handleChoice = () => {
+    // backend에 고른 옷 인덱스 보내는 api 구현
+    if (++numOfDepth == maxNumOfDepth) {
+      this.setState({ isSuccess: true, });
+    }
+    else {
+      numOfChoicedImage = 0;
+      this.setState({ choicedItemObject: {}, });
+      searchClothesRandom(this.setSearchState);
+    }
+  }
+  handleDisabled = () => {
+    return numOfChoicedImage;
+  }
+  
+  goMainPage = () => {
+    alert('모두 선택하셨어욧! Main 페이지로 이동합니다.');
+    return (
+      <Redirect to="/" />
+    );
+  }
 
   componentDidMount() {
     // 스타일 설정을 위한 이미지 받아오는 API로 차후 변경 필수
-    searchClothesFunc(searchState, this.setSearchState);
+    searchClothesRandom(this.setSearchState);
   }
-
+  shouldComponentUpdate(newProps, newState) {
+    return this.state !== newState;
+  }
   render() {
-    // const styles = styleSet();
+    let success = this.state.isSuccess;
     return (
       <div>
         <div>
@@ -95,8 +134,10 @@ export default class ChoiceStylePage extends PureComponent {
           </CardContent>
         </Card>
         <div>
-          <button >좋아욧</button>
+          <button disabled={!this.state.canPush} onClick={this.handleChoice}>좋아욧</button>
         </div>
+        
+        { success && this.goMainPage() }
       </div>
     );
   };
