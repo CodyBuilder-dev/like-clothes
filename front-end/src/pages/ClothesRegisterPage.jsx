@@ -12,6 +12,7 @@ function ClothesRegister() {
 
   const handleFileInput = e => {
     let file = e.target.files;
+    // console.log(file,'file')
     let fileindex = Object.keys(file);
 
     fileindex.map((i) => {

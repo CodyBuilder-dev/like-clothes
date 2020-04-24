@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
+// import ReactUIDropdown from 'react-ui-dropdown';
 import axios from 'axios';
 
 // semantic-ui-react Dropdown Css
@@ -10,6 +11,7 @@ styleLink.rel = "stylesheet";
 styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
 
+const baseUrl = process.env.REACT_APP_URL
 
 function Closet() {
   // 유저의 팔로 리스트 서버에서 받아오기
@@ -18,35 +20,48 @@ function Closet() {
   const [ followingRes, setFollowingRes ] = useState([]);
 
   useEffect(() => {
-    let follow = ['follower-user', 'following-user', 'follower_edmail', 'following_email']
+    var comment1 = ['follower-user', 'following-user']
     for (let i=0; i<2; i++){
-      let url = `http://i02a401.p.ssafy.io:8000/user/${follow[i]}`;
-      axios.get(url, {'headers': {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjEyM0BnbWFpbC5jb20iLCJpYXQiOjE1ODc0NTQ3NzMsImV4cCI6MTU4NzQ2MTk3M30.uqORKirVsgHeosmtdGJoCwScgxiPjXeB6ceZAjfXK8g'}})
+      let url = `${baseUrl}/user/${comment1[i]}`;
+      console.log(localStorage.token, '토큰')
+      axios.get(url, {'headers': {'Authorization': localStorage.token}})
       .then((res) => {
         const followList = res.data;
-        // const followList = [{ key: 1, value: 2, flag: 3, text: 4 }, { key: 1, value: 2, flag: 3, text: 4 }];
-        console.log(followList)
+        console.log(followList, '팔로워리스트')
         followList.forEach((follow) => {
-          const followKey = follow.follow[i+2]
-          const followImage = follow.profile_img;
-          const followNickname = follow.nickname;
-          let data = { key: followKey, value: followKey, flag: followImage, text: followNickname }
-          if (i === 0) {
+          if (follow.following_email === localStorage.email) { 
+            // 나를 팔로우한 유저가 저장 === 내 팔로워
+            const followKey = follow.follower_email;
+            const followImage = follow.profile_img;
+            console.log(followImage)
+            const followNickname = follow.nickname;
+            let data = { key: followKey, value: followKey, flag: followImage, text: followNickname }
             setFollowerRes(followerRes => [...followerRes, data])
-          }
-          else {
+          } else {
+            // 내가 팔로우한 유저가 저장 === 내 팔로잉
+            const followKey = follow.following_email;
+            const followImage = follow.profile_img;
+            const followNickname = follow.nickname;
+            let data = { key: followKey, value: followKey, flag: followImage, text: followNickname }
             setFollowingRes(followingRes => [...followingRes, data])
           }
         });
       });
     }
   }, []);
-  console.log(followerRes, followingRes, 'state?')
+  console.log(followerRes, 'wer')
+  console.log(followingRes, 'wing')
+
 
   // 드롭다운 팔로 선택 시 선택된 유저 옷장으로 이동
   const DropdownOnClick = (e) => {
     let target = e.target.innerText;
     setRouteTarget(target);
+  }
+
+  const [ changeText, setChangeText ] = useState('');
+  const DropdownOnClose = () => {
+    setChangeText('')
   }
 
   // 옷장 소개 수정 - 내 옷장인지 확인 필요
@@ -91,11 +106,21 @@ function Closet() {
     )
   }
   
+  const handleDropdownChange = (selectedItems) => {
+    console.log(selectedItems);
+  }
+
   // 팔로우 버튼 - 내 옷장 아닌지 확인 필요
   const handleFollowClick = (e) => {
 
   }
-  
+  const data = [
+    {
+      id: 100,
+      title: 'centaur',
+      image: 'http://i02a401.p.ssafy.io/api/image/profile_default.png'
+    }
+  ]
 
   return (
     <div className="myCloset">
@@ -122,21 +147,28 @@ function Closet() {
           <span className="followingCnt">35</span>
         </div>
       </div>
+      {/* <ReactUIDropdown
+        label='Myth animals'
+        initialItems={data}
+        onChange={handleDropdownChange} /> */}
       <Dropdown
         scrolling={true}
         search
         selection
         options={followerRes}
-        onChange={DropdownOnClick}
+        onSearchChange={DropdownOnClick}
+        // onClose={DropdownOnClose}
+        // text={changeText}
       ></Dropdown>
       <Dropdown
         scrolling={true}
         search
         selection
         options={followingRes}
-        onChange={DropdownOnClick}
+        onSearchChange={DropdownOnClick}
+        // onClose={DropdownOnClose}
+        // text={changeText}
       ></Dropdown>
-
       {routeTarget !== 'closet' && <Redirect to={routeTarget}></Redirect>}
 
       <div className="closet">
@@ -165,7 +197,7 @@ function Closet() {
           </div>
         </div>
         <div className="clothesWrite">
-          <Link to="/clothesresister"><button>새 옷</button></Link>
+          <Link to="/clothesregister"><button>새 옷</button></Link>
         </div>
       </div>
 

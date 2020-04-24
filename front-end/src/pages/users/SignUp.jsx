@@ -23,15 +23,37 @@ class SignUp extends Component {
         phone: "",
         birth: "",
         gender: "",
-        description: ""
+        profile_img : ""
       },
-      isSuccess: false
+      isSuccess: false,
+      fileState: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.submitSignup = this.submitSignup.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleAddress = this.handleAddress.bind(this);
+    this.handleImg = this.handleImg.bind(this);
+  }
+
+  handleImg(e) {
+    let file = e.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(file[0])
+    this.setState({
+      ...this.state,
+      fileState: file[0]
+    })
+
+    reader.onloadend = () => {
+      const base64 = reader.result.toString();
+      const user = this.state.user;
+      user["profile_img"] = base64
+      this.setState({
+        ...this.state,
+        user
+      });
+    }
   }
 
   handleAddress(data) {
@@ -67,16 +89,38 @@ class SignUp extends Component {
   }
 
   submitSignup(params) {
+    console.log(params, 'params')
+    const formData = new FormData();
+    formData.append('email', params.email);
+    formData.append('password', params.password);
+    formData.append('name', params.name);
+    formData.append('nickname', params.nickname);
+    formData.append('address', params.address);
+    formData.append('phone_num', params.phone_num);
+    formData.append('birth', params.birth);
+    formData.append('gender', params.gender);
+    formData.append('profile_img', params.profile_img);
+    console.log(formData, 'formdata')
+
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
     axios
       .post(baseUrl + "/user/signup/", params)
       .then(res => {
         if (res.data.state === 'success') {
+          console.log(res)
           localStorage.token = res.data.user.accessToken;
           localStorage.isAuthenticated = true;
-          this.setState({isSuccess:true});
+          // this.setState({isSuccess:true});
+        } else if (res.data.err === "User email already exist") {
+          alert('이메일 중복')
         } else {
+          console.log(res)
           alert('회원가입 실패')
-          window.location.href = '/signup'
+          // window.location.href = '/signup'
           this.setState({
             isSuccess: false
           });
@@ -94,20 +138,11 @@ class SignUp extends Component {
       this.setState({
         errors: {}
       });
-      var user = {
-        email: this.state.user.email,
-        password: this.state.user.password,
-        name: this.state.user.name,
-        nickname: this.state.user.nickname,
-        address: this.state.user.address,
-        phone_num: this.state.user.phone,
-        age: this.state.user.birth,
-        gender: this.state.user.gender,
-        description: ''
-      };
-      this.submitSignup(user);
+      this.submitSignup(this.state.user);
     } else {
       const error = payload.errors;
+      console.log(error,'error')
+      console.log(this.state.user, 'user')
       this.setState({
         errors: error
       });
@@ -122,6 +157,7 @@ class SignUp extends Component {
             onSubmit={this.validateForm}
             onChange={this.handleChange}
             onAddrChange={this.handleAddress}
+            onImgChange={this.handleImg}
             errors={this.state.errors}
             user={this.state.user}
             isSuccess={this.state.isSuccess}
