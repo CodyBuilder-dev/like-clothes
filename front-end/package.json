@@ -20,7 +20,6 @@
     "react-scripts": "3.4.1",
     "react-search": "^2.1.1",
     "react-text-mask": "^5.4.3",
-    "react-ui-dropdown": "^0.3.4",
     "redux": "^4.0.5",
     "semantic-ui-react": "^0.88.2",
     "validator": "^13.0.0",

@@ -107,3 +107,27 @@ export const choicestylejsx = theme => ({
     padding: theme.spacing(2, 4, 3),
   },
 });
+
+export const closetjsx = makeStyles((theme) => ({
+  root: {
+    fontFamily: 'Arita-dotum-Medium',
+    flexGrow: 1,
+    padding: theme.spacing(2)
+  },
+  editBtn: {
+    marginLeft: '5px',
+    width: '17px',
+    height: '17px',
+  },
+  closetIntro: {
+    margin: '0 15px',
+  },
+  closetIntroContent: {
+    height: '50px',
+    margin: '5px 0 20px 0',
+  },
+  followDrop: {
+    marginLeft: '10px',
+    // position: 'absolute',
+  }
+}));

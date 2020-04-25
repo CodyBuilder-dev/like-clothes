@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
+import search from '../module/searchClothesFunc'
 const axios = require('axios');
-
-// import '../css/ClothesResisterPage.css';
 
 class SearchClothes extends Component {
   constructor(props) {
