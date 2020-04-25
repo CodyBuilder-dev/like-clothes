@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Grid, Card, Box, Button, Select, MenuItem } from '@material-ui/core';
+import { Grid, Card, Box, Button, Select, MenuItem, TextField } from '@material-ui/core';
 import { Edit, FavoriteBorder } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
 
-export default function Closet() {
+export default function Closet({ history }) {
   const styles = closetjsx();
 
   // 유저의 팔로 리스트 서버에서 받아오기
@@ -22,6 +22,7 @@ export default function Closet() {
       console.log(localStorage.token, '토큰')
       axios.get(url, {'headers': {'Authorization': localStorage.token}})
       .then((res) => {
+        console.log(res,'res.data')
         const followList = res.data;
         followList.forEach((follow) => {
           if (follow.following_email === localStorage.email) { 
@@ -85,9 +86,13 @@ export default function Closet() {
     }
 
     return (
-      <div>
-        <input type="text" value={editIntro} autoFocus
-          onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></input>
+      <div className={styles.closetIntro}>
+        <span>옷장 소개</span>
+        <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>
+        <Card className={styles.closetIntroContent}>
+        <TextField type="text" value={editIntro} autoFocus fullWidth='true' variant="outlined"
+          onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
+        </Card>
       </div>
     )
   }

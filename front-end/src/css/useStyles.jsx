@@ -112,10 +112,11 @@ export const closetjsx = makeStyles((theme) => ({
     margin: '0 15px',
   },
   closetIntroContent: {
-    marginTop: '5px',
+    height: '50px',
+    margin: '5px 0 20px 0',
   },
   followDrop: {
     marginLeft: '10px',
     // position: 'absolute',
   }
-}))
+}));
