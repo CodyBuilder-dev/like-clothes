@@ -1,37 +1,31 @@
 import React, { PureComponent } from 'react';
-import { Card, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
-import { Redirect, Link } from 'react-router-dom';
+import { Card, GridList, GridListTile, CardHeader, CardContent, Modal, Paper, Container } from '@material-ui/core';
 import { searchClothesRandom } from '../module/searchClothesRandom';
+import { withStyles } from '@material-ui/core/styles';
+import { choicestylejsx } from '../css/useStyles';
+import '../css/InfiniteScrollContainer.css';
 
-const styleSet = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-  },
-  table: {
-    minWidth: 400,
-  },
-  button: {
-    minWidth: 200,
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
-  },
-}));
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const nickname = localStorage.nickname;
 
-const numItemsPerColumn = 5, maxNumOfChoicedImage = 5, maxNumOfDepth = 1;
+const numItemsPerColumn = 3, maxNumOfChoicedImage = 5, maxNumOfDepth = 1;
 let numOfChoicedImage = 0, numOfDepth = 0;
 
-export default class ChoiceStylePage extends PureComponent {
+class ChoiceStylePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +33,7 @@ export default class ChoiceStylePage extends PureComponent {
       choicedItemObject: {},
       canPush: false,
       isSuccess: false,
+      open: false,
     }
   }
 
@@ -48,7 +43,8 @@ export default class ChoiceStylePage extends PureComponent {
         let imgList = searchDataList.map((searchData, index) => {
           return (
             <div key={ index }>
-              <img src = { searchData.img } id={searchData.id} alt='' width="300" height="300" onClick={() => this.handleChoicedClothesId(searchData.id)}></img>
+              <img src = { searchData.img } id={searchData.id} className={this.props.classes.image} ></img>
+              <div class='overlay' onClick={() => this.handleChoicedClothesId(searchData.id)}></div>
             </div>
           )
         });
@@ -69,7 +65,6 @@ export default class ChoiceStylePage extends PureComponent {
       delete nextChoicedItemObject[img_id];
       
       this.setState({ choicedItemObject: nextChoicedItemObject, canPush: numOfChoicedImage >= 1, });
-      console.log(this.state);
     }
     else if (numOfChoicedImage < maxNumOfChoicedImage ) {
       numOfChoicedImage++;
@@ -84,7 +79,7 @@ export default class ChoiceStylePage extends PureComponent {
   handleChoice = () => {
     // backend에 고른 옷 인덱스 보내는 api 구현
     if (++numOfDepth == maxNumOfDepth) {
-      this.setState({ isSuccess: true, });
+      this.setState({ open: true, });
     }
     else {
       numOfChoicedImage = 0;
@@ -95,50 +90,54 @@ export default class ChoiceStylePage extends PureComponent {
   handleDisabled = () => {
     return numOfChoicedImage;
   }
-  
-  goMainPage = () => {
-    alert('모두 선택하셨어욧! Main 페이지로 이동합니다.');
-    return (
-      <Redirect to="/" />
-    );
+  handleClose = () => {
+    this.setState({ open: false, } );
+    this.props.history.replace('/');
   }
-
   componentDidMount() {
-    // 스타일 설정을 위한 이미지 받아오는 API로 차후 변경 필수
     searchClothesRandom(this.setSearchState);
   }
-  shouldComponentUpdate(newProps, newState) {
-    return this.state !== newState;
-  }
+
   render() {
-    let success = this.state.isSuccess;
     return (
-      <div>
-        <div>
-          {nickname}님께서 입고 싶은 옷을 선택해주세요!
-          <br/>
-          이후에 저희 서비스에서 {nickname}님께서 좋아하실 만한 옷을 추천해드리겠습니다~
-        </div>
-        <Card>
-          <CardHeader>
-            Choice Your Style
-          </CardHeader>
-          <CardContent>
-            <GridList cols={numItemsPerColumn}>
-              {this.state.imgTags.map((img, index) => (
-                <GridListTile key={index} cols={img.cols || 1}>
-                  {img}
-                </GridListTile>
-              ))}
-            </GridList>
-          </CardContent>
-        </Card>
-        <div>
-          <button disabled={!this.state.canPush} onClick={this.handleChoice}>좋아욧</button>
-        </div>
-        
-        { success && this.goMainPage() }
+      <div style={{margin: "-30px auto 0px"}}>
+        <Paper variant="outlined" className={this.props.classes.titlearea}>
+          <span className={this.props.classes.title}>선호 스타일 선택</span>
+        </Paper>
+        <Paper>
+          <span className={this.props.classes.cardheader}> Choice Your Style!</span>
+          <Card style={{ marginTop: "4px" }}>
+            <Container className={this.props.classes.imagecontainer}>
+              <GridList style={{height:"500px", alignContent: "space-around", }} cols={numItemsPerColumn}>
+                {this.state.imgTags.map((img, index) => (
+                  <GridListTile className='container' style={{paddingLeft: "0px", textAlign:"center", }} key={index} cols={img.cols || 1}>
+                    {img}
+                  </GridListTile>
+                ))}
+              </GridList>
+            </Container>
+            <div style={{textAlign: "center", paddingBottom: "3%"}}>
+              <button disabled={!this.state.canPush} onClick={this.handleChoice}>좋아욧</button>
+            </div>
+          </Card>
+        </Paper>
+
+        <Modal
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div style={getModalStyle()} className={this.props.classes.paper}>
+            <h2 id="simple-modal-title">잘했어욧! 모두 골랐어욧!</h2>
+            <p id="simple-modal-description">
+              Main 페이지로 이동합니다.
+            </p>
+          </div>
+        </Modal>
       </div>
     );
   };
 }
+
+export default withStyles(choicestylejsx)(ChoiceStylePage);

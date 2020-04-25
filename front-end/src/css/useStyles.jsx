@@ -106,6 +106,35 @@ export const choicestylejsx = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  titlearea: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    width: "300px",
+    margin: "0 10% 3% 10%",
+    width: "80%",
+    textAlign: "center",
+  },
+  title: {
+    fontSize: "40px",
+    textAlign: "center",
+    color: "rgba(244, 165, 199, 0.9)",
+  },
+  cardheader: {
+    fontSize: "30px",
+    paddingLeft: "8px",
+    color: "rgba(244, 165, 199, 0.9)",
+  },
+  imagecontainer: {
+    margin: "0 0 3% 0",
+    textAlign: "center",
+    // opacity: "0.9",
+  },
+  image: {
+    width: "250px",
+    height: "250px",
+    opacity: "1",
+    zIndex: "10",
+  },
+
 });
 
 export const closetjsx = makeStyles((theme) => ({
