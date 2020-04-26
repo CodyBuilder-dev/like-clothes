@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { Card, GridList, GridListTile, CardHeader, CardContent, Modal, Paper, Container, Button } from '@material-ui/core';
+import React, { Component } from 'react';
+import { Card, GridList, GridListTile, Modal, Paper, Container, Button } from '@material-ui/core';
 import { searchClothesRandom } from '../module/searchClothesRandom';
 import { withStyles } from '@material-ui/core/styles';
 import { choicestylejsx } from '../css/useStyles';
@@ -10,22 +10,20 @@ function rand() {
 }
 
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
+  // const top = 50 + rand();
+  // const left = 50 + rand();
+  const top = 50;
+  const left = 50;
   return {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
-
-const nickname = localStorage.nickname;
-
 const numItemsPerColumn = 3, maxNumOfChoicedImage = 5, maxNumOfDepth = 1;
 let numOfChoicedImage = 0, numOfDepth = 0;
 
-class ChoiceStylePage extends PureComponent {
+class ChoiceStylePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,10 +40,8 @@ class ChoiceStylePage extends PureComponent {
       if (searchDataList.length > 0) {
         let imgList = searchDataList.map((searchData, index) => {
           return (
-            <div key={ index }>
-              <img src = { searchData.img } id={searchData.id} className={this.props.classes.image} ></img>
-              <div class='overlay' onClick={() => this.handleChoicedClothesId(searchData.id)}></div>
-            </div>
+            <img key={index} src = { searchData.img } id={searchData.id}
+            className={this.props.classes.image} />
           )
         });
         resolve(imgList);
@@ -68,7 +64,7 @@ class ChoiceStylePage extends PureComponent {
     }
     else if (numOfChoicedImage < maxNumOfChoicedImage ) {
       numOfChoicedImage++;
-      nextChoicedItemObject[img_id] = img_id;
+      nextChoicedItemObject[img_id] = true;
 
       this.setState({ choicedItemObject: nextChoicedItemObject, canPush: true, });
     }
@@ -84,6 +80,8 @@ class ChoiceStylePage extends PureComponent {
     else {
       numOfChoicedImage = 0;
       this.setState({ choicedItemObject: {}, });
+      // 백엔드로 골라진 이미지 보내기 API 추가.
+      
       searchClothesRandom(this.setSearchState);
     }
   }
@@ -111,7 +109,11 @@ class ChoiceStylePage extends PureComponent {
               <GridList style={{height:"500px", alignContent: "space-around", }} cols={numItemsPerColumn}>
                 {this.state.imgTags.map((img, index) => (
                   <GridListTile className='container' style={{paddingLeft: "0px", textAlign:"center", }} key={index} cols={img.cols || 1}>
-                    {img}
+                    <div>
+                      {img}
+                      <div class={!!this.state.choicedItemObject[img.props.id] ? "choiced" : "overlay"}
+                      onClick={() => this.handleChoicedClothesId(img.props.id)} />
+                    </div>
                   </GridListTile>
                 ))}
               </GridList>
@@ -125,18 +127,21 @@ class ChoiceStylePage extends PureComponent {
             </div>
           </Card>
         </Paper>
-
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
+          style={{ textAlign: "center", }}
         >
           <div style={getModalStyle()} className={this.props.classes.paper}>
-            <h2 id="simple-modal-title">잘했어욧! 모두 골랐어욧!</h2>
-            <p id="simple-modal-description">
-              Main 페이지로 이동합니다.
-            </p>
+            <h2 id="simple-modal-title">잘했어욧! 모두 골랐어욧!</h2>              
+            <Button
+            variant="contained" color="secondary"
+            disabled={!this.state.canPush} onClick={() => { this.props.history.replace("/"); }}
+            style={{ align: "center", }}>
+              Main페이지 이동
+          </Button>
           </div>
         </Modal>
       </div>
