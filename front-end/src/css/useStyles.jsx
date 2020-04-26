@@ -13,7 +13,8 @@ export const appjs = makeStyles((theme) => ({
   background: {
     backgroundImage: `url(${Background})`,
     backgroundRepeat: 'repeat-y',
-    backgroundSize: 'cover',
+    backgroundSize: '100%',
+    overflow: 'hidden',
   }
 }));
 

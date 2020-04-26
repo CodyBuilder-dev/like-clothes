@@ -40,14 +40,18 @@ export default function SearchAppBar() {
               <Card variant="outlined" className={styles.cardContent2}>
                 {/* <CardContent style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 10, paddingRight: 10 }}> */}
                 <CardContent style={{ padding: 0 }}>
-                  <Button variant="contained" size="medium" color="primary" className={styles.button} style={{ marginBottom: 5 }}>
-                    <Lock style={{ marginRight: 20 }} />
+                  <NavLink to='/signin'>
+                    <Button variant="contained" size="medium" color="primary" className={styles.button} style={{ marginBottom: 5 }}>
+                      <Lock style={{ marginRight: 20 }} />
                   Sign In
                 </Button>
-                  <Button variant="contained" size="medium" color="primary" className={styles.button}>
-                    <PersonAdd style={{ marginRight: 20 }} />
+                  </NavLink>
+                  <NavLink to='/signup'>
+                    <Button variant="contained" size="medium" color="primary" className={styles.button}>
+                      <PersonAdd style={{ marginRight: 20 }} />
                   Sign Up
                 </Button>
+                  </NavLink>
                 </CardContent>
               </Card>}
           </div>

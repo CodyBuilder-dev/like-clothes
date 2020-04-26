@@ -7,13 +7,13 @@ const boxStyle = makeStyles({
   root: {
     width: '320px', 
     textAlign: 'center',
+    justify: 'center',
     position: 'relative',
-    left: '50%',
-    transform: 'translate(-50%, 10%)',
     padding: '20px',
     backgroundColor: 'white',
     boxShadow: '0 0 20px 2px rgba(0, 0, 0, 0.4)',
-    marginBottom: '70px',
+    height: '100%',
+    overflow: 'hidden'
   },
 });
 
@@ -41,7 +41,7 @@ const SignInForm = ({
           onChange={onChange} errorText={errors.password}
         /></div>
 
-        <div style={{marginTop: '30px'}}>
+        <div>
         {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
         <Button variant='outlined' type="submit" color='primary' disabled={btnState}
         >로그인</Button>
