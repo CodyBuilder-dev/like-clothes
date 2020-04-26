@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Card, GridList, GridListTile, CardHeader, CardContent, Modal, Paper, Container } from '@material-ui/core';
+import { Card, GridList, GridListTile, CardHeader, CardContent, Modal, Paper, Container, Button } from '@material-ui/core';
 import { searchClothesRandom } from '../module/searchClothesRandom';
 import { withStyles } from '@material-ui/core/styles';
 import { choicestylejsx } from '../css/useStyles';
@@ -117,7 +117,11 @@ class ChoiceStylePage extends PureComponent {
               </GridList>
             </Container>
             <div style={{textAlign: "center", paddingBottom: "3%"}}>
-              <button disabled={!this.state.canPush} onClick={this.handleChoice}>좋아욧</button>
+            <Button
+            variant="contained" color="secondary"
+            disabled={!this.state.canPush} onClick={this.handleChoice}>
+              좋아욧
+            </Button>
             </div>
           </Card>
         </Paper>
