@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect } from 'react-router-dom';
-import Zoom from '@material-ui/core/Zoom';
+import { Card, Box, Zoom, GridList, GridListTile } from '@material-ui/core';
 import SignUpForm from "./SignUpForm";
 
 const baseUrl = process.env.REACT_APP_URL
@@ -23,7 +23,7 @@ class SignUp extends Component {
         phone: "",
         birth: "",
         gender: "",
-        profile_img : ""
+        profile_img: ""
       },
       isSuccess: false,
       fileState: '',
@@ -59,8 +59,8 @@ class SignUp extends Component {
   handleAddress(data) {
     // 지번주소와 도로명주소 매칭
     let fullAddress = data.address;
-    let extraAddress = ''; 
-    
+    let extraAddress = '';
+
     if (data.addressType === 'R') {
       if (data.bname !== '') {
         extraAddress += data.bname;
@@ -141,7 +141,7 @@ class SignUp extends Component {
       this.submitSignup(this.state.user);
     } else {
       const error = payload.errors;
-      console.log(error,'error')
+      console.log(error, 'error')
       console.log(this.state.user, 'user')
       this.setState({
         errors: error
@@ -151,20 +151,33 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
-        <Zoom in={true}>
-          <SignUpForm
-            onSubmit={this.validateForm}
-            onChange={this.handleChange}
-            onAddrChange={this.handleAddress}
-            onImgChange={this.handleImg}
-            errors={this.state.errors}
-            user={this.state.user}
-            isSuccess={this.state.isSuccess}
-          />
-        </Zoom>
-        {this.state.isSuccess && <Link to='signin'></Link>}
-      </div>
+      <Card style={{ width: "100%", height: 'calc(100vh - 112px)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
+        <Box display="flex" flexDirection="row">
+          <Box>
+            <Zoom in={true}>
+              <SignUpForm
+                onSubmit={this.validateForm}
+                onChange={this.handleChange}
+                onAddrChange={this.handleAddress}
+                onImgChange={this.handleImg}
+                errors={this.state.errors}
+                user={this.state.user}
+                isSuccess={this.state.isSuccess}
+              />
+            </Zoom>
+            {this.state.isSuccess && <Link to='signin'></Link>}
+          </Box>
+          <Box style={{ overflow: 'hidden', height: '100%' }}>
+            {/* <GridList cellHeight={225} cols={3} style={{ width: '100%' }}>
+              {this.state.imageList.map((image, index) => (
+                <GridListTile className='container' key={index} cols={cols[index % 11]}>
+                  {image}
+                </GridListTile>
+              ))}
+            </GridList> */}
+          </Box>
+        </Box>
+      </Card >
     );
   }
 }
