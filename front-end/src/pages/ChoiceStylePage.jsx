@@ -3,6 +3,7 @@ import { Card, GridList, GridListTile, Modal, Paper, Container, Button } from '@
 import { searchClothesRandom } from '../module/searchClothesRandom';
 import { withStyles } from '@material-ui/core/styles';
 import { choicestylejsx } from '../css/useStyles';
+import axios from 'axios';
 import '../css/InfiniteScrollContainer.css';
 
 function rand() {
@@ -20,7 +21,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
-const numItemsPerColumn = 3, maxNumOfChoicedImage = 5, maxNumOfDepth = 1;
+const numItemsPerColumn = 3, maxNumOfChoicedImage = 5, maxNumOfDepth = 3;
 let numOfChoicedImage = 0, numOfDepth = 0;
 
 class ChoiceStylePage extends Component {
@@ -41,7 +42,7 @@ class ChoiceStylePage extends Component {
         let imgList = searchDataList.map((searchData, index) => {
           return (
             <img key={index} src = { searchData.img } id={searchData.id}
-            className={this.props.classes.image} />
+            className={this.props.classes.image} style={{ width: "100%", height: "100%", }} />
           )
         });
         resolve(imgList);
@@ -73,7 +74,28 @@ class ChoiceStylePage extends Component {
     }
   }
   handleChoice = () => {
-    // backend에 고른 옷 인덱스 보내는 api 구현
+    const url = `${process.env.REACT_APP_URL}/clothes/record-user-clothes`;
+    const config = {
+      headers: {
+      "Content-Type": "application/json",
+      "Authorization": localStorage.token,
+      },
+    };
+
+    const params = {
+      clothes_id: Object.keys(this.state.choicedItemObject).map((key) => (
+        key
+      ))
+    }
+
+    axios.post(url, params, config)
+    .then(res => {
+      console.log('누른 데이터 전달:', res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
     if (++numOfDepth == maxNumOfDepth) {
       this.setState({ open: true, });
     }
@@ -81,7 +103,7 @@ class ChoiceStylePage extends Component {
       numOfChoicedImage = 0;
       this.setState({ choicedItemObject: {}, });
       // 백엔드로 골라진 이미지 보내기 API 추가.
-      
+
       searchClothesRandom(this.setSearchState);
     }
   }
@@ -109,7 +131,7 @@ class ChoiceStylePage extends Component {
               <GridList style={{height:"500px", alignContent: "space-around", }} cols={numItemsPerColumn}>
                 {this.state.imgTags.map((img, index) => (
                   <GridListTile className='container' style={{paddingLeft: "0px", textAlign:"center", }} key={index} cols={img.cols || 1}>
-                    <div>
+                    <div style={{ overflow: "hidden", justifyContent: "center", alignItems: "center", }}>
                       {img}
                       <div class={!!this.state.choicedItemObject[img.props.id] ? "choiced" : "overlay"}
                       onClick={() => this.handleChoicedClothesId(img.props.id)} />

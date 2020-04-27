@@ -4,6 +4,9 @@ import reducers from './reducers';
 
 export const initState = {
   loading: false,
+  authentication: {
+    isAuthenticated: !!localStorage.isAuthenticated,
+  },
   user: {
     name: 'hyunjin',
     email: 'jhjhyjin@naver.com',

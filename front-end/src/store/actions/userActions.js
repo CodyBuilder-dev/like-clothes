@@ -6,4 +6,4 @@ export const setUser = (name, email) => ({
     name: name,
     email: email,
   }, 
-})
+});
