@@ -3,7 +3,6 @@ import '../css/ClothesRegisterPage.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import SearchClothes from '../components/SearchClothes';
 import SearchInput from '../components/SearchInput';
 import MultipleSelect from '../components/MultipleSelect';
 import { searchClothesFunc } from '../module/searchClothesFunc';
@@ -173,16 +172,27 @@ function ClothesRegister() {
             </tr>
           </tbody>
         </table>
-        <div>
+        <div className="section down">
           색상 : 
-          {/* checkbox에서 name:전달될 값의 이름 value:전달될 값 */}
-          <label><input className="colorDetail" type="checkbox" id="white" value="white" />white</label>
-          <label><input className="colorDetail" type="checkbox" id="black" value="black" />black</label>
-          <label><input className="colorDetail" type="checkbox" id="red" value="red" />red</label>
-          <label><input className="colorDetail" type="checkbox" id="blue" value="blue" />blue</label>
+          <div className="checkboxContainer">
+            <label>
+              <input type="radio" name="color" value="red" className="radiobox"/>
+              <span className="ico"></span>
+            </label>
+            <label><input type="radio" name="color" value="pink" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="yellow" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="green" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="sky" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="navy" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="purple" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="white" className="radiobox" /></label>
+            <label className="chkFalse"><input type="radio" name="color" value="black" className="radiobox" /></label>
+            <label className="chkTrue"><input type="radio" name="color" value="rainbow" className="radiobox" checked="true" /></label>
+          </div>
         </div>
-        <div>
-          계절 : {selectData.season === '' ? <input type='text'></input> : <span>{selectData.season}</span> }
+        <div className="section down">
+          계절 : {(selectData.season === '') || (selectData.season === 'none') 
+          ? <input type='text'></input> : <span>{selectData.season}</span> }
         </div>
       </div>
       <div className="submitButton">

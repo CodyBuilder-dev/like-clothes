@@ -16,11 +16,11 @@ export default function Closet({ history }) {
   const [ followingRes, setFollowingRes ] = useState([]);
 
   useEffect(() => {
-    var comment1 = ['follower-user', 'following-user']
+    var comment = ['follower-user', 'following-user']
     for (let i=0; i<2; i++){
-      let url = `${baseUrl}/user/${comment1[i]}`;
+      let url = `${baseUrl}/user/${comment[i]}?user_email=ssafy35@ssafy.com`;
       console.log(localStorage.token, '토큰')
-      axios.get(url, {'headers': {'Authorization': localStorage.token}})
+      axios.get(url)
       .then((res) => {
         console.log(res,'res.data')
         const followList = res.data;
