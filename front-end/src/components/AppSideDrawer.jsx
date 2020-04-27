@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent } from '@material-ui/core'
 import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
@@ -7,9 +7,19 @@ import { appsidedrawerjsx } from '../css/useStyles'
 
 const Logo = require('./Logo3.png')
 
-export default function SearchAppBar() {
+export default function SearchAppBar(props) {
   const styles = appsidedrawerjsx();
-  const user = localStorage.isAuthenticated;
+  const user = props.authentication.isAuthenticated;
+
+  const handleLogOut = () => {
+    props.setAuthentication(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('nickname');
+    localStorage.removeItem('isAuthenticated');
+    // props.history.replace('/');
+
+  }
 
   return (
     <div className={styles.root}>
@@ -87,8 +97,10 @@ export default function SearchAppBar() {
           <Divider />
 
           {user === true &&
-            <Button variant="contained" size="medium" color="secondary" className={styles.buttonLogout} style={{ width: 'calc(100% - 16px)', marginBottom: 5, marginLeft: 8, marginRight: 8 }}
-              display="flex">
+            <Button variant="contained" size="medium" color="secondary"
+            className={styles.buttonLogout}
+            style={{ width: 'calc(100% - 16px)', marginBottom: 5, marginLeft: 8, marginRight: 8 }}
+            display="flex" onClick={() => handleLogOut()}>
               <ExitToApp style={{ marginRight: 20 }} />
               Log Out
             </Button>

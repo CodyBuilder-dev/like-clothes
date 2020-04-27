@@ -14,6 +14,8 @@ import RecommendPage from './pages/RecommendPage';
 import SignUp from './pages/users/SignUp';
 import SignIn from './pages/users/SignIn';
 import ChoiceStylePage from './pages/ChoiceStylePage';
+import AppSideDrawerContainer from './store/Containers/AppSideDrawerContainer';
+import SignInContainer from './store/Containers/SignInContainer';
 
 import { appjs } from './css/useStyles';
 
@@ -23,7 +25,7 @@ function App() {
   return (
     <div className={styles.background} id="back-to-top-anchor">
       <Router>
-        <AppSideDrawer></AppSideDrawer>
+        <AppSideDrawerContainer></AppSideDrawerContainer>
         <div className={styles.contents}>
           <Switch>
             <Route path="/" exact render={() => <MainReduxContainer />} />
@@ -36,7 +38,7 @@ function App() {
             <Route path="/choicestyle" exact component={ChoiceStylePage} />
 
             <Route path="/signup" exact component={SignUp} />
-            <Route path="/signin" exact component={SignIn} />
+            <Route path="/signin" exact component={SignInContainer} />
 
             <Route path="*" component={NotFound} />
           </Switch>
