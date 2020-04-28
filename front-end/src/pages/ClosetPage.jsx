@@ -20,13 +20,19 @@ export default function Closet(props) {
   const params = new URLSearchParams(search);
   let user_email = params.get('user_email');
   
+  const [ userClothesInfo, setUserClothesInfo ] = useState([{
+    // img: '',
+    // id: ''
+  }]);
   useEffect(() => {
     // 유저 옷장에 있는 옷들 받아오기
     const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
     axios.get(closet_url).then((res) => {
-      console.log('mycloset/user_email data:', res.data);
       // 유저 옷장으로부터 받아온 데이터를 관리하는 소스 작성 필요
-      
+      console.log('mycloset/user_email data:', res.data);
+      res.data.map((v) => {
+        setUserClothesInfo(userClothesInfo => [...userClothesInfo, {img: v.img, id: v.id}])
+      })
     });
 
     // 유저 정보 받아와 closet 페이지 갱신하기
@@ -41,8 +47,8 @@ export default function Closet(props) {
       }
       else {
         // 모달로 수정 필요?
-        alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
-        props.history.replace("/");
+        // alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
+        // props.history.replace("/");
       }
     });
 
@@ -174,11 +180,17 @@ export default function Closet(props) {
         </Grid>
       </Box>
 
-      <Card className="clothesImage">
-        <Link to={`/detail/1`}>
-          <img src="./logo192.png"></img>
-          <p>클릭시 상세페이지로 이동</p>
-        </Link>
+      <Card className="clothesImage">        
+          {console.log(userClothesInfo, '정보?')}
+          {userClothesInfo && userClothesInfo.map((v, i) => {
+            if (i > 0) {
+              return(
+                <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
+                  <img src={v.img} width="150px" height="150px"></img>
+                </Link>
+              )
+            }
+          })}
       </Card>
     </Grid>
   )

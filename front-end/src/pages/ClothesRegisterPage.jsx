@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../css/ClothesRegisterPage.css';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
 
 import SearchInput from '../components/SearchInput';
 import MultipleSelect from '../components/MultipleSelect';
@@ -16,10 +15,8 @@ import {
   TableContainer, TableHead, TableRow, InputLabel
 } from '@material-ui/core';
 
-function ClothesRegister() {
-  const baseUrl = process.env.REACT_APP_URL
-  
-  // 데이터 전송
+function ClothesRegister( {history} ) {  
+  // 최종 데이터 전송
   const [ sendData, setSendData ] = useState({
     clothes_id: '',
     description: '',
@@ -37,14 +34,14 @@ function ClothesRegister() {
   }
 
   const infoSubmitButton = () => {
-    const url = baseUrl + '/clothes/clothes-item'
+    const url = process.env.REACT_APP_URL + '/clothes/clothes-item'
     const config = { "headers": {"Authorization": localStorage.token} }
     axios.post(url, sendData, config)
     .then((res) => {
-      // console.log(res, '받은 데이터!')
+      history.block('등록을 완료했어욧! 옷장 페이지로 이동해욧')
+      history.goBack();
     })
   }
-
   
   // 유저가 직접 업로드하는 사진 로드
   const styles = clothesdetailjsx();
@@ -101,16 +98,7 @@ function ClothesRegister() {
     setPreviewURL(previewURL.splice(i, 1))
   }
 
-  // 페이지 제출 시 참고하려고 가져왔던 코드
-  // const handlePost = async () => {
-  //   const formData = new FormData();
-  //   formData.append('file', fileState.selectedFile)
-
-  //   const res = await axios.post("/api/upload", formData);
-  //   console.log(res);
-  // }
-
-  // 검색필터 가져와서 따라해보기
+  // 검색필터 가져와서 따라함
   // 검색할 목록을 가지고 있을 변수
   let searchState = {
     tags: '',
@@ -367,10 +355,8 @@ function ClothesRegister() {
               </div> */}
           </div>
 
-          {/* <NavLink to='/closet'> */}
-            <Button variant="contained" color="primary" onClick={infoSubmitButton}
+          <Button variant="contained" color="primary" onClick={infoSubmitButton}
             style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
-          {/* </NavLink> */}
         </div>
       </Box>
     </Card >
