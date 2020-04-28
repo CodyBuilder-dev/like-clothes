@@ -16,6 +16,7 @@ export const appjs = makeStyles((theme) => ({
     backgroundRepeat: 'repeat-y',
     backgroundSize: '100%',
     overflow: 'hidden',
+    minHeight: '100vh',
     fontFamily: ['-apple-system', 'GmarketSansMedium'].join(','),
   }
 }));

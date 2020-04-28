@@ -11,6 +11,9 @@ const names = {
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
+    // marginBottom: theme.spacing(3),
+    // marginRight: 20,
+
     // margin: theme.spacing(1),
     // minWidth: 120,
     // maxWidth: 120,
@@ -95,10 +98,16 @@ export default function MultipleSelect(props) {
   }).catch((err) => { alert(err) });
 
   return (
+
+    {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
+      <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
+      <Select style={{ variant: 'outlined' }}*/}
+
     <FormControl className={classes.formControl}>
       {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
       <FormLabel component='legend' style={{ color: 'white' }}>{type}</FormLabel>
       <Select style={{ backgroundColor: 'pink', width: '150px' }}
+
         labelId="demo-mutiple-name-label"
         id={type}
         multiple
