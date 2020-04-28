@@ -1,9 +1,5 @@
 import React, { PureComponent } from 'react';
-<<<<<<< front-end/src/components/SearchInput.jsx
-import { TextField } from '@material-ui/core'
-=======
 import { TextField, FormLabel } from '@material-ui/core';
->>>>>>> front-end/src/components/SearchInput.jsx
 
 const decodeTypeKorToEng = (type) => {
   switch (type) {
