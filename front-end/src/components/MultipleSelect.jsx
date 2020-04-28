@@ -98,11 +98,12 @@ export default function MultipleSelect(props) {
 
   return (
     <div>
+    <FormControl className={classes.formControl}>
+
     {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
       <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
       <Select style={{ variant: 'outlined' }}*/}
 
-    <FormControl className={classes.formControl}>
       {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
       <FormLabel component='legend' style={{ color: 'white' }}>{type}</FormLabel>
       <Select style={{ backgroundColor: 'pink', width: '150px' }}
