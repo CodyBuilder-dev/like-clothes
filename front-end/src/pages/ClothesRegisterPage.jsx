@@ -131,7 +131,7 @@ function ClothesRegister() {
   }))(TableCell);
 
   return (
-    <Card className={styles.root}>
+    <Card className={styles.roots}>
       <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 50, paddingRight: 50 }}>
         <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
           상품 등록하기

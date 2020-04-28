@@ -38,7 +38,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     tempList = this.props.dataList.map((data, index) => {
       return (
         <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>
-          <img src={data.img} width="100%" />
+          <img src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
           {/* <p class="containerTitle">{data.code_name}</p> */}
           {/* <button className='containerBtn' style={{position:'absolute'}}>상세봐욧</button> */}
@@ -63,20 +63,15 @@ export default class InfiniteScrollContainer extends PureComponent {
     return (
       <div>
         {this.props.initPage === 0 ? this.initPage() : null}
-        <Card>
-          <CardHeader>
-            Hello
-          </CardHeader>
-          <CardContent>
-            <GridList cellHeight={225} cols={numItemsPerColumn} style={{ width: '100%' }}>
-              {this.state.imageList.map((image, index) => (
-                <GridListTile className='container' key={index} cols={cols[index % 11]}>
-                  {image}
-                </GridListTile>
-              ))}
-            </GridList>
-          </CardContent>
-        </Card>
+        <CardContent>
+          <GridList cellHeight={225} cols={numItemsPerColumn} style={{}}>
+            {this.state.imageList.map((image, index) => (
+              <GridListTile className='container' key={index} cols={cols[index % 11]}>
+                {image}
+              </GridListTile>
+            ))}
+          </GridList>
+        </CardContent>
       </div>
     );
   };
