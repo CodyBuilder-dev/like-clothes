@@ -102,7 +102,7 @@ class SignIn extends Component {
               style={{
                 width: 'auto',
                 zIndex: -99,
-                marginTop: 'calc(-50vh + 112px)'
+                marginTop: 'calc(-50vh)'
               }}>
               <source src={SigninVideo2} type='video/mp4' />
             </video>

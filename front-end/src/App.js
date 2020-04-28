@@ -8,6 +8,7 @@ import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
 import ClothesDetail from './pages/ClothesDetail';
+import ClothesSubscribe from './pages/ClothesSubscribe';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
 import RecommendPage from './pages/RecommendPage';
@@ -35,6 +36,7 @@ function App() {
             <Route path="/recommend" exact component={RecommendPage} />
             <Route path="/closet" exact component={Closet} />
             <Route path="/clothesdetail" exact component={ClothesDetail} />
+            <Route path="/clothessubscribe" exact component={ClothesSubscribe}/>
             <Route path="/choicestyle" exact component={ChoiceStylePage} />
 
             <Route path="/signup" exact component={SignUp} />
