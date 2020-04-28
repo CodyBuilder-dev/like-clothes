@@ -46,11 +46,11 @@ export default function ClothesDetail(props) {
       <Box border={2} borderRadius={5} className={styles.paper}>
         구독 중인 목록
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
-          {subscribe && (subscribe.map((item) => (
+          {/* {subscribe && (subscribe.map((item) => (
             <GridListTile key={item} height="300px">
               <img src={item} height="100%" />
             </GridListTile>
-          )))}
+          )))} */}
         </GridList>
       </Box>
       <Box border={2} borderRadius={5} className={styles.paper}>

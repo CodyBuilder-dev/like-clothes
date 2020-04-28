@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { TextField } from '@material-ui/core'
 
 const decodeTypeKorToEng = (type) => {
   switch (type) {
@@ -19,12 +20,12 @@ export default class SearchInput extends PureComponent {
   }
 
   handleChange = (e) => {
-    this.props.setSearchFilter({type: decodeTypeKorToEng(this.props.type), filterList: e.target.value})
+    this.props.setSearchFilter({ type: decodeTypeKorToEng(this.props.type), filterList: e.target.value })
   }
 
   render() {
     return (
-        <input type="text" placeholder={this.props.type} onChange={this.handleChange} />
+      <TextField type="text" placeholder={this.props.type} onChange={this.handleChange} style={{ marginRight: 20 }} />
     );
   }
 }

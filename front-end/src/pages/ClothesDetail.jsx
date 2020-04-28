@@ -5,7 +5,7 @@ import { Card, CardContent, Box, Grid, Divider,
   Typography, Button, Avatar, Table, TableCell,
   TableContainer, TableHead, TableRow, GridList, GridListTile } from '@material-ui/core';
 import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
-import { clothesdetailjsx} from '../css/useStyles'
+import { clothesdetailjsx } from '../css/useStyles'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {

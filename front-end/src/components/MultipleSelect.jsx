@@ -10,7 +10,8 @@ const names = {
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
+    marginBottom: theme.spacing(3),
+    marginRight: 20,
     minWidth: 120,
     maxWidth: 120,
   },
@@ -91,7 +92,7 @@ export default function MultipleSelect(props) {
   }).catch((err) => { alert(err) });
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} style={{minWidth: 200}}>
       <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
       <Select style={{ variant: 'outlined' }}
         labelId="demo-mutiple-name-label"
