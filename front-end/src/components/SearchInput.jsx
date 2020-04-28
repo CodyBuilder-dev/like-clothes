@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { TextField, FormLabel } from '@material-ui/core';
 
 const decodeTypeKorToEng = (type) => {
   switch (type) {
@@ -24,7 +25,10 @@ export default class SearchInput extends PureComponent {
 
   render() {
     return (
-        <input type="text" placeholder={this.props.type} onChange={this.handleChange} />
+        // {/* <FormLabel component='legend' style={{ color: 'white', display: 'inline' }}>{this.props.type}</FormLabel> */}
+        <TextField type="text" required
+        style={{backgroundColor:'pink', borderRadius:'2px', width:'140px', margin:'15px 0 0 0'}}
+        placeholder={this.props.type} onChange={this.handleChange} />
     );
   }
 }
