@@ -2,7 +2,7 @@
 .container {
   /* 가장 상위가 relative, 아래 자식들이 absolute로 따라옴 */
   position: relative;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 .overlay {
   /* container와 같은 위치 속성을 가질 수 있게 */
