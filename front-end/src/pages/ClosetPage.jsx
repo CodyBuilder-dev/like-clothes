@@ -7,19 +7,48 @@ import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
 
-export default function Closet({ history }) {
+export default function Closet(props) {
   const styles = closetjsx();
 
   // 유저의 팔로 리스트 서버에서 받아오기
-  const [ routeTarget, setRouteTarget ] = useState('closet');
   const [ followerRes, setFollowerRes ] = useState([]);
   const [ followingRes, setFollowingRes ] = useState([]);
-
+  const [ userState, setUserState ] = useState({ nickname: '', });
+  
+  // url로부터 유저 정보 받아오기 위해 선언
+  const search = props.location.search;
+  const params = new URLSearchParams(search);
+  let user_email = params.get('user_email');
+  
   useEffect(() => {
+    // 유저 옷장에 있는 옷들 받아오기
+    const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
+    axios.get(closet_url).then((res) => {
+      console.log('mycloset/user_email data:', res.data);
+      // 유저 옷장으로부터 받아온 데이터를 관리하는 소스 작성 필요
+      
+    });
+
+    // 유저 정보 받아와 closet 페이지 갱신하기
+    const user_url = process.env.REACT_APP_URL + `/user/${user_email}`;
+
+    // user_email에 해당하는 옷장 정보 받아오기
+    axios.get(user_url).then((res) => {
+      console.log('user/user_email data:', res.data);
+      if (res.data.state === 'success') { 
+        setUserState(res.data.user);
+        setClosetIntro(res.data.user.description);
+      }
+      else {
+        // 모달로 수정 필요?
+        alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
+        props.history.replace("/");
+      }
+    });
+
     var comment = ['follower-user', 'following-user']
     for (let i=0; i<2; i++){
-      let url = `${baseUrl}/user/${comment[i]}?user_email=ssafy35@ssafy.com`;
-      console.log(localStorage.token, '토큰')
+      let url = `${baseUrl}/user/${comment[i]}?user_email=${user_email}`;
       axios.get(url)
       .then((res) => {
         console.log(res,'res.data')
@@ -27,11 +56,11 @@ export default function Closet({ history }) {
         followList.forEach((follow) => {
           if (follow.following_email === localStorage.email) { 
             // 나를 팔로우한 유저가 저장 === 내 팔로워
-            let data = { email: follow.follower_email, nickname: follow.nickname, img: follow.profile_img }
+            let data = { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
             setFollowerRes(followerRes => [...followerRes, data])
           } else {
             // 내가 팔로우한 유저가 저장 === 내 팔로잉
-            let data = { email: follow.following_email, nickname: follow.nickname, img: follow.profile_img }
+            let data = { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
             setFollowingRes(followingRes => [...followingRes, data])
           }
         });
@@ -41,8 +70,13 @@ export default function Closet({ history }) {
 
   // 드롭다운 팔로 선택 시 선택된 유저 옷장으로 이동
   const followSelect = (e) => {
-    let target = e.target.value;
-    setRouteTarget(target);
+    followingRes.forEach((data) => {
+      console.log('check data:', data);
+      if (data.nickname === e.target.value) {
+        props.history.push(`/closet?user_email=${data.email}`);
+        window.location.reload(false);
+      }
+    })
   }
 
   // 팔로우 버튼 - 내 옷장 아닌지 확인 필요
@@ -61,7 +95,7 @@ export default function Closet({ history }) {
   const ClosetIntroView = () => ( // true  
       <div className={styles.closetIntro}>
         <span>옷장 소개</span>
-        <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>
+        {localStorage.email === user_email && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}
         <Card className={styles.closetIntroContent}>{closetIntro}</Card>
       </div>
   );
@@ -102,7 +136,7 @@ export default function Closet({ history }) {
       <Card>
       <Grid className="myInfo" container style={{padding:'20px'}}>
         <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
-          <span className="profileName">Yulim</span>
+          <span className="profileName">{userState.nickname}</span>
           <FavoriteBorder onClick={handleFollowClick}></FavoriteBorder>
         </Grid>
         <Grid className="following" item xs={4} container direction="column" alignItems="center">
@@ -124,7 +158,6 @@ export default function Closet({ history }) {
       </Grid>
       <Grid>
         {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
-        {routeTarget !== 'closet' && <Redirect to={routeTarget}></Redirect>}
       </Grid>
       </Card>
 
