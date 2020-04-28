@@ -49,6 +49,7 @@ class ChoiceStylePage extends Component {
       }
       else reject('error : 검색 결과가 없습니다.');
     }).then((res) => {
+      console.log(res, 'hehe');
       this.setState({
         ...this.state,
         imgTags: res,

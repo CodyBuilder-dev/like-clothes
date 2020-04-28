@@ -2,33 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Grid, Card, Box, Button, Select, MenuItem, TextField } from '@material-ui/core';
-import { Edit, FavoriteBorder } from '@material-ui/icons';
+import { Edit, FavoriteBorder, Favorite, List } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
+const config = {"headers": {"Authorization": localStorage.token}}
 
 export default function Closet(props) {
   const styles = closetjsx();
 
-  // 유저의 팔로 리스트 서버에서 받아오기
   const [ followerRes, setFollowerRes ] = useState([]);
   const [ followingRes, setFollowingRes ] = useState([]);
   const [ userState, setUserState ] = useState({ nickname: '', });
   
-  // url로부터 유저 정보 받아오기 위해 선언
+  // url로부터 유저 정보 받아오기 위해 선언 user_email => 옷장 주인
   const search = props.location.search;
   const params = new URLSearchParams(search);
   let user_email = params.get('user_email');
   
-  const [ userClothesInfo, setUserClothesInfo ] = useState([{
-    // img: '',
-    // id: ''
-  }]);
+  // 유저의 팔로 리스트 서버에서 받아오기
+  const [ userClothesInfo, setUserClothesInfo ] = useState([{ img: '', id: '' }]);
+  const [ heartFill, setHeartFill ] = useState(false);
+
   useEffect(() => {
     // 유저 옷장에 있는 옷들 받아오기
     const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
     axios.get(closet_url).then((res) => {
-      // 유저 옷장으로부터 받아온 데이터를 관리하는 소스 작성 필요
+      // 유저 정보로부터 받아온 등록된 옷 정보
       console.log('mycloset/user_email data:', res.data);
       res.data.map((v) => {
         setUserClothesInfo(userClothesInfo => [...userClothesInfo, {img: v.img, id: v.id}])
@@ -37,8 +37,6 @@ export default function Closet(props) {
 
     // 유저 정보 받아와 closet 페이지 갱신하기
     const user_url = process.env.REACT_APP_URL + `/user/${user_email}`;
-
-    // user_email에 해당하는 옷장 정보 받아오기
     axios.get(user_url).then((res) => {
       console.log('user/user_email data:', res.data);
       if (res.data.state === 'success') { 
@@ -47,54 +45,92 @@ export default function Closet(props) {
       }
       else {
         // 모달로 수정 필요?
-        // alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
-        // props.history.replace("/");
+        alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
+        props.history.replace("/");
       }
     });
 
-    var comment = ['follower-user', 'following-user']
-    for (let i=0; i<2; i++){
-      let url = `${baseUrl}/user/${comment[i]}?user_email=${user_email}`;
-      axios.get(url)
-      .then((res) => {
-        console.log(res,'res.data')
-        const followList = res.data;
-        followList.forEach((follow) => {
-          if (follow.following_email === localStorage.email) { 
-            // 나를 팔로우한 유저가 저장 === 내 팔로워
-            let data = { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
-            setFollowerRes(followerRes => [...followerRes, data])
-          } else {
-            // 내가 팔로우한 유저가 저장 === 내 팔로잉
-            let data = { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
-            setFollowingRes(followingRes => [...followingRes, data])
+    // follower-user 받아오기
+    const followChkList = Array();
+    const wer_url = `${baseUrl}/user/follower-user?user_email=${user_email}`;
+    axios.get(wer_url)
+    .then((res) => {
+      const followerList = res.data;
+      followerList.forEach((follow) => {
+        let data = {email: follow.email, nickname: follow.nickname, img: follow.profile_img}
+        followChkList.push(data);
+        setFollowerRes(followerRes => [...followerRes, data])
+      });
+      return followChkList;
+    }).then(res => {
+      if (user_email !== localStorage.email) { 
+        const followChkList = res;
+        // 지금 유저랑 팔로우 관계인지 확인하고 하트 상태 갱신
+        followChkList.forEach((follower) => {
+          if (follower.email === localStorage.email) {
+            // 여기 있으면 나는 팔로우 관계니까 하트를 색칠해라 !
+            setHeartFill(true)
           }
         });
+      }
+    })
+
+    // following-user 받아오기
+    const wing_url = `${baseUrl}/user/following-user?user_email=${user_email}`;
+    axios.get(wing_url)
+    .then((res) => {
+      const followingList = res.data;
+      followingList.forEach((follow) => {
+        let data = {email: follow.email, nickname: follow.nickname, img: follow.profile_img}
+        setFollowingRes(followingRes => [...followingRes, data])
       });
-    }
+    });
   }, []);
 
-  // 드롭다운 팔로 선택 시 선택된 유저 옷장으로 이동
+  console.log(heartFill, '하트필!')
+
+  // 드롭다운 팔로우 선택 시 선택된 유저 옷장으로 이동
   const followSelect = (e) => {
-    followingRes.forEach((data) => {
-      console.log('check data:', data);
-      if (data.nickname === e.target.value) {
-        props.history.push(`/closet?user_email=${data.email}`);
-        window.location.reload(false);
-      }
+    const name = e.target.name
+    if (name === 'follower') {
+      followerRes.forEach((data) => {
+        if (data.nickname === e.target.value) {
+          props.history.push(`/closet?user_email=${data.email}`);
+          window.location.reload(false);
+        }
+      })
+    } else {
+      followingRes.forEach((data) => {
+        if (data.nickname === e.target.value) {
+          props.history.push(`/closet?user_email=${data.email}`);
+          window.location.reload(false);
+        }
+      })
+    }
+  }
+
+  // 팔로우 예쁘게 토글~*_*
+  const handleFollowClick = () => {
+
+    const url = baseUrl + '/user/follow-user-toggle';
+    // const config = {"headers": {"Authorization": localStorage.token}}
+    axios.post(url, {"following_email": user_email}, config)
+    .then(() => {
+      window.location.reload(false);
     })
   }
 
-  // 팔로우 버튼 - 내 옷장 아닌지 확인 필요
-  const handleFollowClick = (e) => {
-
-  }
-
-  // 옷장 소개 수정 - 내 옷장 인지 확인 필요
-  const [ closetIntro, setClosetIntro ] = useState('내 옷장에 온 걸 환영해');
+  // 옷장 소개 수정
+  const [ closetIntro, setClosetIntro ] = useState(userState.description);
   const [ isEdit, setIsEdit ] = useState(true);
 
-  const handleIntroClick = (e) => {
+  const ClosetIntroUpdate = (data) => {
+    const url = baseUrl + '/user';
+    // const config = {"headers": {"Authorization": localStorage.token}}
+    axios.put(url, {"description": data}, config)
+  }
+
+  const handleIntroClick = () => {
     setIsEdit(false)
   }
 
@@ -114,14 +150,18 @@ export default function Closet(props) {
     }
 
     const handleIntroBlur = (e) => {
-      setClosetIntro(e.target.value)
+      const newData = e.target.value
+      setClosetIntro(newData)
       setIsEdit(true)
+      ClosetIntroUpdate(newData)
     }
   
     const handleIntroEnter = (e) => {
+      const newData = e.target.value
       if (e.key === 'Enter') {
-      setClosetIntro(e.target.value)
+      setClosetIntro(newData)
       setIsEdit(true)
+      ClosetIntroUpdate(newData)
       }
     }
 
@@ -142,13 +182,16 @@ export default function Closet(props) {
       <Card>
       <Grid className="myInfo" container style={{padding:'20px'}}>
         <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
+          <img src={userState.profile_img} width="70px" height="70px"></img>
           <span className="profileName">{userState.nickname}</span>
-          <FavoriteBorder onClick={handleFollowClick}></FavoriteBorder>
+          {user_email !== localStorage.email && 
+            (heartFill ? <Favorite onClick={handleFollowClick}></Favorite> : <FavoriteBorder onClick={handleFollowClick}></FavoriteBorder>)
+          }
         </Grid>
         <Grid className="following" item xs={4} container direction="column" alignItems="center">
           <span className="followTag">Follower</span>
           <span className="followCnt">{followerRes.length}
-          <Select className={styles.followDrop} onChange={followSelect} 
+          <Select className={styles.followDrop} name='follower' onChange={followSelect} 
           >{followerRes.map((follower) => (
             <MenuItem key={follower.email} value={follower.nickname}><img src={follower.img} width='20px' height='20px'/> {follower.nickname}</MenuItem>
           ))}</Select></span>
@@ -156,7 +199,7 @@ export default function Closet(props) {
         <Grid className="following" item xs={4} container direction="column" alignItems="center">
           <span className="followTag">Following</span>
           <span className="followCnt">{followingRes.length}
-          <Select className={styles.followDrop} onChange={followSelect}
+          <Select className={styles.followDrop} name='following' onChange={followSelect}
           >{followingRes.map((following) => (
             <MenuItem key={following.email} value={following.nickname}><img src={following.img} width='20px' height='20px'/> {following.nickname}</MenuItem>
             ))}</Select></span>
@@ -176,21 +219,18 @@ export default function Closet(props) {
         </div>
 
         <Grid className="clothesWrite" container justify="flex-end">
-          <Link to="/clothesregister"><Button>새 옷 등록하기</Button></Link>
+          {localStorage.email === user_email && <Link to="/clothesregister"><Button>새 옷 등록하기</Button></Link>}
         </Grid>
       </Box>
 
       <Card className="clothesImage">        
-          {console.log(userClothesInfo, '정보?')}
-          {userClothesInfo && userClothesInfo.map((v, i) => {
-            if (i > 0) {
-              return(
-                <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
-                  <img src={v.img} width="150px" height="150px"></img>
-                </Link>
-              )
-            }
-          })}
+        {userClothesInfo && userClothesInfo.map((v, i) => {
+          if (i > 0) return (
+            <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
+              <img src={v.img} width="150px" height="150px"></img>
+            </Link>
+          )}
+        )}
       </Card>
     </Grid>
   )
