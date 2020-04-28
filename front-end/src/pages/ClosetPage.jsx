@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Grid, Card, Box, Button, Select, MenuItem, TextField } from '@material-ui/core';
-import { Edit, FavoriteBorder, Favorite, List } from '@material-ui/icons';
+import { Edit, FavoriteBorder, Favorite } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
@@ -29,7 +29,6 @@ export default function Closet(props) {
     const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
     axios.get(closet_url).then((res) => {
       // 유저 정보로부터 받아온 등록된 옷 정보
-      console.log('mycloset/user_email data:', res.data);
       res.data.map((v) => {
         setUserClothesInfo(userClothesInfo => [...userClothesInfo, {img: v.img, id: v.id}])
       })
@@ -38,7 +37,6 @@ export default function Closet(props) {
     // 유저 정보 받아와 closet 페이지 갱신하기
     const user_url = process.env.REACT_APP_URL + `/user/${user_email}`;
     axios.get(user_url).then((res) => {
-      console.log('user/user_email data:', res.data);
       if (res.data.state === 'success') { 
         setUserState(res.data.user);
         setClosetIntro(res.data.user.description);
@@ -87,8 +85,6 @@ export default function Closet(props) {
     });
   }, []);
 
-  console.log(heartFill, '하트필!')
-
   // 드롭다운 팔로우 선택 시 선택된 유저 옷장으로 이동
   const followSelect = (e) => {
     const name = e.target.name
@@ -111,9 +107,7 @@ export default function Closet(props) {
 
   // 팔로우 예쁘게 토글~*_*
   const handleFollowClick = () => {
-
     const url = baseUrl + '/user/follow-user-toggle';
-    // const config = {"headers": {"Authorization": localStorage.token}}
     axios.post(url, {"following_email": user_email}, config)
     .then(() => {
       window.location.reload(false);
@@ -126,7 +120,6 @@ export default function Closet(props) {
 
   const ClosetIntroUpdate = (data) => {
     const url = baseUrl + '/user';
-    // const config = {"headers": {"Authorization": localStorage.token}}
     axios.put(url, {"description": data}, config)
   }
 
