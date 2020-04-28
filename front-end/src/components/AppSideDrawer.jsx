@@ -78,7 +78,7 @@ export default function SearchAppBar(props) {
             </NavLink>
             <NavLink
               style={{ color: 'black', textDecoration: 'none' }}
-              to='/mypage'>
+              to={`/closet?user_email=${localStorage.email}`}>
               <ListItem button className={styles.listContent}>
                 <ListItemIcon><FaceOutlined /></ListItemIcon>
                 <ListItemText primary='My Page' />

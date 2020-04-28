@@ -17,25 +17,48 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
+const baseUrl = process.env.REACT_APP_URL
+const baseAIUrl = process.env.REACT_APP_AI_URL
+
 export default function ClothesDetail(props) {
+  // 현재페이지 옷 id 가져오기
+  const search = props.location.search;
+  const params = new URLSearchParams(search);
+  const item_id = params.get('clothes_item_id');
+  console.log(item_id, '지금itemid')
+
+  // 날짜 관련
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  month = month < 10 ? '0' + month : month;
+  let date = today.getDate();
+  date = date < 10 ? '0' + date : date;
+  // const day = dayNames[today.getDay()];
+  const nowDate = `${year}-${month}-${date}`
+  console.log(nowDate,'지금출력해라아')
+
+  // let subscriptDate = Date.now();
+  // // let subscriptData = new Date();
+  // let d = subscriptDate.toString()
+  // console.log(d, '구독날짜?')
+
+
   const styles = clothesdetailjsx();
   const [item, setItem] = useState({});
   const [recommend, setRecommend] = useState([]);
   const [others, setOthers] = useState([]);
 
   useEffect(() => {
-    const search = props.location.search;
-    const params = new URLSearchParams(search);
-    const clothes_item_id = params.get('clothes_item_id');
-    const url = process.env.REACT_APP_URL + `/clothes/clothes-item?clothes_item_id=4`;
+    const url = baseUrl + `/clothes/clothes-item?clothes_item_id=4`;
     axios.get(url).then((res) => {
-      console.log(res.data);
+      console.log(res.data, '페이지옷정보');
       setItem(res.data);
     });
   }, [])
 
   useEffect(() => {
-    const url = process.env.REACT_APP_AI_URL + '/recommand/clothes-set'
+    const url = baseAIUrl + '/recommand/clothes-set'
     axios.post(url, {
       "img_url": "http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg"
     }).then((res) => {
@@ -44,9 +67,37 @@ export default function ClothesDetail(props) {
     })
   }, [])
 
+  const subscriptButtonClick = () => {
+    const url = baseUrl + '/clothes-resv'
+    const params = { "clothes_item_id": 4, "reserved_date": nowDate }
+    const config = { "headers": {"Authorization": localStorage.token} } 
+    axios.post(url, params, config)
+    .then((res) => {
+      if (res.data === 'success') {
+        alert('구독하셨어욧')
+      }
+      console.log(res, '구독클릭')
+    })
+  }
+
+  const wishButtonClick = () => {
+    const url = baseUrl + '/clothes/wish-list'
+    const params = { "clothes_item_id": 4 }
+    const config = { "headers": {"Authorization": localStorage.token} }
+    axios.post(url, params, config)
+    .then((res) => {
+      if (res.data === 'success') {
+        alert('위시리스트에 추가되었어욧')
+      } else if (res.data.desc === 'already wishlist clothes exist') {
+        alert('이미 추가된 옷이에욧')
+      }
+      console.log(res, '위시클릭')
+    })
+  }
+
   return (
     <Card className={styles.root}>
-      {console.log(recommend)}
+      {/* {console.log(recommend)} */}
       <Box border={2} borderRadius={5} className={styles.paper}>
         <Grid container spacing={1}>
           <Grid item md={5} sm={12}>
@@ -158,13 +209,15 @@ export default function ClothesDetail(props) {
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <Grid container spacing={1}>
                   <Grid item sm={6} xs={12}>
-                    <Button variant="contained" size="medium" color="primary" className={styles.button}>
+                    <Button variant="contained" size="medium" color="primary" className={styles.button}
+                    onClick={subscriptButtonClick}>
                       <LocalShipping style={{ marginRight: 20 }} />
                       구독해욧
                     </Button>
                   </Grid>
                   <Grid item sm={6} xs={12}>
-                    <Button variant="contained" size="medium" color="secondary" className={styles.button}>
+                    <Button variant="contained" size="medium" color="secondary" className={styles.button}
+                    onClick={wishButtonClick}>
                       <FavoriteRounded style={{ marginRight: 20 }} />
                       좋아욧
                     </Button>

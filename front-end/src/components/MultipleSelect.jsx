@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Input, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import { Input, InputLabel, MenuItem, FormControl, FormLabel, Select } from '@material-ui/core';
+
 
 const names = {
   majors: ['남', '아동', '여'],
@@ -10,10 +11,12 @@ const names = {
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    marginBottom: theme.spacing(3),
-    marginRight: 20,
-    minWidth: 120,
-    maxWidth: 120,
+    // marginBottom: theme.spacing(3),
+    // marginRight: 20,
+
+    // margin: theme.spacing(1),
+    // minWidth: 120,
+    // maxWidth: 120,
   },
   chips: {
     display: 'flex',
@@ -24,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
   noLabel: {
     marginTop: theme.spacing(3),
+  },
+  inputLabel: {
+
   },
 }));
 
@@ -92,9 +98,16 @@ export default function MultipleSelect(props) {
   }).catch((err) => { alert(err) });
 
   return (
-    <FormControl className={classes.formControl} style={{minWidth: 200}}>
+
+    {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
       <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
-      <Select style={{ variant: 'outlined' }}
+      <Select style={{ variant: 'outlined' }}*/}
+
+    <FormControl className={classes.formControl}>
+      {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
+      <FormLabel component='legend' style={{ color: 'white' }}>{type}</FormLabel>
+      <Select style={{ backgroundColor: 'pink', width: '150px' }}
+
         labelId="demo-mutiple-name-label"
         id={type}
         multiple
@@ -102,6 +115,8 @@ export default function MultipleSelect(props) {
         onChange={handleChange}
         input={<Input />}
         MenuProps={MenuProps}
+        variant="filled"
+        name={type}
       >
         {handleTypeToList().map((name) => (
           <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>

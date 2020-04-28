@@ -8,6 +8,7 @@ export const appjs = makeStyles((theme) => ({
     width: 'calc(100% - 342px)',
     display: 'flex',
     marginLeft: '296px',
+    marginTop: '110px',
     margin: theme.spacing(7),
   },
   background: {
@@ -16,6 +17,7 @@ export const appjs = makeStyles((theme) => ({
     backgroundSize: '100%',
     overflow: 'hidden',
     minHeight: '100vh',
+    fontFamily: ['-apple-system', 'GmarketSansMedium'].join(','),
   }
 }));
 
@@ -56,7 +58,7 @@ export const appsidedrawerjsx = makeStyles((theme) => ({
     opacity: 0.95
   },
   buttonLogout: {
-    position: 'absolute',
+    // position: 'absolute',
     bottom: theme.spacing(2),
     height: '37px',
     fontSize: '15px',
