@@ -63,6 +63,10 @@ class SignIn extends Component {
           localStorage.email = res.data.user.email;
           localStorage.nickname = res.data.user.nickname;
           localStorage.isAuthenticated = true;
+          
+          // 로그인을 갱신하기 위한 redux 소스 추가
+          this.props.setAuthentication(true);
+          
           window.location.href = "/";
         } else {
           alert('이메일과 비밀번호를 확인해 주세요')

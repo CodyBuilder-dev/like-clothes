@@ -28,7 +28,6 @@ class MainPage extends PureComponent {
   }
 
   setSearchState = (searchDataList) => {
-    console.log(this.state);
     if (searchDataList.length > 0)
       this.setState({
         ...this.state,
@@ -57,7 +56,6 @@ class MainPage extends PureComponent {
     return (
       // <Card variant="outlined" style={{padding: 10}}>
       <div>
-        {console.log(this.state)}
         <AppBar position="static" style={{ backgroundImage: `url(${Background})` }}>
           <Toolbar style={{height: 100}}>
             <Typography variant="h6" noWrap>
