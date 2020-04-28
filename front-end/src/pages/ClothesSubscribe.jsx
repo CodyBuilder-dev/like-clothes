@@ -48,11 +48,11 @@ export default function ClothesDetail(props) {
           구독 중인 목록
         </Typography>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
-          {/* {subscribe && (subscribe.map((item) => (
+          {subscribe && (subscribe.map((item) => (
             <GridListTile key={item} height="300px">
               <img src={item} height="100%" />
             </GridListTile>
-          )))} */}
+          )))}
         </GridList>
       </Box>
     </Card >

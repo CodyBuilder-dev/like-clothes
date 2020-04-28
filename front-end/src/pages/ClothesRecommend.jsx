@@ -44,8 +44,10 @@ export default function ClothesDetail(props) {
   return (
     <Card className={styles.root}>
       <Box border={2} borderRadius={5} className={styles.paper}>
-        구독 중인 목록
-        <GridList className={styles.gridList} cols={4} cellHeight={300} style={{ width: '100%' }}>
+        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
+          위시리스트
+        </Typography>
+        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
           {subscribe && (subscribe.map((item) => (
             <GridListTile key={item} height="300px">
               <img src={item} height="100%" />
@@ -54,8 +56,40 @@ export default function ClothesDetail(props) {
         </GridList>
       </Box>
       <Box border={2} borderRadius={5} className={styles.paper}>
-        추천 목록
-
+        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
+          위시리스트 기반 추천
+        </Typography>
+        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
+          {subscribe && (subscribe.map((item) => (
+            <GridListTile key={item} height="300px">
+              <img src={item} height="100%" />
+            </GridListTile>
+          )))}
+        </GridList>
+      </Box>
+      <Box border={2} borderRadius={5} className={styles.paper}>
+        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
+          팔로잉 유저 옷장 기반 추천
+        </Typography>
+        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
+          {subscribe && (subscribe.map((item) => (
+            <GridListTile key={item} height="300px">
+              <img src={item} height="100%" />
+            </GridListTile>
+          )))}
+        </GridList>
+      </Box>
+      <Box border={2} borderRadius={5} className={styles.paper}>
+        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
+          이런 옷들은 어떠세요??
+        </Typography>
+        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
+          {subscribe && (subscribe.map((item) => (
+            <GridListTile key={item} height="300px">
+              <img src={item} height="100%" />
+            </GridListTile>
+          )))}
+        </GridList>
       </Box>
     </Card >
   );
