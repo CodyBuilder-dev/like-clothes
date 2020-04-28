@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/ClothesRegisterPage.css';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
 import SearchInput from '../components/SearchInput';
@@ -15,8 +16,37 @@ import {
   TableContainer, TableHead, TableRow, InputLabel
 } from '@material-ui/core';
 
-// 유저가 직접 업로드하는 사진 로드
 function ClothesRegister() {
+  const baseUrl = process.env.REACT_APP_URL
+  
+  // 데이터 전송
+  const [ sendData, setSendData ] = useState({
+    clothes_id: '',
+    description: '',
+    size: '',
+    length: 0,
+    shoulder: 0,
+    waist: 0,
+    color: 'black',
+  })
+  
+  const infoValueChange = (e) => {
+    const inpValue = e.target.value
+    const inpType = e.target.name
+    setSendData({...sendData, [inpType]: inpValue})
+  }
+
+  const infoSubmitButton = () => {
+    const url = baseUrl + '/clothes/clothes-item'
+    const config = { "headers": {"Authorization": localStorage.token} }
+    axios.post(url, sendData, config)
+    .then((res) => {
+      // console.log(res, '받은 데이터!')
+    })
+  }
+
+  
+  // 유저가 직접 업로드하는 사진 로드
   const styles = clothesdetailjsx();
   const [previewURL, setPreviewURL] = useState([]);
   const [fileState, setFileState] = useState([]);
@@ -117,6 +147,7 @@ function ClothesRegister() {
     }).then((res) => {
       const data = res
       setSelectData({ name: data.code_name, brand: data.brand, season: data.season })
+      setSendData({...sendData, clothes_id: data.clothes_id })
     })
   }
 
@@ -129,6 +160,7 @@ function ClothesRegister() {
       fontSize: 14,
     },
   }))(TableCell);
+
 
   return (
     <Card className={styles.root}>
@@ -159,12 +191,11 @@ function ClothesRegister() {
                 <img src={searchData.img} width='70px' height='70px' name={i} onClick={searchDataSelect} />
               </div>
             )) : null}
-            {console.log(selectData, '셀렉데이터')}
           </div>
           <div className="section">
             <Typography gutterBottom variant="body1" color="textPrimary" component="p">
               이미지 등록
-                </Typography>
+            </Typography>
             <input
               style={{ display: "block" }}
               type="file" multiple
@@ -247,6 +278,8 @@ function ClothesRegister() {
                 margin="dense"
                 color="secondary"
                 variant="outlined"
+                name='description'
+                onChange={infoValueChange}
               />
             </Grid>
           </Grid>
@@ -275,28 +308,36 @@ function ClothesRegister() {
                           label="Size(XS ~ 4XL)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" />
+                          variant="filled" 
+                          name='size'
+                          onChange={infoValueChange} />
                       </TableCell>
                       <TableCell align="center" style={{ padding: 0, paddingRight: 5, margin: 0 }}>
                         <TextField
                           label="Length(cm)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" />
+                          variant="filled" 
+                          name='length'
+                          onChange={infoValueChange} />
                       </TableCell>
                       <TableCell align="center" style={{ padding: 0, paddingRight: 5, margin: 0 }}>
                         <TextField
                           label="Shoulder(cm)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" />
+                          variant="filled"
+                          name='shoulder'
+                          onChange={infoValueChange} />
                       </TableCell>
                       <TableCell align="center" style={{ padding: 0, margin: 0 }}>
                         <TextField
                           label="Waist(cm)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" />
+                          variant="filled"
+                          name='waist'
+                          onChange={infoValueChange} />
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -326,9 +367,10 @@ function ClothesRegister() {
               </div> */}
           </div>
 
-          <NavLink to='/closet'>
-            <Button variant="contained" color="primary" style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
-          </NavLink>
+          {/* <NavLink to='/closet'> */}
+            <Button variant="contained" color="primary" onClick={infoSubmitButton}
+            style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
+          {/* </NavLink> */}
         </div>
       </Box>
     </Card >
