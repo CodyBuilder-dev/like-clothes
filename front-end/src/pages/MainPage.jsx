@@ -28,7 +28,6 @@ class MainPage extends PureComponent {
   }
 
   setSearchState = (searchDataList) => {
-    console.log(this.state);
     if (searchDataList.length > 0)
       this.setState({
         ...this.state,

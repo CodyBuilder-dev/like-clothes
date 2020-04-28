@@ -11,21 +11,6 @@ export default function reducer(state = {}, action) { // state의 초기값을
         email: payload.email,
       }
     }
-
-    // 작성 예시
-    // case 'SELECT_TEST': {
-    //   console.log('SELECT_TEST:', payload);
-    //   return {
-    //     ...state,
-    //     test: payload.test,
-    //   };
-    // }
-    // case 'RESET_LOADING': {
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //   };
-    // }
     default:
       return state;
   }
