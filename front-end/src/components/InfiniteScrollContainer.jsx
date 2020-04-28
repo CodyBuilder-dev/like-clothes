@@ -34,6 +34,7 @@ export default class InfiniteScrollContainer extends PureComponent {
 
   initPage = () => {
     page = 0;
+    console.log(this.props.dataList)
     tempList = this.props.dataList.map((data, index) => {
       return (
         <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>

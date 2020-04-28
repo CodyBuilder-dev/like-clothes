@@ -55,7 +55,7 @@ class MainPage extends PureComponent {
     // const { setUser } = this.props;
     return (
       <div>
-        {console.log(this.state)}
+        {/* {console.log(this.state)} */}
         <AppBar position="fixed" style={{ backgroundImage: `url(${Background})`, paddingLeft:'256px', width:'100%'}}>
           <Toolbar style={{height: 100}}>
             <Grid style={{width:'10%'}} container justify='center'>
