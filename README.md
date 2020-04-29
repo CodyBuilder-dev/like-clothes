@@ -20,9 +20,9 @@ page에서 어떻게	보여지는 지 여기에 사진
 
 
 
+[[__TOC__]]
 
 **바로 가기**
-[[__TOC__]]
 
 
  :mag_right: [LikeClothes 사용 설명서](#id-section1) <br>
