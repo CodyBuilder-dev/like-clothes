@@ -192,10 +192,11 @@ export default function Closet(props) {
               <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
                 <img src={userState.profile_img} width="70px" height="70px"></img>
                 <span className="profileName">{userState.nickname}</span>
-                {heartFill ? <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
+                {!!localStorage.isAuthenticated && (heartFill ? 
+                <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
                 onClick={handleFollowClick}></Favorite>
                 : <FavoriteBorder style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
-                onClick={handleFollowClick}></FavoriteBorder>}
+                onClick={handleFollowClick}></FavoriteBorder>)}
               </Grid>
               <Grid className="following" item xs={4} container direction="column" alignItems="center">
                 <span className="followTag">Follower</span>

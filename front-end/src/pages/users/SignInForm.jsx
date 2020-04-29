@@ -43,7 +43,8 @@ const SignInForm = ({
 
         <div>
         {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
-        <Button variant='outlined' type="submit" color='primary' disabled={btnState}
+        <Button variant='outlined' type="submit" color='primary' 
+          disabled={btnState} style={{marginTop: '30px'}}
         >로그인</Button>
         </div>
       </form></div>

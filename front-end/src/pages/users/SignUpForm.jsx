@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Button, TextField, RadioGroup, Radio, Popover,
   FormControlLabel, FormLabel, FormHelperText
@@ -54,81 +54,77 @@ const SignUpForm = ({
     <div className={classes.root}>
       <h1>회원가입</h1>
 
-      <div style={{ width: '96%', marginLeft: '2%' }}><form onSubmit={onSubmit} encType='multipart/form-data'>
+      <div style={{ width: '96%', marginLeft: '2%' }}>
+        <form onSubmit={onSubmit} encType="multipart/form-data">
 
-        <div style={{ marginTop: '20px' }}>
-          <input type='file' name='profile_img' onChange={onImgChange}></input>
-        </div>
-        <div style={{ marginTop: '2px' }}><TextField
-          type='text' name='email' label='E-mail' value={user.email} fullWidth='true'
-          onChange={onChange} errorText={errors.email}
-        /></div>
-        <div style={{ marginTop: '2px' }}><TextField
-          type='password' name='password' label='Password' value={user.password} fullWidth='true'
-          onChange={onChange} errorText={errors.password}
-        />
-          <FormHelperText>영문/숫자 혼합 8자 이상</FormHelperText>
-        </div>
-        <div style={{ marginTop: '2px' }}><TextField
-          type='text' name='name' label='Name' value={user.name} fullWidth='true'
-          onChange={onChange} errorText={errors.password}
-        /></div>
-        <div style={{ marginTop: '2px' }}><TextField
-          type='text' name='nickname' label='Nickname' value={user.nickname} fullWidth='true'
-          onChange={onChange} errorText={errors.nickname}
-        /></div>
+          <div style={{ marginTop: '20px' }}>
+            <input type='file' name='profile_img' onChange={onImgChange}></input>
+          </div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField type='text' name='email' label='E-mail' value={user.email} 
+              fullWidth={true} onChange={onChange} />
+          </div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField type='password' name='password' label='Password' value={user.password} 
+              fullWidth={true} onChange={onChange} />
+            <FormHelperText>영문/숫자 혼합 8자 이상</FormHelperText>
+          </div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField type='text' name='name' label='Name' value={user.name}
+              fullWidth={true} onChange={onChange} />
+          </div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField type='text' name='nickname' label='Nickname' value={user.nickname}
+              fullWidth={true} onChange={onChange} />
+          </div>
 
-        <div style={{ marginTop: '2px' }}>
-          <TextField
-            name='address' label='Address' value={addrChange}
-            onChange={onChange} errorText={errors.address}
-          />
-          <Button variant="outlined" onClick={handleClick}
-            style={{ marginTop: '12px', marginLeft: '2%' }}>
-            주소 검색
-        </Button>
-          <Popover
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          ><DaumPostcode onComplete={endAddrChange} />
-          </Popover>
-        </div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField name='address' label='Address' value={addrChange} onChange={onChange} />
+            <Button variant="outlined" onClick={handleClick}
+              style={{ marginTop: '12px', marginLeft: '5%' }}>
+              주소 검색
+            </Button>
+            <Popover
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            ><DaumPostcode onComplete={endAddrChange} />
+            </Popover>
+          </div>
 
-        <div style={{ marginTop: '2px' }}><TextField
-          type='text' name='phone' label='Phone Number' value={user.phone} fullWidth='true'
-          onChange={onChange} errorText={errors.phone}
-        /></div>
+          <div style={{ marginTop: '2px' }}>
+            <TextField type='text' name='phone' label='Phone Number' value={user.phone} 
+              fullWidth={true} onChange={onChange} />
+          </div>
 
-        <div style={{ marginTop: '20px' }}>
-          <FormLabel component='legend'>birth</FormLabel>
-          <TextField
-            type='date' name='birth' value={user.birth} fullWidth='true'
-            onChange={onChange} errorText={errors.birth}
-          /></div>
+          <div style={{ marginTop: '20px' }}>
+            <FormLabel component='legend' style={{ textAlign: 'left' }}>birth</FormLabel>
+            <TextField type='date' name='birth' value={user.birth} 
+              fullWidth={true} onChange={onChange} />
+          </div>
 
-        <div style={{ marginTop: '20px' }}>
-          <FormLabel component='legend'>gender</FormLabel>
-          <RadioGroup aria-label='gender' style={{ display: 'block' }}>
-            <FormControlLabel value="M" control={<Radio />} label="Male" name='gender' onChange={onChange} />
-            <FormControlLabel value="F" control={<Radio />} label="Female" name='gender' onChange={onChange} />
-          </RadioGroup>
-        </div>
+          <div style={{ marginTop: '20px' }}>
+            <FormLabel component='legend' style={{ textAlign: 'left' }}>gender</FormLabel>
+            <RadioGroup aria-label='gender' style={{ display: 'block' }}>
+              <FormControlLabel value="M" control={<Radio />} label="Male" name='gender' onChange={onChange} />
+              <FormControlLabel value="F" control={<Radio />} label="Female" name='gender' onChange={onChange} />
+            </RadioGroup>
+          </div>
 
-        <div style={{ marginTop: '20px' }}>
-          {errors && <p style={{ color: "red" }}>{errors}</p>}
-          <Button variant="outlined" type="submit" color='primary'
-          >가입</Button>
-        </div>
-      </form></div>
+          <div style={{ marginTop: '20px' }}>
+            {errors && <p style={{ color: "red" }}>{errors}</p>}
+            <Button variant="outlined" type="submit" color='primary'>가입</Button>
+          </div>
+        </form>
+      </div>
 
       <p style={{ marginTop: '10px' }}>
         이미 계정이 있나요? <Link to="/signin">로그인</Link>

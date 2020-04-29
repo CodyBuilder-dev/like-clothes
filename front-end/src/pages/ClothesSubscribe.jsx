@@ -5,6 +5,7 @@ import { clothesdetailjsx } from '../css/useStyles';
 
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Carousel from '../components/Carousel';
+import { Redirect } from 'react-router-dom';
 
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
