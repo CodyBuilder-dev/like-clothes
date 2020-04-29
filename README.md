@@ -19,7 +19,7 @@ page에서 어떻게	보여지는 지 여기에 사진
 
 
 
-<br>
+
 
 **바로 가기 **
 
@@ -32,7 +32,7 @@ page에서 어떻게	보여지는 지 여기에 사진
  :mag_right: [LikeClothes 라이센스](## Jira :date: )
  :mag_right: [저희가 궁금하다면](## About Us :family:)
 
-<br>
+
 
 
 ## 사용 설명서 :open_hands:
@@ -90,7 +90,9 @@ page에서 어떻게	보여지는 지 여기에 사진
 
 
 
----
+<hr/>
+
+
 
 
 
