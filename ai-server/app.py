@@ -12,7 +12,7 @@ import pymysql
 #from tensorflow.keras.applications import resnet50
 
 from utils.utils_sql import connect_db, select_data_idpath, select_minor_from_id
-from utils.utils_data import get_minor_onehot, get_idpath_map,get_data_dict, get_image_array
+from utils.utils_data import get_minor_onehot, get_idpath_map,get_data_dict, get_image_array, get_mmm_from_id
 from utils.utils_prepdata import load_attribution_matrix,load_pickle
 from utils.utils_model import load_class_model,load_feature_model
 from utils.utils_recommand import calc_cos_sim,over_mean,under_mean,recommand_item
@@ -111,10 +111,12 @@ def recommand_feature() :
         print("getdata 결과: ",input_id,input_url)
        
         # URL 경로로부터 이미지를 불러와 feature를 추출합니다.
+        input_url = input_url.replace('http:', '')
         input_url = "http:" + input_url
         input_img = get_image_array(input_url)
         input_minor = select_minor_from_id(db,input_id)
         input_feature = feature_model.predict(input_img)
+        print('[Tst]', input_minor)
         return clothes_feature(input_id,input_minor,input_feature,id_url_map,pickle_dict)
 
 
@@ -162,11 +164,13 @@ def recommand_set() :
         for category in worst_category :
             worst_images.update(recommand_item(db,input_major,category))
              
-        return render_template('clothes-set.html',
-                                input_url=input_url, 
-                                best_images=best_images,
-                                worst_images=worst_images
-                                )
+        # return render_template('clothes-set.html',
+        #                         input_url=input_url, 
+        #                         best_images=best_images,
+        #                         worst_images=worst_images
+        #                         )
+        return {"best_images":best_images,
+                "worst_images":worst_images}
 @app.route("/ai/classification/tag", methods=['GET', 'POST'])
 def classification_tag() :
     if request.method == 'GET':
