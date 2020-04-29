@@ -15,9 +15,9 @@ import {
   TableContainer, TableHead, TableRow, InputLabel
 } from '@material-ui/core';
 
-function ClothesRegister( {history} ) {  
+function ClothesRegister({ history }) {
   // 최종 데이터 전송
-  const [ sendData, setSendData ] = useState({
+  const [sendData, setSendData] = useState({
     clothes_id: '',
     description: '',
     size: '',
@@ -26,23 +26,23 @@ function ClothesRegister( {history} ) {
     waist: 0,
     color: 'black',
   })
-  
+
   const infoValueChange = (e) => {
     const inpValue = e.target.value
     const inpType = e.target.name
-    setSendData({...sendData, [inpType]: inpValue})
+    setSendData({ ...sendData, [inpType]: inpValue })
   }
 
   const infoSubmitButton = () => {
     const url = process.env.REACT_APP_URL + '/clothes/clothes-item'
-    const config = { "headers": {"Authorization": localStorage.token} }
+    const config = { "headers": { "Authorization": localStorage.token } }
     axios.post(url, sendData, config)
-    .then((res) => {
-      history.block('등록을 완료했어욧! 옷장 페이지로 이동해욧')
-      history.goBack();
-    })
+      .then((res) => {
+        history.block('등록을 완료했어욧! 옷장 페이지로 이동해욧')
+        history.goBack();
+      })
   }
-  
+
   // 유저가 직접 업로드하는 사진 로드
   const styles = clothesdetailjsx();
   const [previewURL, setPreviewURL] = useState([]);
@@ -135,7 +135,7 @@ function ClothesRegister( {history} ) {
     }).then((res) => {
       const data = res
       setSelectData({ name: data.code_name, brand: data.brand, season: data.season })
-      setSendData({...sendData, clothes_id: data.clothes_id })
+      setSendData({ ...sendData, clothes_id: data.clothes_id })
     })
   }
 
@@ -152,10 +152,8 @@ function ClothesRegister( {history} ) {
 
   return (
     <Card className={styles.roots}>
-      <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 50, paddingRight: 50 }}>
-        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
-          상품 등록하기
-        </Typography>
+      <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 80, paddingRight: 80 }}>
+        <p style={{ fontSize: 30, marginTop: 10 }}>상품 등록하기</p>
         <div className="WriteClothes" style={{ backgroundColor: 'white' }}>
           {/* <Grid container spacing={1}>
             <Grid item md={5} sm={12}> */}
@@ -180,26 +178,22 @@ function ClothesRegister( {history} ) {
               </div>
             )) : null}
           </div>
-          <div className="section">
-            <Typography gutterBottom variant="body1" color="textPrimary" component="p">
-              이미지 등록
-            </Typography>
-            <input
-              style={{ display: "block" }}
-              type="file" multiple
-              name="file"
-              onChange={handleFileInput} />
-            <div className="imagesPreviewContainer">
-              {imagesPreview}
-            </div>
+
+          <p>이미지 등록 :</p>
+          <input
+            style={{ display: "block" }}
+            type="file" multiple
+            name="file"
+            onChange={handleFileInput} />
+          <div className="imagesPreviewContainer">
+            {imagesPreview}
           </div>
+
           <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
 
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 120 }}>
-              <InputLabel margin="dense">
-                제품 이름 (필수) :
-                </InputLabel>
+              <p>제품 이름 (필수) :</p>
             </Grid>
             <Grid style={{ paddingLeft: 10, marginRight: 50 }}>
               {selectData.name === '' ? <TextField
@@ -208,14 +202,10 @@ function ClothesRegister( {history} ) {
                 color="secondary"
                 margin="dense"
                 variant="outlined"
-              /> : <Typography style={{ alignItems: 'center' }} gutterBottom variant="body2" color="textPrimary" component="p">
-                  {selectData.name}
-                </Typography>}
+              /> : <p>{selectData.name}</p>}
             </Grid>
             <Grid style={{ minWidth: 130 }}>
-              <InputLabel margin="dense">
-                브랜드 이름 (필수) :
-                </InputLabel>
+              <p>브랜드 이름 (필수) :</p>
             </Grid>
             <Grid style={{ paddingLeft: 10 }}>
               {selectData.brand === '' ? <TextField
@@ -224,17 +214,13 @@ function ClothesRegister( {history} ) {
                 color="secondary"
                 margin="dense"
                 variant="outlined"
-              /> : <Typography style={{ alignItems: 'center' }} gutterBottom variant="body2" color="textPrimary" component="p">
-                  {selectData.brand}
-                </Typography>}
+              /> : <p>{selectData.brand}</p>}
             </Grid>
           </Grid>
 
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 125 }}>
-              <InputLabel margin="dense">
-                시즌 :
-                </InputLabel>
+              <p>시즌 :</p>
             </Grid>
             <Grid style={{ paddingLeft: 10 }}>
               {(selectData.season === '') || (selectData.season === 'none') ? <TextField
@@ -243,9 +229,7 @@ function ClothesRegister( {history} ) {
                 color="secondary"
                 margin="dense"
                 variant="outlined"
-              /> : <Typography style={{ alignItems: 'center' }} gutterBottom variant="body2" color="textPrimary" component="p">
-                  {selectData.season}
-                </Typography>}
+              /> : <p>{selectData.season}</p>}
             </Grid>
           </Grid>
 
@@ -253,9 +237,7 @@ function ClothesRegister( {history} ) {
 
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 130 }}>
-              <InputLabel margin="dense">
-                제품 소개 :
-                </InputLabel>
+              <p>제품 소개 :</p>
             </Grid>
             <Grid sm={7} xs={12} style={{ width: 'calc(100% - 150px)', paddingLeft: 5 }}>
               <TextField
@@ -276,9 +258,7 @@ function ClothesRegister( {history} ) {
 
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 130 }}>
-              <InputLabel margin="dense">
-                제품 상세 정보 :
-              </InputLabel>
+              <p>제품 상세정보 :</p>
             </Grid>
             <Grid sm={7} xs={12} style={{ width: 'calc(100% - 150px)', paddingLeft: 5 }}>
               <TableContainer style={{ padding: 10, marginBottom: 10 }}>
@@ -296,7 +276,7 @@ function ClothesRegister( {history} ) {
                           label="Size(XS ~ 4XL)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" 
+                          variant="filled"
                           name='size'
                           onChange={infoValueChange} />
                       </TableCell>
@@ -305,7 +285,7 @@ function ClothesRegister( {history} ) {
                           label="Length(cm)"
                           color="secondary"
                           margin="dense"
-                          variant="filled" 
+                          variant="filled"
                           name='length'
                           onChange={infoValueChange} />
                       </TableCell>
@@ -333,27 +313,22 @@ function ClothesRegister( {history} ) {
               </TableContainer>
             </Grid>
           </Grid>
-
-          <div className="section down">
-            <Typography gutterBottom variant="body1" color="textPrimary" component="p">
-              제품 색상 :
-                </Typography>
-            {/* <div className="checkboxContainer">
-                <label>
-                  <input type="radio" name="color" value="red" className="radiobox" />
-                  <span className="ico"></span>
-                </label>
-                <label><input type="radio" name="color" value="pink" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="yellow" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="green" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="sky" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="navy" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="purple" className="radiobox" /></label>
-                <label><input type="radio" name="color" value="white" className="radiobox" /></label>
-                <label className="chkFalse"><input type="radio" name="color" value="black" className="radiobox" /></label>
-                <label className="chkTrue"><input type="radio" name="color" value="rainbow" className="radiobox" checked="true" /></label>
-              </div> */}
-          </div>
+          <p>제품 색상 :</p>
+          {/* <div className="checkboxContainer">
+            <label>
+              <input type="radio" name="color" value="red" className="radiobox" />
+              <span className="ico"></span>
+            </label>
+            <label><input type="radio" name="color" value="pink" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="yellow" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="green" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="sky" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="navy" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="purple" className="radiobox" /></label>
+            <label><input type="radio" name="color" value="white" className="radiobox" /></label>
+            <label className="chkFalse"><input type="radio" name="color" value="black" className="radiobox" /></label>
+            <label className="chkTrue"><input type="radio" name="color" value="rainbow" className="radiobox" checked="true" /></label>
+          </div> */}
 
           <Button variant="contained" color="primary" onClick={infoSubmitButton}
             style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>

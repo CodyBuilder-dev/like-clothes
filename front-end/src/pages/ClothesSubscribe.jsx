@@ -44,9 +44,7 @@ export default function ClothesDetail(props) {
   return (
     <Card className={styles.root}>
       <Box border={2} borderRadius={5} className={styles.paper}>
-        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
-          구독 중인 목록
-        </Typography>
+      <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 중인 목록</p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
           {subscribe && (subscribe.map((item) => (
             <GridListTile key={item} height="300px">

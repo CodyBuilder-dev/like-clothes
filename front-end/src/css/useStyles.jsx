@@ -8,7 +8,6 @@ export const appjs = makeStyles((theme) => ({
     width: 'calc(100% - 342px)',
     display: 'flex',
     marginLeft: '296px',
-    marginTop: '110px',
     margin: theme.spacing(7),
   },
   background: {
@@ -45,7 +44,10 @@ export const appsidedrawerjsx = makeStyles((theme) => ({
     padding: theme.spacing(0),
   },
   cardContent1: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)'
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    '&:hover': {
+      outline: '3px solid rgba(0, 0, 0, 0.7)'
+    },
   },
   cardContent2: {
     backgroundColor: 'rgba(255, 255, 255, 0)'
@@ -58,7 +60,7 @@ export const appsidedrawerjsx = makeStyles((theme) => ({
     opacity: 0.95
   },
   buttonLogout: {
-    // position: 'absolute',
+    position: 'absolute',
     bottom: theme.spacing(2),
     height: '37px',
     fontSize: '15px',
@@ -66,10 +68,14 @@ export const appsidedrawerjsx = makeStyles((theme) => ({
   },
   listContent: {
     width: '100%',
-    height: '45px',
+    height: '40px',
     fontSize: '15px',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    opacity: 0.9
+    opacity: 0.9,
+    '&:hover': {
+      backgroundColor: 'rgba(200, 40, 40, 0.9)',
+      color: 'rgba(255, 255, 255, 0.9)'
+    },
   },
 }));
 
