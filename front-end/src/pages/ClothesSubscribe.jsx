@@ -9,6 +9,7 @@ import Carousel from '../components/Carousel';
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
   const [subscribe, setSubscribe] = useState([]);
+  const [nextSubscribe, setNextSubscribe] = useState([]);
 
   useEffect(() => {
     const url = process.env.REACT_APP_URL + '/clothes-resv'
@@ -20,7 +21,25 @@ export default function ClothesDetail(props) {
     };
     axios.get(url, config).then((res) => {
       console.log(res.data, '1, clothes_item_id, 예약된 날짜!');
-      setSubscribe(res.data);
+      const thisData = [];
+      const nextData = [];
+      const thisWeek = new Date();
+      const nextWeek = new Date();
+      thisWeek.setDate(thisWeek.getDate() - thisWeek.getDay())
+      nextWeek.setDate(nextWeek.getDate() + 7 - nextWeek.getDay())
+
+      res.data.forEach((data)=> {
+        const curWeek  = new Date(data.reserved_date);
+        // console.log(data.reserved_date, curWeek)
+        if (curWeek.getFullYear() == thisWeek.getFullYear() && curWeek.getMonth() == thisWeek.getMonth() && curWeek.getDate() == thisWeek.getDate()){
+          thisData.push(data)
+        } else if (curWeek.getFullYear() == nextWeek.getFullYear() && curWeek.getMonth() == nextWeek.getMonth() && curWeek.getDate() == nextWeek.getDate()){
+          nextData.push(data)
+        }
+      })
+      console.log("thisData", thisData,"nextData", nextData )
+      setSubscribe(thisData);
+      setNextSubscribe(nextData);
     })
   }, [])
 
@@ -29,6 +48,10 @@ export default function ClothesDetail(props) {
       <Box border={2} borderRadius={5} className={styles.paper}>
       <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 중인 목록</p>
         <Carousel imgList={subscribe}></Carousel>
+      </Box>
+      <Box border={2} borderRadius={5} className={styles.paper}>
+      <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 할 목록</p>
+        <Carousel imgList={nextSubscribe}></Carousel>
       </Box>
     </Card>
   );

@@ -38,6 +38,9 @@ export default function ClothesDetail(props) {
   // const day = dayNames[today.getDay()];
   const nowDate = `${year}-${month}-${date}`
 
+  console.log(nowDate, today.getDay())
+  today.setDate(today.getDate() + 7 - today.getDay())
+  console.log(today)
   // let subscriptDate = Date.now();
   // // let subscriptData = new Date();
   // let d = subscriptDate.toString()
@@ -68,7 +71,7 @@ export default function ClothesDetail(props) {
 
   const subscriptButtonClick = () => {
     const url = baseUrl + '/clothes-resv'
-    const params = { "clothes_item_id": 4, "reserved_date": nowDate }
+    const params = { "clothes_item_id": 4, "reserved_date": today }
     axios.post(url, params, config)
     .then((res) => {
       if (res.data === 'success') {
