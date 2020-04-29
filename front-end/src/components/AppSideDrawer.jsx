@@ -18,7 +18,7 @@ export default function SearchAppBar(props) {
     const url = process.env.REACT_APP_URL + `/user/${user_email}`
 
     axios.get(url).then((res) => {
-      console.log(res.data);
+      console.log(res, '사이드결과')
       setUserinfo(res.data.user);
     })
   }, [])
@@ -56,7 +56,6 @@ export default function SearchAppBar(props) {
               <Card variant="outlined" className={styles.cardContent1}>
                 <CardContent>
                   <NavLink to={`/closet/?user_email=${user_email}`}>
-                    {console.log(userinfo, '유저인포')}
                     <Avatar style={{ display: 'inline-block', width: 160, height: 160 }} src={userinfo.profile_img} />
                   </NavLink>
                   <p style={{ marginBottom: 5 }}>{userinfo.nickname}</p>

@@ -11,11 +11,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { clothesdetailjsx } from '../css/useStyles'
 import {
   Card, Box, Grid, Divider,
-  Typography, TextField, Button, Table, TableCell,
-  TableContainer, TableHead, TableRow, InputLabel
+  TextField, Button, Table, TableCell,
+  TableContainer, TableHead, TableRow, 
 } from '@material-ui/core';
 
+
 function ClothesRegister({ history }) {
+  const styles = clothesdetailjsx();
+
   // 최종 데이터 전송
   const [sendData, setSendData] = useState({
     clothes_id: '',
@@ -25,6 +28,7 @@ function ClothesRegister({ history }) {
     shoulder: 0,
     waist: 0,
     color: 'black',
+    user_img: [],
   })
 
   const infoValueChange = (e) => {
@@ -43,60 +47,61 @@ function ClothesRegister({ history }) {
       })
   }
 
-  // 유저가 직접 업로드하는 사진 로드
-  const styles = clothesdetailjsx();
-  const [previewURL, setPreviewURL] = useState([]);
-  const [fileState, setFileState] = useState([]);
+  // // 여기는 현재 필요없는 기능
+  // // 유저가 직접 업로드하는 사진 로드
+  // const [previewURL, setPreviewURL] = useState([]);
+  // const [fileState, setFileState] = useState([]);
 
-  const handleFileInput = e => {
-    let file = e.target.files;
-    let fileindex = Object.keys(file);
+  // const handleFileInput = e => {
+  //   let file = e.target.files;
+  //   let fileindex = Object.keys(file);
 
-    fileindex.map((i) => {
-      let reader = new FileReader();
-      reader.readAsDataURL(file[i])
-      setFileState(fileState => [...fileState, file[i]])
+  //   fileindex.map((i) => {
+  //     // 여기 객체에 제대로 안 들어감. 수정 필요
+  //     setSendData(sendData => [{...sendData, user_img: file[i]}])
 
-      reader.onloadend = () => {
-        const base64 = reader.result;
-        setPreviewURL(previewURL => [...previewURL, base64.toString()]);
-      }
-    })
-  }
+  //     let reader = new FileReader();
+  //     reader.readAsDataURL(file[i])
+  //     reader.onloadend = () => {
+  //       const base64 = reader.result;
+  //       setPreviewURL(previewURL => [...previewURL, base64.toString()]);
+  //     }
+  //   })
+  // }
 
-  const lenfile = fileState.length;
-  let lenList = []
-  for (let i = 0; i < lenfile; i++) {
-    lenList.push(i.toString());
-  }
+  // const lenfile = fileState.length;
+  // let lenList = []
+  // for (let i = 0; i < lenfile; i++) {
+  //   lenList.push(i.toString());
+  // }
 
-  // 유저가 업로드한 옷 사진 미리보기
-  const imagesPreview = lenList.map((i) => {
-    return (
-      <div className="imagesPreviewDiv">
-        <img className="imagesPreview"
-          src={previewURL[i]} width="100%">
-        </img>
-        <button className="imageDeleteButton"
-          onClick={(e) => handleImageDelete(e, i)}>삭제버튼</button>
-      </div>
-    )
-  });
+  // // 유저가 업로드한 옷 사진 미리보기
+  // const imagesPreview = lenList.map((i) => {
+  //   return (
+  //     <div key={i} className="imagesPreviewDiv">
+  //       <img className="imagesPreview"
+  //         src={previewURL[i]} width="100px" height="100px">
+  //       </img>
+  //       <button className="imageDeleteButton"
+  //         onClick={(e) => handleImageDelete(e, i)}>삭제버튼</button>
+  //     </div>
+  //   )
+  // });
 
-  // 유저가 업로드한 옷 삭제 - 미완성!!! 삭제 이상함 ㅠ ㅠ
-  const handleImageDelete = (e, i) => {
-    console.log(i, 'i는?')
-    const calc = (i) => {
-      let filterFile = [];
-      for (let key = 0; key < fileState.length; key++) {
-        if (key != i) filterFile.push(fileState[key]);
-      }
-      return filterFile
-    }
-    setFileState(calc)
-    // setFileState(fileState.filter((i) => (i !== key)))
-    setPreviewURL(previewURL.splice(i, 1))
-  }
+  // // 유저가 업로드한 옷 삭제 - 미완성!!! 삭제 이상함 ㅠ ㅠ
+  // const handleImageDelete = (e, i) => {
+  //   console.log(i, 'i는?')
+  //   const calc = (i) => {
+  //     let filterFile = [];
+  //     for (let key = 0; key < fileState.length; key++) {
+  //       if (key != i) filterFile.push(fileState[key]);
+  //     }
+  //     return filterFile
+  //   }
+  //   setFileState(calc)
+  //   // setFileState(fileState.filter((i) => (i !== key)))
+  //   setPreviewURL(previewURL.splice(i, 1))
+  // }
 
   // 검색필터 가져와서 따라함
   // 검색할 목록을 가지고 있을 변수
@@ -179,6 +184,7 @@ function ClothesRegister({ history }) {
             )) : null}
           </div>
 
+              {/* 핸들러와 함께 현재 필요없는 기능
           <p>이미지 등록 :</p>
           <input
             style={{ display: "block" }}
@@ -188,8 +194,7 @@ function ClothesRegister({ history }) {
           <div className="imagesPreviewContainer">
             {imagesPreview}
           </div>
-
-          <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
+          <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} /> */}
 
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 120 }}>

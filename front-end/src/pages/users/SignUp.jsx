@@ -38,23 +38,30 @@ class SignUp extends Component {
 
   handleImg(e) {
     let file = e.target.files;
-    let reader = new FileReader();
-    reader.readAsDataURL(file[0])
+    const user = this.state.user;
+    user["profile_img"] = file[0];
     this.setState({
       ...this.state,
-      fileState: file[0]
+      user
     })
-
-    reader.onloadend = () => {
-      const base64 = reader.result.toString();
-      const user = this.state.user;
-      user["profile_img"] = base64
-      this.setState({
-        ...this.state,
-        user
-      });
-    }
   }
+  //   let reader = new FileReader();
+  //   reader.readAsDataURL(file[0])
+  //   this.setState({
+  //     ...this.state,
+  //     fileState: file[0]
+  //   })
+
+  //   reader.onloadend = () => {
+  //     const base64 = reader.result.toString();
+  //     const user = this.state.user;
+  //     user["profile_img"] = base64
+  //     this.setState({
+  //       ...this.state,
+  //       user
+  //     });
+  //   }
+  // }
 
   handleAddress(data) {
     // 지번주소와 도로명주소 매칭
@@ -103,6 +110,7 @@ class SignUp extends Component {
     axios.post(baseUrl + "/user/signup/", formData)
     .then(res => {
       if (res.data.state === 'success') {
+        console.log(res.data, '결과데이터')
         localStorage.token = res.data.new_user.password;
         localStorage.isAuthenticated = true;
         localStorage.email = res.data.new_user.email;
