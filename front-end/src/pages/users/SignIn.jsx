@@ -4,6 +4,7 @@ import { Card, Box, Zoom } from '@material-ui/core';
 import SignInForm from "./SignInForm";
 import SigninVideo from '../../asset/Signin.mp4';
 import SigninVideo2 from '../../asset/Signin2.mp4';
+import SigninBackground from '../../asset/SigninBackground.jpg'
 
 const baseUrl = process.env.REACT_APP_URL
 
@@ -63,10 +64,10 @@ class SignIn extends Component {
           localStorage.email = res.data.user.email;
           localStorage.nickname = res.data.user.nickname;
           localStorage.isAuthenticated = true;
-          
+
           // 로그인을 갱신하기 위한 redux 소스 추가
           this.props.setAuthentication(true);
-          
+
           window.location.href = "/";
         } else {
           alert('이메일과 비밀번호를 확인해 주세요')
@@ -91,7 +92,7 @@ class SignIn extends Component {
             </Zoom>
           </Box>
           <Box style={{ overflow: 'hidden', height: '100%' }}>
-            <video autoPlay loop muted
+            {/* <video autoPlay loop muted
               style={{
                 width: 'auto',
                 zIndex: -100,
@@ -105,7 +106,32 @@ class SignIn extends Component {
                 marginTop: 'calc(-50vh)'
               }}>
               <source src={SigninVideo2} type='video/mp4' />
+            </video> */}
+            <img style={{
+              width: '150%',
+              zIndex: -100,
+            }} src={SigninBackground}></img>
+          </Box>
+          <Box style={{ overflow: 'hidden', height: '100%' }}>
+            {/* <video autoPlay loop muted
+              style={{
+                width: 'auto',
+                zIndex: -100,
+              }}>
+              <source src={SigninVideo} type='video/mp4' />
             </video>
+            <video autoPlay loop muted
+              style={{
+                width: 'auto',
+                zIndex: -99,
+                marginTop: 'calc(-50vh)'
+              }}>
+              <source src={SigninVideo2} type='video/mp4' />
+            </video> */}
+            <img style={{
+              width: '150%',
+              zIndex: -100,
+            }} src={SigninBackground}></img>
           </Box>
         </Box>
       </Card>

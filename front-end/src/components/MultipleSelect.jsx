@@ -93,38 +93,38 @@ export default function MultipleSelect(props) {
       else reject('error : event.target.value');
     })
   ).then((res) => {
-    setSearchFilter({type: decodeTypeKorToEng(type), filterList: res}); // 이름을 추가
+    setSearchFilter({ type: decodeTypeKorToEng(type), filterList: res }); // 이름을 추가
   }).catch((err) => { alert(err) });
 
   return (
     <div>
-    <FormControl className={classes.formControl}>
+      <FormControl variant="outlined" className={classes.formControl}>
 
-    {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
+        {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
       <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
       <Select style={{ variant: 'outlined' }}*/}
 
-      {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
-      <FormLabel component='legend' style={{ color: 'white' }}>{type}</FormLabel>
-      <Select style={{ backgroundColor: 'pink', width: '150px' }}
+        {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
+        <FormLabel style={{ color: 'white' }}>{type}</FormLabel>
+        <Select style={{ width: '150px', height: '43px', backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', margin: '5px 0 0 0', }}
 
-        labelId="demo-mutiple-name-label"
-        id={type}
-        multiple
-        value={personName}
-        onChange={handleChange}
-        input={<Input />}
-        MenuProps={MenuProps}
-        variant="filled"
-        name={type}
-      >
-        {handleTypeToList().map((name) => (
-          <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-    </div>
+          labelId="demo-mutiple-name-label"
+          id={type}
+          multiple
+          value={personName}
+          onChange={handleChange}
+          input={<Input />}
+          MenuProps={MenuProps}
+          variant='outlined'
+          name={type}
+        >
+          {handleTypeToList().map((name) => (
+            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div >
   );
 }

@@ -65,10 +65,10 @@ class MainPage extends PureComponent {
             </Grid>
             <Grid style={{ width: '80%' }} container justify="space-evenly" alignItems="center">
               <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
-              <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} />
+              <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} style={{ marginRight: '20px' }} />
               <SearchInput type="태그" setSearchFilter={this.setSearchFilter} />
-              <SearchInput type="상품 이름" setSearchFilter={this.setSearchFilter} />
               <SearchInput type="브랜드" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="상품 이름" setSearchFilter={this.setSearchFilter} />
             </Grid>
             <Grid style={{ width: '10%' }} container justify='center'>
               <Button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>
