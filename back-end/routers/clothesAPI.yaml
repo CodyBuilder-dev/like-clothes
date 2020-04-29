@@ -7,6 +7,15 @@ tags:
   description: CLOTHES API
 
 definitions:
+  record_user_clotehs_Request:
+    type: object
+    required:
+    - clothes_id
+    properties:
+      clothes_id:
+      type: integer
+      description: 등록하고자 하는 옷의 ID
+
   register-clothes-item_Request:
     type: object
     required:
@@ -360,6 +369,49 @@ path:
             items:
               $ref: '#/definitions/search-clothes-tag_Response'
               
+  /api/clothes/random-clothes:
+    get:
+      tags: 
+      - CLOTHES
+      summary: 태그
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/search-clothes-tag_Response'
+  
+  /api/clothes/record-user-clothes:
+    post:
+      tags: 
+      - CLOTHES
+      summary: 태그
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: record-clothes-body
+        description: ㅎㅎ
+        schema:
+          $ref: '#/definitions/record_user_clotehs_Request'
+
+  
+    
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/record_user_Response'
+      
   /api/clothes/search-clothes:
     get:
       tags:
@@ -401,3 +453,32 @@ path:
             type: array
             items:
               $ref: '#/definitions/search-clothes_Response'
+
+
+  /api/clothes-resv:
+    get:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 로그인한 유저의 구독 정보 확인
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    post:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 옷 구독하기
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    delete:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 옷 구독 취소하기
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    
+  

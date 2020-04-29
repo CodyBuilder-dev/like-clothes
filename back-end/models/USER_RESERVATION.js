@@ -1,7 +1,9 @@
 /* jshint indent: 2 */
+const { QueryTypes } = require('sequelize');
+import { getSearchSql } from "../sql";
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('USER_RESERVATION', {
+  const USER_RESERVATION =  sequelize.define('USER_RESERVATION', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -51,4 +53,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'USER_RESERVATION'
   });
+
+
+  USER_RESERVATION.read_clothes_reservation = function (signin_user_email) {
+    let sql = "select ur.*, c.img FROM USER_RESERVATION AS ur \
+		LEFT JOIN CLOTHES_ITEM AS ci ON ur.clothes_item_id = ci.id \
+    LEFT JOIN CLOTHES AS c ON c.id = ci.clothes_id \
+    WHERE user_email = '" + signin_user_email + "';";
+    
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
+
+  return USER_RESERVATION;
 };

@@ -59,7 +59,7 @@ definitions:
     - name
     - nickname
     - address
-    - age
+    - birth
     - gender
     properties:
       email:
@@ -80,9 +80,9 @@ definitions:
       phone_num:
         type: string
         description: 사용자 전화번호
-      age:
-        type: integer
-        description: 사용자 나이
+      birth:
+        type: string
+        description: 사용자 생일
       gender:
         type: string
         description: 사용자 성별

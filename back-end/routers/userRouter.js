@@ -13,18 +13,19 @@ import {
     delete_user,
     follow_user_toggle,
     read_following_user,
-    read_follower_user
+    read_follower_user,
+    profile_upload
 } from "../controllers/userController"
 
 const userRouter = express.Router();
 
 userRouter.post(routes.signin, signin);
 userRouter.post(routes.social_signin, social_signin);
-userRouter.post(routes.signup, signup);
+userRouter.post(routes.signup, profile_upload.single('profile_img'), signup);
 userRouter.post(routes.follow_user_toggle, onlyPrivate, follow_user_toggle);
 
-userRouter.get(routes.following_user, onlyPrivate, read_following_user);
-userRouter.get(routes.follower_user, onlyPrivate, read_follower_user);
+userRouter.get(routes.following_user, read_following_user);
+userRouter.get(routes.follower_user, read_follower_user);
 userRouter.get(routes.user_email, read_user);
 userRouter.get(routes.home, read_all_user);
 

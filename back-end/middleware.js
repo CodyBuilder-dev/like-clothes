@@ -10,10 +10,16 @@ export const localsMiddleWare = async (req, res, next) => {
             if (decoded) {
                 const user = await USER.findOne({ where: { email: decoded.email } });
                 res.locals.user = user.dataValues;
-            } 
+                next();
+            } else {
+                res.send("만료된 토큰입니다.");
+            }
         }
-        res.locals.siteName = "LikeClothes";
-        next();
+        else {
+            next();
+        }
+        // res.locals.siteName = "LikeClothes";
+        // next();
     }
     catch(err) {
         next();

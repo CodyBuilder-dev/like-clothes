@@ -1,17 +1,49 @@
 import { USER_RESERVATION } from "../models"
+import { errChk } from "./errChk"
 
 // User_reservation 예약하기
-export const search_clothes = async (req, res) => {
+export const register_clothes_reservation = (req, res) => {
     try {
-        // { tags, brands, code_names, majors, middles, minors }
-        let payload = req.body
-        const clothes = await USER_RESERVATION.search_clothes(payload)
-        res.send(clothes)
+        const signin_user = res.locals.user;
+        const {clothes_item_id, reserved_date } = req.body;
+
+        USER_RESERVATION.create({
+            user_email : signin_user.email,
+            clothes_item_id,
+            reserved_date
+        }).then(()=> {
+            res.send("success");
+        })
     } catch (err) {
-        res.send({
-            state: "failure",
-            desc: "Read clothes failed",
-            err
-        });
+        errChk(res, err.message, "register clothes reservation failed");
     }
 }
+
+// User_reservation 예약취소
+export const deregister_clothes_reservation = (req, res) => {
+    try {
+        const signin_user = res.locals.user;
+        const {user_reservation_id} = req.body
+        USER_RESERVATION.destroy({
+            where: { id : user_reservation_id }
+        }).then(()=> {
+            res.send("success");
+        })
+    } catch (err) {
+        errChk(res, err.message, "deregister clothes reservation failed");
+    }
+}
+
+// User_reservation 예약하기
+export const read_clothes_reservation = (req, res) => {
+    try {
+        const signin_user = res.locals.user;
+        USER_RESERVATION.read_clothes_reservation(signin_user.email)
+        .then((reservation)=> {
+            res.send(reservation);
+        })
+    } catch (err) {
+        errChk(res, err.message, "read clothes reservation failed");
+    }
+}
+

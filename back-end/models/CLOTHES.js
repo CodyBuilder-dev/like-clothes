@@ -50,7 +50,7 @@ module.exports = function (sequelize, DataTypes) {
     if (tag_sql) sql = sql + ' WHERE ' + tag_sql
     else return []    
     
-    sql = sql + ' LIMIT 500';
+    sql = sql + ' LIMIT 200'; 
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
@@ -92,7 +92,7 @@ module.exports = function (sequelize, DataTypes) {
     search_sql += category_minor_sql ? concat_sql + category_minor_sql : '';
 
     sql = search_sql ? sql + ' WHERE ' + search_sql : sql
-    sql = sql + ' LIMIT 500';
+    sql = sql + ' LIMIT 200';
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
@@ -107,8 +107,10 @@ module.exports = function (sequelize, DataTypes) {
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
+  // 옷장 -> 상세 이므로 .... <상세로 갈 수 있는 아이디>와 img url, 옷 기본 정보(code_name, brand) 는 추가적으로 있으면 좋을거 같아여!!!!!!!!!!!
+
   CLOTHES.read_clothes_items_in_closet = function (user_email) {
-    let sql = "SELECT * FROM CLOTHES_ITEM AS ci \
+    let sql = "SELECT ci.*, c.brand, c.code_name, c.img  FROM CLOTHES_ITEM AS ci \
 	              LEFT JOIN USER AS u ON ci.owner_email = u.email \
                 LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
                 LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
@@ -118,13 +120,34 @@ module.exports = function (sequelize, DataTypes) {
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
-  CLOTHES.read_clothes_item = function (clothes_item_id) {
-    let sql = "SELECT * FROM CLOTHES_ITEM AS ci \
-                LEFT JOIN USER AS u ON ci.owner_email = u.email \
-                LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
-                LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
-                LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
-                WHERE ci.id=" + clothes_item_id;
+  CLOTHES.read_clothes_item = function (clothes_item_id, signin_user) {
+    let sql;
+    if (typeof signin_user === 'undefined') {
+      sql = "SELECT ci.clothes_id, ci.owner_email, ci.color, ci.description, ci.size, ci.length, ci.shoulder, ci.waist, \
+        cc.major, cc.middle, cc.minor, c.img, c.code_name, c.brand, c.season, u.profile_img, u.nickname, ci.id, cc.major as 'gender'  \
+        FROM CLOTHES_ITEM AS ci \
+        LEFT JOIN USER AS u ON ci.owner_email = u.email \
+        LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+        LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
+        LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+        WHERE ci.id=" + clothes_item_id;
+      
+    } else {
+      const signin_user_email = signin_user.email
+      sql = "SELECT distinct ci.clothes_id, ci.owner_email, ci.color, ci.description, ci.size, ci.length, ci.shoulder, ci.waist, \
+      cc.major, cc.middle, cc.minor, c.img, c.code_name, c.brand, c.season, u.profile_img, u.nickname, ci.id, cc.major as 'gender', \
+      case when wl.clothes_item_id != null then 'true' else 'false' end in_wishlist, \
+      case when ur.clothes_item_id != null then 'true' else 'false' end in_reservation \
+      FROM CLOTHES_ITEM AS ci \
+      LEFT JOIN USER AS u ON ci.owner_email = u.email \
+      LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
+      LEFT JOIN CLOTHES_AND_CLOTHES_CLASS AS ccc ON c.id = ccc.clothes_id \
+      LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+      LEFT JOIN WISH_LIST AS wl ON wl.user_email = '"+ signin_user_email + "' and wl.clothes_item_id = ci.id \
+      LEFT JOIN USER_RESERVATION AS ur ON ur.user_email = '" + signin_user_email + "' and ur.clothes_item_id = ci.id \
+      WHERE ci.id=" + clothes_item_id;
+      
+    }
 
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
@@ -132,12 +155,16 @@ module.exports = function (sequelize, DataTypes) {
   CLOTHES.read_clothes_item_tag = function (clothes_item_id) {
     let sql = "SELECT ct.tag FROM CLOTHES_ITEM AS ci \
                 LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
-                LEFT JOIN CLOTHES_AND_TAGS AS ct ON ci.id = ct.clothes_id";
+                LEFT JOIN CLOTHES_AND_TAGS AS ct ON c.id = ct.clothes_id";
     sql += " where ci.id=" + clothes_item_id;
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 
-
+  CLOTHES.read_random_clothes = function () {
+    let sql = "SELECT * FROM CLOTHES \
+                ORDER BY RAND() LIMIT 6 ";
+    return sequelize.query(sql, { type: QueryTypes.SELECT });
+  }
 
 
 
