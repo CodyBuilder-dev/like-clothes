@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Grid, Card, Box, Button, Select, MenuItem, TextField } from '@material-ui/core';
-import { Edit, FavoriteBorder, Favorite } from '@material-ui/icons';
+import {
+  Card, Box, Grid, Divider, MenuItem, Select,
+  Typography, TextField, Button, Table, TableCell,
+  TableContainer, TableHead, TableRow, InputLabel
+} from '@material-ui/core';
+import { Edit, FavoriteBorder } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
@@ -129,15 +133,15 @@ export default function Closet(props) {
   }
 
   const ClosetIntroView = () => ( // true  
-      <div className={styles.closetIntro}>
-        <span>옷장 소개</span>
-        {localStorage.email === user_email && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}
-        <Card className={styles.closetIntroContent}>{closetIntro}</Card>
-      </div>
+    <div className={styles.closetIntro}>
+      <span>옷장 소개</span>
+      {localStorage.email === user_email && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}
+      <Card className={styles.closetIntroContent}>{closetIntro}</Card>
+    </div>
   );
 
   const ClosetIntroEdit = () => {  // false
-    const [ editIntro, setEditIntro ] = useState(closetIntro);
+    const [editIntro, setEditIntro] = useState(closetIntro);
 
     const handleIntroChange = (e) => {
       setEditIntro(e.target.value)
@@ -149,7 +153,7 @@ export default function Closet(props) {
       setIsEdit(true)
       ClosetIntroUpdate(newData)
     }
-  
+
     const handleIntroEnter = (e) => {
       const newData = e.target.value
       if (e.key === 'Enter') {
@@ -161,12 +165,10 @@ export default function Closet(props) {
 
     return (
       <div className={styles.closetIntro}>
-        <span>옷장 소개</span>
+        <span style>옷장 소개</span>
         <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>
-        <Card className={styles.closetIntroContent}>
-        <TextField type="text" value={editIntro} autoFocus fullWidth='true' variant="outlined"
+        <TextField type="text" color="secondary" value={editIntro} autoFocus fullWidth='true' variant="outlined"
           onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
-        </Card>
       </div>
     )
   }

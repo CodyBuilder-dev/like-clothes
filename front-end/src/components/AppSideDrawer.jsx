@@ -86,7 +86,7 @@ export default function SearchAppBar(props) {
             </NavLink>
             <NavLink
               style={{ color: 'black', textDecoration: 'none' }}
-              to='/recommend'>
+              to='/clothesrecommend'>
               <ListItem button className={styles.listContent}>
                 <ListItemIcon><LocalMallOutlined /></ListItemIcon>
                 <ListItemText primary='추천해욧' />

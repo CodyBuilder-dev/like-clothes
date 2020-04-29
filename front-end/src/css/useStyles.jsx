@@ -147,6 +147,15 @@ export const closetjsx = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(2)
   },
+  roots: {
+    flexGrow: 1,
+    padding: theme.spacing(0)
+  },
+  paper: {
+    padding: theme.spacing(3),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+  },
   editBtn: {
     marginLeft: '5px',
     width: '17px',
