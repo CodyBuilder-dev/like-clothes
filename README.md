@@ -30,7 +30,7 @@ page에서 어떻게	보여지는 지 여기에 사진
  :mag_right: [핵심 인공지능 기술4 - 내 옷과 어울리는 옷 추천](#4.-~와-어울리는-옷-추천) <br>
  :mag_right: [데이터베이스 스키마](#database-schema) <br>
  :mag_right: [LikeClothes 라이센스](#jira) <br>
- :mag_right: [저희가 궁금하다면](#about-us) <br>
+ :mag_right: [저희가 궁금하다면](#about-us-family) <br>
 
 
 
