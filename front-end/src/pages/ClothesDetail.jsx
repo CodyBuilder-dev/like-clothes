@@ -20,13 +20,13 @@ const StyledTableCell = withStyles((theme) => ({
 
 const baseUrl = process.env.REACT_APP_URL
 const baseAIUrl = process.env.REACT_APP_AI_URL
+const config = {"headers": {"Authorization": localStorage.token}}
 
 export default function ClothesDetail(props) {
   // 현재페이지 옷 id 가져오기
   const search = props.location.search;
   const params = new URLSearchParams(search);
   const item_id = params.get('clothes_item_id');
-  console.log(item_id, '얘뭐냐구')
 
   // 날짜 관련
   const today = new Date();
@@ -50,7 +50,7 @@ export default function ClothesDetail(props) {
 
   useEffect(() => {
     const url = baseUrl + `/clothes/clothes-item?clothes_item_id=${item_id}`;
-    axios.get(url).then((res) => {
+    axios.get(url, config).then((res) => {
       console.log(res.data, '페이지옷정보');
       setItem(res.data);
     });
@@ -69,7 +69,6 @@ export default function ClothesDetail(props) {
   const subscriptButtonClick = () => {
     const url = baseUrl + '/clothes-resv'
     const params = { "clothes_item_id": 4, "reserved_date": nowDate }
-    const config = { "headers": {"Authorization": localStorage.token} } 
     axios.post(url, params, config)
     .then((res) => {
       if (res.data === 'success') {
@@ -82,7 +81,6 @@ export default function ClothesDetail(props) {
   const wishButtonClick = () => {
     const url = baseUrl + '/clothes/wish-list'
     const params = { "clothes_item_id": 4 }
-    const config = { "headers": {"Authorization": localStorage.token} }
     axios.post(url, params, config)
     .then((res) => {
       if (res.data === 'success') {
@@ -131,15 +129,18 @@ export default function ClothesDetail(props) {
                   상품 태그
                   </Typography>
                 <Typography variant="h6" component="h2" style={{ marginLeft: 10 }}>
+                  {console.log(item.clothes_tags, '너를 돌릴 수 있겠지 ?')}
                   {item.clothes_tags &&
-                    (item.clothes_tags[0].tag === null ? '없음' :
-                      item.clothes_tags[0].tag)}
+                    (item.clothes_tags[0].tag === null ? '이 옷에는 아직 태그가 없어욧' :
+                      item.clothes_tags.map((clothes_tag) => {
+                        return clothes_tag.tag + ' '
+                      }))}
                 </Typography>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <Typography gutterBottom variant="body1" color="textSecondary" component="p">
                   상품 상세정보
                   </Typography>
-                <TableContainer style={{ padding: 10, marginBottom: 10 }}>
+                {/* <TableContainer style={{ padding: 10, marginBottom: 10 }}>
                   <Table className={styles.table} size="small">
                     <TableHead>
                       <TableRow>
@@ -152,20 +153,20 @@ export default function ClothesDetail(props) {
                       </TableRow>
                     </TableHead>
                   </Table>
-                </TableContainer>
+                </TableContainer> */}
                 <TableContainer style={{ padding: 10, marginBottom: 10 }}>
                   <Table className={styles.table} size="small">
                     <TableHead>
                       <TableRow>
-                        <StyledTableCell align="left">상품번호</StyledTableCell>
-                        <StyledTableCell align="left">색상</StyledTableCell>
-                        <StyledTableCell align="left">성별</StyledTableCell>
+                        <StyledTableCell align="left">Brand</StyledTableCell>
+                        <StyledTableCell align="left">CodeName</StyledTableCell>
+                        <StyledTableCell align="left">Color</StyledTableCell>
                         <StyledTableCell align="left">Season</StyledTableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell align="left">{item.clothes_info && item.clothes_info[0].id}</TableCell>
+                        <TableCell align="left">{item.clothes_info && item.clothes_info[0].brand}</TableCell>
+                        <TableCell align="left">{item.clothes_info && item.clothes_info[0].code_name}</TableCell>
                         <TableCell align="left">{item.clothes_info && item.clothes_info[0].color}</TableCell>
-                        <TableCell align="left">{item.clothes_info && item.clothes_info[0].gender}</TableCell>
                         <TableCell align="left">{item.clothes_info && item.clothes_info[0].season}</TableCell>
                       </TableRow>
                     </TableHead>
@@ -204,11 +205,11 @@ export default function ClothesDetail(props) {
                 </Typography>
                 <Box style={{ marginLeft: 10 }}>
                   {item.clothes_info && 
-                    <Link to={`/clothes/mycloset?user_email=${item.clothes_info[0].email}`}>
+                    <Link to={`/closet?user_email=${item.clothes_info[0].owner_email}`}
+                      style={{textDecoration: 'none', color: 'black'}}>
                       <img src={item.clothes_info[0].profile_img} width="20px" height='20px'></img>
                       <span style={{margin:'10px 5px'}}>{item.clothes_info[0].nickname}</span>
-                    </Link>
-                  }
+                    </Link>}
                 </Box>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <Grid container spacing={1}>
