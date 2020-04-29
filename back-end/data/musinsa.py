@@ -247,6 +247,7 @@ if __name__=='__main__':
     cursor = db.cursor()
     
     clothes_category_list = get_clothes_category_list()
+    # print(clothes_category_list[33])
     for url in clothes_category_list[config.start_category:config.end_category]:
         for key, value in url.items():
             print(key)

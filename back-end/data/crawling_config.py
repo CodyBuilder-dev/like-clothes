@@ -4,10 +4,10 @@ import json
 # Config.py 파일 생성
 parser = argparse.ArgumentParser()
 
-page = '2'
+page = '8'
 start_category = 0
 end_category = 40
-save_json_name = 'musinsa_page02.json'
+save_json_name = 'musinsa_page08.json'
 
 parser.add_argument('--base_url', type=str, default='https://store.musinsa.com')
 
