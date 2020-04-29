@@ -16,12 +16,19 @@ export default function SearchAppBar(props) {
 
   useEffect(() => {
     const url = process.env.REACT_APP_URL + `/user/${user_email}`
-
     axios.get(url).then((res) => {
       console.log(res, '사이드결과')
       setUserinfo(res.data.user);
     })
   }, [])
+
+  const movePage = () => {
+    if (!!localStorage.isAuthenticated === false) {
+      alert('로그인 해주세여 >_');
+      // reload 말고 좋은 방법 없을까....
+      window.location.reload();
+    }
+  }
 
   const handleLogOut = () => {
     props.setAuthentication(false);
@@ -29,6 +36,7 @@ export default function SearchAppBar(props) {
     localStorage.removeItem('email');
     localStorage.removeItem('nickname');
     localStorage.removeItem('isAuthenticated');
+    window.location.reload();
     // props.history.replace('/');
   }
 
@@ -101,7 +109,7 @@ export default function SearchAppBar(props) {
                   <p>내 옷장</p>
                 </ListItem>
               </NavLink>
-              <NavLink
+              <NavLink onClick={movePage}
                 style={{ color: 'black', textDecoration: 'none' }}
                 to='/clothessubscribe'>
                 <ListItem button className={styles.listContent}>
@@ -109,7 +117,7 @@ export default function SearchAppBar(props) {
                   <p>구독해욧</p>
                 </ListItem>
               </NavLink>
-              <NavLink
+              <NavLink onClick={movePage}
                 style={{ color: 'black', textDecoration: 'none' }}
                 to='/clothesrecommend'>
                 <ListItem button className={styles.listContent}>

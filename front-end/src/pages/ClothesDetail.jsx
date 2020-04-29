@@ -71,7 +71,9 @@ export default function ClothesDetail(props) {
     const params = { "clothes_item_id": 4, "reserved_date": nowDate }
     axios.post(url, params, config)
     .then((res) => {
-      if (res.data === 'success') {
+      if (res.data === 'You\'re not logged in') {
+        alert('로그인 해주세요 >_')
+      } else if (res.data === 'success') {
         alert('구독하셨어욧')
       }
       console.log(res, '구독클릭')
@@ -83,7 +85,9 @@ export default function ClothesDetail(props) {
     const params = { "clothes_item_id": 4 }
     axios.post(url, params, config)
     .then((res) => {
-      if (res.data === 'success') {
+      if (res.data === 'You\'re not logged in') {
+        alert('로그인 해주세요 >_')
+      } else if (res.data === 'success') {
         alert('위시리스트에 추가되었어욧')
       } else if (res.data.desc === 'already wishlist clothes exist') {
         alert('이미 추가된 옷이에욧')

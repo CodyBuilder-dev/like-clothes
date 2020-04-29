@@ -45,23 +45,6 @@ class SignUp extends Component {
       user
     })
   }
-  //   let reader = new FileReader();
-  //   reader.readAsDataURL(file[0])
-  //   this.setState({
-  //     ...this.state,
-  //     fileState: file[0]
-  //   })
-
-  //   reader.onloadend = () => {
-  //     const base64 = reader.result.toString();
-  //     const user = this.state.user;
-  //     user["profile_img"] = base64
-  //     this.setState({
-  //       ...this.state,
-  //       user
-  //     });
-  //   }
-  // }
 
   handleAddress(data) {
     // 지번주소와 도로명주소 매칭
