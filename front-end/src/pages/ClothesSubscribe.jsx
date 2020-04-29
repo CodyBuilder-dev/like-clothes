@@ -22,21 +22,7 @@ export default function ClothesDetail(props) {
       }
     };
     axios.get(url, config).then((res) => {
-      console.log(res.data);
-      setSubscribe(res.data);
-    })
-  }, [])
-
-  useEffect(() => {
-    const url = process.env.REACT_APP_URL + '/clothes-resv'
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.token,
-      }
-    };
-    axios.get(url, config).then((res) => {
-      console.log(res.data);
+      console.log(res.data, '1, clothes_item_id, 예약된 날짜!');
       setSubscribe(res.data);
     })
   }, [])

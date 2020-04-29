@@ -2,6 +2,7 @@ import React from 'react'
 import { Zoom, Fab, useScrollTrigger } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardArrowUp } from '@material-ui/icons';
+import SmoothScrolling from '../module/smoothScrolling';
 
 const useStyles = makeStyles((theme) => ({
   fabicon: {
@@ -21,12 +22,15 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector('#root');
+  const handleClick = () => {    
+    SmoothScrolling.scrollTo('back-to-top-anchor');
+    // const scroll = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+    // scroll.ScrollTop = 0;
 
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    // console.log(anchor, '얘가 나오면 스크롤 ?')
+    // if (anchor) {
+      // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // }
   };
 
   return (
