@@ -25,12 +25,12 @@ export default class SearchInput extends PureComponent {
 
   render() {
     return (
-
       // <TextField type="text" placeholder={this.props.type} onChange={this.handleChange} style={{ marginRight: 20 }} />
-
-        // {/* <FormLabel component='legend' style={{ color: 'white', display: 'inline' }}>{this.props.type}</FormLabel> */}
-        <TextField type="text" required
-        style={{backgroundColor:'pink', borderRadius:'2px', width:'140px', margin:'15px 0 0 0'}}
+      // {/* <FormLabel component='legend' style={{ color: 'white', display: 'inline' }}>{this.props.type}</FormLabel> */}
+      <TextField type="text" required variant="outlined" margin="dense"
+        style={{
+          backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', width: '18%', margin: '20px 0 0 0',
+        }}
         placeholder={this.props.type} onChange={this.handleChange} />
 
     );
