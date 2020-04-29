@@ -23,19 +23,19 @@ page에서 어떻게	보여지는 지 여기에 사진
 
 **바로 가기**
 
- :mag_right: [LikeClothes 사용 설명서](#cotent) <br>
+ :mag_right: [LikeClothes 사용 설명서](#사용-설명서-open_hands) <br>
  :mag_right: [핵심 인공지능 기술1 - 내 옷과 비슷한 옷 추천](#1.-~와-비슷한-추천) <br>
  :mag_right: [핵심 인공지능 기술2 - 내용 기반 필터링 추천](#2.-사용자-기록-기반-추천(내용-기반-필터링)) <br>
  :mag_right: [핵심 인공지능 기술3 - 협업 기반 필터링 추천]( #3.-사용자-기록-기반-추천(협업-필터링)) <br>
  :mag_right: [핵심 인공지능 기술4 - 내 옷과 어울리는 옷 추천](#4.-~와-어울리는-옷-추천) <br>
  :mag_right: [데이터베이스 스키마](#database-schema) <br>
- :mag_right: [LikeClothes 라이센스](#jira) <br>
+ :mag_right: [LikeClothes 라이센스](#jira-date) <br>
  :mag_right: [저희가 궁금하다면](#about-us-family) <br>
 
 
 
 
-## 사용 설명서 :open_hands: <a name="content"></a>
+## 사용 설명서 :open_hands:
 
 ### 설치하기
 
