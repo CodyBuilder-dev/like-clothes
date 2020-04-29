@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Box, Grid, Divider,
   Typography, Button, Avatar, Table, TableCell,
@@ -25,7 +26,7 @@ export default function ClothesDetail(props) {
   const search = props.location.search;
   const params = new URLSearchParams(search);
   const item_id = params.get('clothes_item_id');
-  console.log(item_id, '지금itemid')
+  console.log(item_id, '얘뭐냐구')
 
   // 날짜 관련
   const today = new Date();
@@ -36,7 +37,6 @@ export default function ClothesDetail(props) {
   date = date < 10 ? '0' + date : date;
   // const day = dayNames[today.getDay()];
   const nowDate = `${year}-${month}-${date}`
-  console.log(nowDate,'지금출력해라아')
 
   // let subscriptDate = Date.now();
   // // let subscriptData = new Date();
@@ -47,10 +47,9 @@ export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
   const [item, setItem] = useState({});
   const [recommend, setRecommend] = useState([]);
-  const [others, setOthers] = useState([]);
 
   useEffect(() => {
-    const url = baseUrl + `/clothes/clothes-item?clothes_item_id=4`;
+    const url = baseUrl + `/clothes/clothes-item?clothes_item_id=${item_id}`;
     axios.get(url).then((res) => {
       console.log(res.data, '페이지옷정보');
       setItem(res.data);
@@ -62,7 +61,7 @@ export default function ClothesDetail(props) {
     axios.post(url, {
       "img_url": "http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg"
     }).then((res) => {
-      console.log(res.data);
+      console.log(res.data, '추천데이터?');
       setRecommend(res.data);
     })
   }, [])
@@ -204,7 +203,12 @@ export default function ClothesDetail(props) {
                   판매자 정보
                 </Typography>
                 <Box style={{ marginLeft: 10 }}>
-                  {item.clothes_info && item.clothes_info[0].nickname}
+                  {item.clothes_info && 
+                    <Link to={`/clothes/mycloset?user_email=${item.clothes_info[0].email}`}>
+                      <img src={item.clothes_info[0].profile_img} width="20px" height='20px'></img>
+                      <span style={{margin:'10px 5px'}}>{item.clothes_info[0].nickname}</span>
+                    </Link>
+                  }
                 </Box>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <Grid container spacing={1}>
