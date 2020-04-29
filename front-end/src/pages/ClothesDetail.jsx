@@ -68,7 +68,7 @@ export default function ClothesDetail(props) {
 
   const subscriptButtonClick = () => {
     const url = baseUrl + '/clothes-resv'
-    const params = { "clothes_item_id": 4, "reserved_date": nowDate }
+    const params = { "clothes_item_id": item_id, "reserved_date": nowDate }
     axios.post(url, params, config)
     .then((res) => {
       if (res.data === 'You\'re not logged in') {
@@ -82,7 +82,7 @@ export default function ClothesDetail(props) {
 
   const wishButtonClick = () => {
     const url = baseUrl + '/clothes/wish-list'
-    const params = { "clothes_item_id": 4 }
+    const params = { "clothes_item_id": item_id }
     axios.post(url, params, config)
     .then((res) => {
       if (res.data === 'You\'re not logged in') {
@@ -98,7 +98,6 @@ export default function ClothesDetail(props) {
 
   return (
     <Card className={styles.root}>
-      {/* {console.log(recommend)} */}
       <Box border={2} borderRadius={5} className={styles.paper}>
         <Grid container spacing={1}>
           <Grid item md={5} sm={12}>

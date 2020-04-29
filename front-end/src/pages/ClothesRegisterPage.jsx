@@ -42,6 +42,7 @@ function ClothesRegister({ history }) {
     const config = { "headers": { "Authorization": localStorage.token } }
     axios.post(url, sendData, config)
       .then((res) => {
+        console.log(res, '등록완료?')
         history.block('등록을 완료했어욧! 옷장 페이지로 이동해욧')
         history.goBack();
       })
