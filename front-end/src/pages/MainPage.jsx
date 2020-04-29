@@ -80,7 +80,8 @@ class MainPage extends PureComponent {
         <Card styles={{ flexGrow: 1, padding: 16 }}>
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
-            color: 'rgb(128, 128, 128)'
+            color: 'rgb(128, 128, 128)',
+            paddingTop: 75,
           }}>
             {this.state.searchDataList.length > 0 &&
               <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />

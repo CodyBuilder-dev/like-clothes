@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent } from '@material-ui/core'
+import { Avatar, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent, ListItemAvatar } from '@material-ui/core'
 import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import { appsidedrawerjsx } from '../css/useStyles'
@@ -10,6 +11,17 @@ const Logo = require('./Logo3.png')
 export default function SearchAppBar(props) {
   const styles = appsidedrawerjsx();
   const user = props.authentication.isAuthenticated;
+  const user_email = localStorage.email;
+  const [userinfo, setUserinfo] = useState([]);
+
+  useEffect(() => {
+    const url = process.env.REACT_APP_URL + `/user/${user_email}`
+
+    axios.get(url).then((res) => {
+      console.log(res.data);
+      setUserinfo(res.data.user);
+    })
+  }, [])
 
   const handleLogOut = () => {
     props.setAuthentication(false);
@@ -18,7 +30,6 @@ export default function SearchAppBar(props) {
     localStorage.removeItem('nickname');
     localStorage.removeItem('isAuthenticated');
     // props.history.replace('/');
-
   }
 
   return (
@@ -44,7 +55,11 @@ export default function SearchAppBar(props) {
             {user === true ?
               <Card variant="outlined" className={styles.cardContent1}>
                 <CardContent>
-                  {/* 로그인 상태 정보가 들어갈 부분이에요 */}
+                  <NavLink to={`/closet/?user_email=${user_email}`}>
+                    <Avatar style={{ display: 'inline-block', width: 160, height: 160 }} src={userinfo.profile_img} />
+                  </NavLink>
+                  <p style={{ marginBottom: 5 }}>{userinfo.nickname}</p>
+                  <p style={{ margin: 0, color: 'rgb(100, 100, 100)' }}>님 안녕하세요</p>
                 </CardContent>
               </Card> :
               <Card variant="outlined" className={styles.cardContent2}>
@@ -67,40 +82,50 @@ export default function SearchAppBar(props) {
           </div>
           <Divider />
           <Divider />
-          <List className={styles.drawer}>
-            <NavLink
-              style={{ color: 'black', textDecoration: 'none' }}
-              to='/'>
-              <ListItem button className={styles.listContent}>
-                <ListItemIcon><HomeOutlined /></ListItemIcon>
-                <ListItemText primary='Home' />
-              </ListItem>
-            </NavLink>
-            <NavLink
-              style={{ color: 'black', textDecoration: 'none' }}
-              to={`/closet?user_email=${localStorage.email}`}>
-              <ListItem button className={styles.listContent}>
-                <ListItemIcon><FaceOutlined /></ListItemIcon>
-                <ListItemText primary='My Page' />
-              </ListItem>
-            </NavLink>
-            <NavLink
-              style={{ color: 'black', textDecoration: 'none' }}
-              to='/clothesrecommend'>
-              <ListItem button className={styles.listContent}>
-                <ListItemIcon><LocalMallOutlined /></ListItemIcon>
-                <ListItemText primary='추천해욧' />
-              </ListItem>
-            </NavLink>
-          </List>
+
+          {user === true &&
+            <List className={styles.drawer}>
+              <NavLink
+                style={{ color: 'black', textDecoration: 'none' }}
+                to='/'>
+                <ListItem button className={styles.listContent}>
+                  <ListItemIcon><HomeOutlined /></ListItemIcon>
+                  <p>Home</p>
+                </ListItem>
+              </NavLink>
+              <NavLink
+                style={{ color: 'black', textDecoration: 'none' }}
+                to={`/closet?user_email=${localStorage.email}`}>
+                <ListItem button className={styles.listContent}>
+                  <ListItemIcon><FaceOutlined /></ListItemIcon>
+                  <p>내 옷장</p>
+                </ListItem>
+              </NavLink>
+              <NavLink
+                style={{ color: 'black', textDecoration: 'none' }}
+                to='/clothessubscribe'>
+                <ListItem button className={styles.listContent}>
+                  <ListItemIcon><StoreOutlined /></ListItemIcon>
+                  <p>구독해욧</p>
+                </ListItem>
+              </NavLink>
+              <NavLink
+                style={{ color: 'black', textDecoration: 'none' }}
+                to='/clothesrecommend'>
+                <ListItem button className={styles.listContent}>
+                  <ListItemIcon><LocalMallOutlined /></ListItemIcon>
+                  <p>추천해욧</p>
+                </ListItem>
+              </NavLink>
+            </List>}
           <Divider />
           <Divider />
 
           {user === true &&
             <Button variant="contained" size="medium" color="secondary"
-            className={styles.buttonLogout}
-            style={{ width: 'calc(100% - 16px)', marginBottom: 5, marginLeft: 8, marginRight: 8 }}
-            display="flex" onClick={() => handleLogOut()}>
+              className={styles.buttonLogout}
+              style={{ width: 'calc(100% - 16px)', marginBottom: 5, marginLeft: 8, marginRight: 8 }}
+              display="" onClick={() => handleLogOut()}>
               <ExitToApp style={{ marginRight: 20 }} />
               Log Out
             </Button>
