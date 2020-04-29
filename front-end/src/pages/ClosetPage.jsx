@@ -165,7 +165,7 @@ export default function Closet(props) {
 
     return (
       <div className={styles.closetIntro}>
-        <span style>옷장 소개</span>
+        <span>옷장 소개</span>
         <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>
         <TextField type="text" color="secondary" value={editIntro} autoFocus fullWidth='true' variant="outlined"
           onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
