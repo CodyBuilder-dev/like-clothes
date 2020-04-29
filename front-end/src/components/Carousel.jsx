@@ -32,7 +32,6 @@ class Gallery extends React.Component {
   render() {
     const { currentIndex, responsive } = this.state
     const subscribeList = this.props.imgList;
-
     const imgList = subscribeList.map((item) => {
       let widthVal = '90%'
       if (subscribeList.length === 1) {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect } from 'react-router-dom';
-import { Card, Box, Zoom, GridList, GridListTile } from '@material-ui/core';
+import { Card, Box, Zoom } from '@material-ui/core';
 import SignUpForm from "./SignUpForm";
 
 const baseUrl = process.env.REACT_APP_URL
@@ -89,7 +89,6 @@ class SignUp extends Component {
   }
 
   submitSignup(params) {
-    console.log(params, 'params')
     const formData = new FormData();
     formData.append('email', params.email);
     formData.append('password', params.password);
@@ -100,35 +99,24 @@ class SignUp extends Component {
     formData.append('birth', params.birth);
     formData.append('gender', params.gender);
     formData.append('profile_img', params.profile_img);
-    console.log(formData, 'formdata')
 
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
+    axios.post(baseUrl + "/user/signup/", formData)
+    .then(res => {
+      if (res.data.state === 'success') {
+        localStorage.token = res.data.new_user.password;
+        localStorage.isAuthenticated = true;
+        localStorage.email = res.data.new_user.email;
+        localStorage.nickname = res.data.new_user.nickname;
+        this.setState({isSuccess:true});
+      } else if (res.data.err === "User email already exist") {
+        alert('이메일 중복입니다')
+      } else {
+        alert('회원가입 실패')
+        this.setState({
+          isSuccess: false
+        });
       }
-    }
-    axios
-      .post(baseUrl + "/user/signup/", params)
-      .then(res => {
-        if (res.data.state === 'success') {
-          console.log(res)
-          localStorage.token = res.data.user.accessToken;
-          localStorage.isAuthenticated = true;
-          // this.setState({isSuccess:true});
-        } else if (res.data.err === "User email already exist") {
-          alert('이메일 중복')
-        } else {
-          console.log(res)
-          alert('회원가입 실패')
-          // window.location.href = '/signup'
-          this.setState({
-            isSuccess: false
-          });
-        }
-      })
-      .catch(err => {
-        console.log("Server Error: ", err);
-      });
+    })
   }
 
   validateForm(event) {
@@ -136,13 +124,11 @@ class SignUp extends Component {
     var payload = validateSignUpForm(this.state.user);
     if (payload.success) {
       this.setState({
-        errors: {}
+        errors: []
       });
       this.submitSignup(this.state.user);
     } else {
       const error = payload.errors;
-      console.log(error, 'error')
-      console.log(this.state.user, 'user')
       this.setState({
         errors: error
       });
@@ -162,19 +148,9 @@ class SignUp extends Component {
                 onImgChange={this.handleImg}
                 errors={this.state.errors}
                 user={this.state.user}
-                isSuccess={this.state.isSuccess}
               />
             </Zoom>
-            {this.state.isSuccess && <Link to='signin'></Link>}
-          </Box>
-          <Box style={{ overflow: 'hidden', height: '100%' }}>
-            {/* <GridList cellHeight={225} cols={3} style={{ width: '100%' }}>
-              {this.state.imageList.map((image, index) => (
-                <GridListTile className='container' key={index} cols={cols[index % 11]}>
-                  {image}
-                </GridListTile>
-              ))}
-            </GridList> */}
+            {this.state.isSuccess && <Redirect to='/choicestyle'></Redirect>}
           </Box>
         </Box>
       </Card >

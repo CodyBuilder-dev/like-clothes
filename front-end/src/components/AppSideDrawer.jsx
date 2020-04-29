@@ -56,6 +56,7 @@ export default function SearchAppBar(props) {
               <Card variant="outlined" className={styles.cardContent1}>
                 <CardContent>
                   <NavLink to={`/closet/?user_email=${user_email}`}>
+                    {console.log(userinfo, '유저인포')}
                     <Avatar style={{ display: 'inline-block', width: 160, height: 160 }} src={userinfo.profile_img} />
                   </NavLink>
                   <p style={{ marginBottom: 5 }}>{userinfo.nickname}</p>
@@ -85,14 +86,14 @@ export default function SearchAppBar(props) {
 
           {user === true &&
             <List className={styles.drawer}>
-              <NavLink
+              {/* <NavLink
                 style={{ color: 'black', textDecoration: 'none' }}
                 to='/'>
                 <ListItem button className={styles.listContent}>
                   <ListItemIcon><HomeOutlined /></ListItemIcon>
                   <p>Home</p>
                 </ListItem>
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 style={{ color: 'black', textDecoration: 'none' }}
                 to={`/closet?user_email=${localStorage.email}`}>
