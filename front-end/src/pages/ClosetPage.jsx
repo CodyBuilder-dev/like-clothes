@@ -6,7 +6,7 @@ import {
   Typography, TextField, Button, Table, TableCell,
   TableContainer, TableHead, TableRow, InputLabel
 } from '@material-ui/core';
-import { Edit, FavoriteBorder } from '@material-ui/icons';
+import { Edit, FavoriteBorder, Favorite } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
@@ -174,60 +174,60 @@ export default function Closet(props) {
   }
 
   return (
-    <Grid className={styles.root} style={{backgroundColor:'white'}}>
-      <Card>
-      <Grid className="myInfo" container style={{padding:'20px'}}>
-        <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
-          <img src={userState.profile_img} width="70px" height="70px"></img>
-          <span className="profileName">{userState.nickname}</span>
-          {user_email !== localStorage.email && 
-            (heartFill ? <Favorite onClick={handleFollowClick}></Favorite> : <FavoriteBorder onClick={handleFollowClick}></FavoriteBorder>)
-          }
-        </Grid>
-        <Grid className="following" item xs={4} container direction="column" alignItems="center">
-          <span className="followTag">Follower</span>
-          <span className="followCnt">{followerRes.length}
-          <Select className={styles.followDrop} name='follower' onChange={followSelect} 
-          >{followerRes.map((follower) => (
-            <MenuItem key={follower.email} value={follower.nickname}><img src={follower.img} width='20px' height='20px'/> {follower.nickname}</MenuItem>
-          ))}</Select></span>
-        </Grid>
-        <Grid className="following" item xs={4} container direction="column" alignItems="center">
-          <span className="followTag">Following</span>
-          <span className="followCnt">{followingRes.length}
-          <Select className={styles.followDrop} name='following' onChange={followSelect}
-          >{followingRes.map((following) => (
-            <MenuItem key={following.email} value={following.nickname}><img src={following.img} width='20px' height='20px'/> {following.nickname}</MenuItem>
-            ))}</Select></span>
-        </Grid>
-      </Grid>
-      <Grid>
-        {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
-      </Grid>
-      </Card>
+    <Card className={styles.roots}>
+      <Box border={2} borderRadius={5} className={styles.paper}>
+        <Typography gutterBottom variant="h5" color="textPrimary" component="p" style={{ margin: 20, marginLeft: 0 }}>
+          내 옷장
+        </Typography>
+        <Grid className={styles.root} style={{backgroundColor:'white'}}>
+          <Card>
+          <Grid className="myInfo" container style={{padding:'20px'}}>
+            <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
+              <img src={userState.profile_img} width="70px" height="70px"></img>
+              <span className="profileName">{userState.nickname}</span>
+              {user_email !== localStorage.email && 
+                (heartFill ? <Favorite onClick={handleFollowClick}></Favorite> : <FavoriteBorder onClick={handleFollowClick}></FavoriteBorder>)
+              }
+            </Grid>
+            <Grid className="following" item xs={4} container direction="column" alignItems="center">
+              <span className="followTag">Follower</span>
+              <span className="followCnt">{followerRes.length}
+              <Select className={styles.followDrop} name='follower' onChange={followSelect} 
+              >{followerRes.map((follower) => (
+                <MenuItem key={follower.email} value={follower.nickname}><img src={follower.img} width='20px' height='20px'/> {follower.nickname}</MenuItem>
+              ))}</Select></span>
+            </Grid>
+            <Grid className="following" item xs={4} container direction="column" alignItems="center">
+              <span className="followTag">Following</span>
+              <span className="followCnt">{followingRes.length}
+              <Select className={styles.followDrop} name='following' onChange={followSelect}
+              >{followingRes.map((following) => (
+                <MenuItem key={following.email} value={following.nickname}><img src={following.img} width='20px' height='20px'/> {following.nickname}</MenuItem>
+                ))}</Select></span>
+            </Grid>
+          </Grid>
+          <Grid>
+            {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
+          </Grid>
+          </Card>
 
-      <Box className="closet">
-        <div className="dropMajorDiv">
-        </div>
-        <div className="dropMiddleDiv">
-        </div>
-        <div className="dropMinorDiv">
-        </div>
+          <Box className="closet">
+            <Grid className="clothesWrite" container justify="flex-end">
+              {localStorage.email === user_email && <Link to="/clothesregister"><Button>새 옷 등록하기</Button></Link>}
+            </Grid>
+          </Box>
 
-        <Grid className="clothesWrite" container justify="flex-end">
-          {localStorage.email === user_email && <Link to="/clothesregister"><Button>새 옷 등록하기</Button></Link>}
+          <Card className="clothesImage">        
+            {userClothesInfo && userClothesInfo.map((v, i) => {
+              if (i > 0) return (
+                <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
+                  <img src={v.img} width="150px" height="150px"></img>
+                </Link>
+              )}
+            )}
+          </Card>
         </Grid>
       </Box>
-
-      <Card className="clothesImage">        
-        {userClothesInfo && userClothesInfo.map((v, i) => {
-          if (i > 0) return (
-            <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
-              <img src={v.img} width="150px" height="150px"></img>
-            </Link>
-          )}
-        )}
-      </Card>
-    </Grid>
+    </Card>
   )
 }
