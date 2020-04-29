@@ -210,4 +210,6 @@ def test() :
         print()
         #return str(minor_onehot.columns)
 if __name__ == '__main__':
+
    app.run(host='0.0.0.0',port=5000,debug = True)
+
