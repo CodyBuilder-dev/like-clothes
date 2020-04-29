@@ -33,7 +33,6 @@ export default function Closet(props) {
     const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
     axios.get(closet_url).then((res) => {
       // 유저 정보로부터 받아온 등록된 옷 정보
-      console.log(res.data, '얜가?');
       setUserClothesInfo(res.data.map((v) => ({ img: v.img, id: v.id })));
     });
 
