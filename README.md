@@ -22,6 +22,8 @@ page에서 어떻게	보여지는 지 여기에 사진
 
 
 **바로 가기**
+[[__TOC__]]
+
 
  :mag_right: [LikeClothes 사용 설명서](#id-section1) <br>
  :mag_right: [핵심 인공지능 기술1 - 내 옷과 비슷한 옷 추천](#1.-~와-비슷한-추천) <br>
@@ -33,8 +35,6 @@ page에서 어떻게	보여지는 지 여기에 사진
  :mag_right: [저희가 궁금하다면](#about-us-family) <br>
 
 
-
-<div id='id-section1'/>
 ## 사용 설명서 :open_hands:
 
 ### 설치하기
