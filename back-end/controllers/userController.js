@@ -1,5 +1,7 @@
 import { USER, USER_AND_USER } from "../models"
 import { errChk } from "./errChk"
+import multer from "multer"
+import path from "path"
 
 export const signin = async function (req, res) {
     try {
@@ -21,7 +23,7 @@ export const signin = async function (req, res) {
         } else { throw new Error("User does not exist") };
 
     } catch (err) {
-        errChk(res, err, "Login failed");
+        errChk(res, err.message, "Login failed");
     }
 };
 
@@ -29,29 +31,46 @@ export const social_signin = async function (req, res) {
     try {
 
     } catch (err) {
-        errChk(res, err, "Social Login failed");
+        errChk(res, err.message, "Social Login failed");
     }
 };
 
+export const profile_upload = multer({
+    storage: multer.diskStorage({
+        destination: function(req, file, cb) {
+            cb(null, process.env.IMAGE_PATH);
+        }, 
+        filename: function(req, file, cb) {
+            cb(null , new Date().valueOf() + path.extname(file.originalname));
+        }
+    })
+});
+
+
 export const signup = async (req, res) => {
     try {
-        const { email, password, name, nickname, address, age, gender, phone_num, description } = req.body;
+        const { email, password, name, nickname, address,
+            birth, gender, phone_num, description } = req.body;
+        const filename = (typeof req.file === 'undefined') ? 'profile_default.png' : req.file.filename
+        const profile_img = process.env.IMAGE_URL + filename;
+        
         const user = await USER.findOne({ where: { email } });
         if (!user) {
             const hash = await USER.hash(password);
             const new_user = await USER.create({
-                email, password: hash, name, nickname, address, age, gender,
-                phone_num, description
+                email, password: hash, name, nickname, address, birth, gender,
+                phone_num, description, profile_img
             })
             if (new_user) {
                 res.send({
                     state: "success",
                     new_user
                 });
-            } else { throw new Error() }
-        } else { throw new Error("User email already exist") }
+            } else { throw new Error("유저 형식이 맞지 않습니다.") }
+        } else { 
+            throw new Error("User email already exist") }
     } catch (err) {
-        errChk(res, err, "Create User failed");
+        errChk(res, err.message, "Create User failed");
     }
 };
 
@@ -65,13 +84,14 @@ export const read_user = async (req, res) => {
             });
         } else { throw new Error("User does not exist") }
     } catch (err) {
-        errChk(res, err, "Read User failed");
+        errChk(res, err.message, "Read User failed");
     }
 };
 
 export const read_all_user = async (req, res) => {
     try {
         const user = await USER.findAll();
+        console.log(process.env.IMAGE_PATH)
         if (user) {
             res.send({
                 state: "success",
@@ -79,7 +99,7 @@ export const read_all_user = async (req, res) => {
             });
         } else { throw new Error("User does not exist") }
     } catch (err) {
-        errChk(res, err, "Read All User Login failed");
+        errChk(res, err.message, "Read All User Login failed");
     }
 };
 
@@ -100,7 +120,7 @@ export const update_user = async (req, res) => {
             res.send({ state: "success"});
         });
     } catch (err) {
-        errChk(res, err, "Update User Login failed");
+        errChk(res, err.message, "Update User Login failed");
     }
 };
 
@@ -120,7 +140,7 @@ export const update_password = async (req, res) => {
             throw new Error("Incorrect password")
         }
     } catch (err) {
-        errChk(res, err, "Modify password failed");
+        errChk(res, err.message, "Modify password failed");
     }
 };
 
@@ -130,27 +150,27 @@ export const delete_user = async (req, res) => {
         const user = await USER.destroy({ where: { email: signin_user.email } });
         res.send({ state: "success", user});
     } catch (err) {
-        errChk(res, err, "User does not exist");
+        errChk(res, err.message, "User does not exist");
     }
 };
 
 export const read_following_user = async (req, res) => {
     try {
-        const signin_user = res.locals.user;
-        const following_users = await USER.read_following_user(signin_user.email);
+        const user_email = req.query.user_email;
+        const following_users = await USER.read_following_user(user_email);
         res.send(following_users)
     } catch (err) {
-        errChk(res, err, "Read follwoing user failed");
+        errChk(res, err.message, "Read follwoing user failed");
     }
 }
 
 export const read_follower_user = async (req, res) => {
     try {
-        const signin_user = res.locals.user;
-        const follower_users = await USER.read_follower_user(signin_user.email);
+        const user_email = req.query.user_email;
+        const follower_users = await USER.read_follower_user(user_email);
         res.send(follower_users)
     } catch (err) {
-        errChk(res, err, "Read follower user failed");
+        errChk(res, err.message, "Read follower user failed");
     }
 }
 
@@ -172,6 +192,16 @@ export const follow_user_toggle = async (req, res) => {
                 })
         }
     } catch (err) {
-        errChk(res, err, "follow user toggle failed");
+        errChk(res, err.message, "follow user toggle failed");
+    }
+}
+
+export const update_user_record = async (req, res) => {
+    try{
+        const signin_user = res.locals.user;
+        const { following_email } = req.body;
+
+    } catch(err) {
+        errChk(res, err.message, "follow user toggle failed");
     }
 }

@@ -16,6 +16,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    birth: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING(50),
       allowNull: false
@@ -40,10 +44,6 @@ module.exports = function (sequelize, DataTypes) {
     description: {
       type: DataTypes.STRING(1000),
       allowNull: true
-    },
-    age: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false
     },
     gender: {
       type: DataTypes.STRING(2),

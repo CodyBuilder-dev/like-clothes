@@ -8,6 +8,7 @@ import bodyParser from "body-parser"
 import routes from "./routes"
 import userRouter from "./routers/userRouter"
 import clothesRouter from "./routers/clothesRouter"
+import clothesResvRouter from "./routers/clothesResvRouter"
 import swagger from "./swagger/swaggerSetting"
 import {localsMiddleWare} from "./middleware"
 
@@ -23,7 +24,9 @@ app.use(morgan("dev"));
 
 app.use(swagger);
 app.use(localsMiddleWare);
+app.use(routes.image, express.static(process.env.IMAGE_PATH));
 app.use(routes.user, userRouter);
 app.use(routes.clothes, clothesRouter);
+app.use(routes.clothes_resv, clothesResvRouter);
 export default app;
 
