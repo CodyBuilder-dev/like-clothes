@@ -6,7 +6,7 @@ export const register_clothes_reservation = (req, res) => {
     try {
         const signin_user = res.locals.user;
         const {clothes_item_id, reserved_date } = req.body;
-
+        console.log({clothes_item_id, reserved_date })
         USER_RESERVATION.create({
             user_email : signin_user.email,
             clothes_item_id,

@@ -162,7 +162,7 @@ module.exports = function (sequelize, DataTypes) {
 
   CLOTHES.read_random_clothes = function () {
     let sql = "SELECT * FROM CLOTHES \
-                ORDER BY RAND() LIMIT 6 ";
+                ORDER BY RAND() LIMIT 8 ";
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 

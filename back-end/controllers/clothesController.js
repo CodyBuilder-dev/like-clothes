@@ -40,7 +40,7 @@ export const register_wish_list_item = (req, res) => {
             user_email: signin_user.email,
             clothes_item_id,
         }).then((wish_list_id)=> {
-            res.send("success", wish_list_id);
+            res.send({status: "success", wish_list_id});
         }).catch(err => {
             errChk(res, err.message, "already wishlist clothes exist");    
         })
@@ -61,7 +61,7 @@ export const deregister_wish_list_item = async (req, res) => {
                 clothes_item_id: clothes_item_id,
             }
         });
-        res.send({state:"success", wish_list});
+        res.send({state:"success", wish_list: wish_list});
     } catch (err) {
         errChk(res, err.message, "Deregister wishlist clothes item failed");
     }
