@@ -89,7 +89,7 @@ export default function ClothesDetail(props) {
         </Box>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 할 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(false)}</span></p>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
-          {nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe}></Carousel> : null}
+          {!!nextSubscribe && nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe} deleteBtn={handleImgDelete}></Carousel> : null}
         </Box>
       </Box>
     </Card>
