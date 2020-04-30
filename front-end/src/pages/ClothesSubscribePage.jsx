@@ -31,7 +31,7 @@ export default function ClothesDetail(props) {
 
       res.data.forEach((data)=> {
         const curWeek  = new Date(data.reserved_date);
-        console.log(data.reserved_date, curWeek)
+        // console.log(data.reserved_date, curWeek)
         if (curWeek.getFullYear() == thisWeek.getFullYear() && curWeek.getMonth() == thisWeek.getMonth() && curWeek.getDate() == thisWeek.getDate()){
           thisData.push(data)
         } else if (curWeek.getFullYear() == nextWeek.getFullYear() && curWeek.getMonth() == nextWeek.getMonth() && curWeek.getDate() == nextWeek.getDate()){

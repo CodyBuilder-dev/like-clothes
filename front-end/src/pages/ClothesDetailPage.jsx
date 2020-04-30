@@ -32,16 +32,13 @@ export default function ClothesDetail(props) {
 
   // 구독 날짜 관련
   const today = new Date();
+  today.setDate(today.getDate() + 7 - today.getDay())
   const year = today.getFullYear();
   let month = today.getMonth() + 1;
   month = month < 10 ? '0' + month : month;
   let date = today.getDate();
   date = date < 10 ? '0' + date : date;
   const nowDate = `${year}-${month}-${date}`
-
-  console.log(nowDate, today.getDay())
-  today.setDate(today.getDate() + 7 - today.getDay())
-  console.log(today)
 
 
   const styles = clothesdetailjsx();
@@ -58,11 +55,20 @@ export default function ClothesDetail(props) {
       return res.data
     })
     .then((res) => {
-      const url = baseAIUrl + '/recommand/set'
-      axios.post(url, {
-        "img_url": "http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg", 
+      const setUrl = baseAIUrl + '/recommand/set';
+      axios.post(setUrl, {
+        "img_url": res.clothes_info[0].img, 
         "img_id": res.clothes_info[0].clothes_id
-      }).then((res) => {           
+      }).then((res) => {
+        console.log(res, '셋레스')
+      })
+
+      const featureUrl = baseAIUrl + '/recommand/feature';
+      axios.post(featureUrl, {
+        "img_url": res.clothes_info[0].img, 
+        "img_id": res.clothes_info[0].clothes_id
+      }).then((res) => {
+        console.log(res, '피쳐레스')
         const bestImg = Object.keys(res.data.best_images).map((key) => ({
           id: key,
           img: res.data.best_images[key]
@@ -133,7 +139,6 @@ export default function ClothesDetail(props) {
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <p style={{ color: 'black' }}>상품 태그</p>
                 <p>
-                  {console.log(item.clothes_tags, '너를 돌릴 수 있겠지 ?')}
                   {item.clothes_tags &&
                     (item.clothes_tags[0].tag === null ? '이 옷에는 아직 태그가 없어욧' :
                       item.clothes_tags.map((clothes_tag) => {
@@ -230,7 +235,7 @@ export default function ClothesDetail(props) {
       </Box>
       <Box border={2} borderRadius={5} className={styles.paper}>
         <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          AI 추천 서비스
+          AI가 추천해주는 비슷한 옷
                     </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
           {bestImg && (bestImg.map((item, i) => (
@@ -242,10 +247,10 @@ export default function ClothesDetail(props) {
           )))}
         </GridList>
         <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          판매자가 올린 다른 옷 보기
+          혹시 이런 옷은 어떠세요?
                     </Box></p>
         <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          이런 옷은 어떠세요??
+          이 옷과 같이 입을 만한 옷
                     </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
           {worstImg && (worstImg.map((item) => (
