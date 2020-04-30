@@ -28,30 +28,54 @@ export default function ClothesDetail(props) {
       thisWeek.setDate(thisWeek.getDate() - thisWeek.getDay())
       nextWeek.setDate(nextWeek.getDate() + 7 - nextWeek.getDay())
 
-      res.data.forEach((data)=> {
-        const curWeek  = new Date(data.reserved_date);
+      res.data.forEach((data) => {
+        const curWeek = new Date(data.reserved_date);
         // console.log(data.reserved_date, curWeek)
-        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()){
+        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()) {
           thisData.push(data)
-        } else if (curWeek.getFullYear() === nextWeek.getFullYear() && curWeek.getMonth() === nextWeek.getMonth() && curWeek.getDate() === nextWeek.getDate()){
+        } else if (curWeek.getFullYear() === nextWeek.getFullYear() && curWeek.getMonth() === nextWeek.getMonth() && curWeek.getDate() === nextWeek.getDate()) {
           nextData.push(data)
         }
       })
-      console.log("thisData", thisData, "nextData", nextData )
+      console.log("thisData", thisData, "nextData", nextData)
       setSubscribe(thisData);
       setNextSubscribe(nextData);
     })
   }, [])
 
+  function formatDate(date) {
+    var mymonth = date.getMonth() + 1;
+    var myweekday = date.getDate();
+    return (mymonth + "/" + myweekday);
+  }
+
+  function printWeek(flag) {
+    var now = new Date();
+    if (!flag) {
+      var dayOfMonth = now.getDate();
+      now.setDate(dayOfMonth + 7);
+    }
+    var nowDayOfWeek = now.getDay();
+    var nowDay = now.getDate();
+    var nowMonth = now.getMonth();
+    var nowYear = now.getYear();
+    nowYear += (nowYear < 2000) ? 1900 : 0;
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    return ("(" + formatDate(weekStartDate) + " ~ " + formatDate(weekEndDate) + ")");
+  }
+
   return (
     <Card className={styles.root}>
       <Box border={2} borderRadius={5} className={styles.paper}>
-      <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 중인 목록</p>
-        {subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> : null}
-      </Box>
-      <Box border={2} borderRadius={5} className={styles.paper}>
-      <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 할 목록</p>
-        {nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe}></Carousel> : null}
+        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 중인 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(true)}</span></p>
+        <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50, paddingBottom: 0 }}>
+          {subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> : null}
+        </Box>
+        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 할 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(false)}</span></p>
+        <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
+          {nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe}></Carousel> : null}
+        </Box>
       </Box>
     </Card>
   );

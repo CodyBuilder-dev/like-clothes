@@ -4,10 +4,10 @@ import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Card, CardContent, Box, Grid, Divider, ListItem, ListItemAvatar,
-  Button, Avatar, Table, TableCell,
-  TableContainer, TableHead, TableRow, GridList, GridListTile
+  Button, Avatar, Table, TableCell, TableContainer, TableHead, TableRow,
 } from '@material-ui/core';
 import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
+import Carousel from '../components/Carousel';
 import { clothesdetailjsx } from '../css/useStyles'
 
 const StyledTableCell = withStyles((theme) => ({
@@ -54,38 +54,38 @@ export default function ClothesDetail(props) {
       setItem(res.data)
       return res.data
     })
-    .then((res) => {
-      const setUrl = baseAIUrl + '/recommand/set';
-      axios.post(setUrl, {
-        "img_url": res.clothes_info[0].img, 
-        "img_id": res.clothes_info[0].clothes_id
-      }).then((res) => {
-        console.log(res, '셋레스')
-        const recomImg = Object.keys(res.data.best_images).map((key) => ({
-          id: key,
-          img: res.data.best_images[key]
-        }))
-        setRecommendImg(recomImg);
-      })
+      .then((res) => {
+        const setUrl = baseAIUrl + '/recommand/set';
+        axios.post(setUrl, {
+          "img_url": res.clothes_info[0].img,
+          "img_id": res.clothes_info[0].clothes_id
+        }).then((res) => {
+          console.log(res, '셋레스')
+          const recomImg = Object.keys(res.data.best_images).map((key) => ({
+            id: key,
+            img: res.data.best_images[key]
+          }))
+          setRecommendImg(recomImg);
+        })
 
-      const featureUrl = baseAIUrl + '/recommand/feature';
-      axios.post(featureUrl, {
-        "img_url": res.clothes_info[0].img, 
-        "img_id": res.clothes_info[0].clothes_id
-      }).then((res) => {
-        console.log(res, '피쳐레스')
-        const bestImg = Object.keys(res.data.best_images).map((key) => ({
-          id: key,
-          img: res.data.best_images[key]
-        }))
-        const worstImg = Object.keys(res.data.worst_images).map((key) => ({
-          id: key,
-          img: res.data.worst_images[key]
-        }))
-        setBestImg(bestImg);
-        setWorstImg(worstImg);
+        const featureUrl = baseAIUrl + '/recommand/feature';
+        axios.post(featureUrl, {
+          "img_url": res.clothes_info[0].img,
+          "img_id": res.clothes_info[0].clothes_id
+        }).then((res) => {
+          console.log(res, '피쳐레스')
+          const bestImg = Object.keys(res.data.best_images).map((key) => ({
+            id: key,
+            img: res.data.best_images[key]
+          }))
+          const worstImg = Object.keys(res.data.worst_images).map((key) => ({
+            id: key,
+            img: res.data.worst_images[key]
+          }))
+          setBestImg(bestImg);
+          setWorstImg(worstImg);
+        })
       })
-    })
   }, [item_id])
 
   const subscriptButtonClick = () => {
@@ -237,45 +237,25 @@ export default function ClothesDetail(props) {
             </Grid>
           </Grid>
         </Grid>
+        <Divider style={{ marginTop: 50, marginBottom: 30, marginLeft: 0, marginRight: 0 }} />
+        <p style={{ color: 'black' }}><Box fontWeight="fontWightBold" fontSize={30} style={{ marginBottom: 40 }}>
+          추천 서비스
+                    </Box></p>
+
+        <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>AI가 추천해주는 비슷한 옷</p>
+          {bestImg.length > 0 ? <Carousel imgList={bestImg}></Carousel> : null}
+        </Box>
+        <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷과 같이 입을 만한 옷</p>
+          {recommendImg.length > 0 ? <Carousel imgList={recommendImg}></Carousel> : null}
+        </Box>
+        <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>혹시 이런 옷은 어떠세요?</p>
+          {worstImg.length > 0 ? <Carousel imgList={worstImg}></Carousel> : null}
+        </Box>
       </Box>
-      <Box border={2} borderRadius={5} className={styles.paper}>
-        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          AI가 추천해주는 비슷한 옷
-                    </Box></p>
-        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
-          {bestImg && (bestImg.map((item, i) => (
-            <GridListTile key={i} height="300px">
-              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img alt="" src={item.img} height="100%"/>
-              </NavLink>
-            </GridListTile>
-          )))}
-        </GridList>
-        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          혹시 이런 옷은 어떠세요?
-                    </Box></p>
-        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
-          {recommendImg && (recommendImg.map((item) => (
-            <GridListTile key={item} height="300px">
-              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img src={item.img} height="100%"/>
-              </NavLink>
-            </GridListTile>
-          )))}
-        </GridList>
-        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
-          이 옷과 같이 입을 만한 옷
-                    </Box></p>
-        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
-          {worstImg && (worstImg.map((item) => (
-            <GridListTile key={item} height="300px">
-              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img alt="" src={item.img} height="100%"/>
-              </NavLink>
-            </GridListTile>
-          )))}
-        </GridList>
-      </Box>
+
     </Card >
   );
 }
