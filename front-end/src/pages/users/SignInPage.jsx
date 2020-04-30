@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Card, Box, Zoom } from '@material-ui/core';
 import SignInForm from "./SignInForm";
 import validate from "../../module/validate";
-import SigninVideo from '../../asset/Signin.mp4';
-import SigninVideo2 from '../../asset/Signin2.mp4';
-import SigninBackground from '../../asset/SigninBackground.jpg'
 
+const SigninBackground = '/assets/SigninBackground.jpg'
 const baseUrl = process.env.REACT_APP_URL
 
 const axios = require("axios");
@@ -92,45 +90,12 @@ class SignIn extends Component {
             </Zoom>
           </Box>
           <Box style={{ overflow: 'hidden', height: '100%' }}>
-            {/* <video autoPlay loop muted
-              style={{
-                width: 'auto',
-                zIndex: -100,
-              }}>
-              <source src={SigninVideo} type='video/mp4' />
-            </video>
-            <video autoPlay loop muted
-              style={{
-                width: 'auto',
-                zIndex: -99,
-                marginTop: 'calc(-50vh)'
-              }}>
-              <source src={SigninVideo2} type='video/mp4' />
-            </video> */}
             <img style={{
-              width: '150%',
-              zIndex: -100,
-            }} src={SigninBackground}></img>
-          </Box>
-          <Box style={{ overflow: 'hidden', height: '100%' }}>
-            {/* <video autoPlay loop muted
-              style={{
-                width: 'auto',
-                zIndex: -100,
-              }}>
-              <source src={SigninVideo} type='video/mp4' />
-            </video>
-            <video autoPlay loop muted
-              style={{
-                width: 'auto',
-                zIndex: -99,
-                marginTop: 'calc(-50vh)'
-              }}>
-              <source src={SigninVideo2} type='video/mp4' />
-            </video> */}
-            <img style={{
-              width: '150%',
-              zIndex: -100,
+              width: 'auto',
+              zIndex: 0,
+              position: 'relative',
+              right: '25%',
+              bottom: 50,
             }} src={SigninBackground}></img>
           </Box>
         </Box>
