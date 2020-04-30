@@ -38,6 +38,9 @@ export default function ClothesDetail(props) {
   // const day = dayNames[today.getDay()];
   const nowDate = `${year}-${month}-${date}`
 
+  console.log(nowDate, today.getDay())
+  today.setDate(today.getDate() + 7 - today.getDay())
+  console.log(today)
   // let subscriptDate = Date.now();
   // // let subscriptData = new Date();
   // let d = subscriptDate.toString()

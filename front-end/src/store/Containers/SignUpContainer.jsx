@@ -1,9 +1,6 @@
-import SignIn from '../../pages/users/SignInPage';
+import SignUp from '../../pages/users/SignUpPage';
 import { connect } from 'react-redux';
 import { setAuthentication } from '../actions/authenticationActions';
-
-const mapStateToProps = (state, props) => {
-};
 
 const mapDispatchToProps = dispatch => {
   return { 
@@ -11,4 +8,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignUp);

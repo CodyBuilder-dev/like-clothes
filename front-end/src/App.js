@@ -3,19 +3,19 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import MainReduxContainer from './store/Containers/MainReduxContainer';
+import SignInContainer from './store/Containers/SignInContainer';
+import SignUpContainer from './store/Containers/SignUpContainer';
+
+import AppSideDrawerContainer from './store/Containers/AppSideDrawerContainer';
 import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
-import ClothesDetail from './pages/ClothesDetail';
-import ClothesSubscribe from './pages/ClothesSubscribe';
-import ClothesRecommend from './pages/ClothesRecommend';
+import ClothesDetail from './pages/ClothesDetailPage';
+import ClothesSubscribe from './pages/ClothesSubscribePage';
+import ClothesRecommend from './pages/ClothesRecommendPage';
 import Closet from './pages/ClosetPage';
-import NotFound from './pages/NotFound';
-import SignUp from './pages/users/SignUp';
+import NotFound from './pages/NotFoundPage';
 import ChoiceStylePage from './pages/ChoiceStylePage';
-
-import AppSideDrawerContainer from './store/Containers/AppSideDrawerContainer';
-import SignInContainer from './store/Containers/SignInContainer';
 
 import { appjs } from './css/useStyles';
 
@@ -38,7 +38,7 @@ function App() {
             <Route path="/clothesrecommend" exact component={ClothesRecommend}/>
             <Route path="/choicestyle" exact component={ChoiceStylePage} />
 
-            <Route path="/signup" exact component={SignUp} />
+            <Route path="/signup" exact component={SignUpContainer} />
             <Route path="/signin" exact component={SignInContainer} />
 
             <Route path="*" component={NotFound} />
