@@ -15,6 +15,7 @@ import {
   TableContainer, TableHead, TableRow,
 } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import QueueArim from 'rc-queue-anim';
 
 
 function ClothesRegister({history}) {
@@ -158,7 +159,10 @@ function ClothesRegister({history}) {
 
   return (
     <Card className={styles.roots}>
-      <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 80, paddingRight: 80 }}>
+      <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+      <Box key='1' border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 80, paddingRight: 80 }}>
         <p style={{ fontSize: 30, marginTop: 10 }}>상품 등록하기</p>
         <div className="WriteClothes" style={{ backgroundColor: 'white' }}>
           <Box>
@@ -305,6 +309,7 @@ function ClothesRegister({history}) {
               style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
         </div>
       </Box>
+      </QueueArim>
     </Card >
   );
 }

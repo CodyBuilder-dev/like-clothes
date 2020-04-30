@@ -4,6 +4,7 @@ import axios from 'axios'
 import {
   Card, Box, GridList, GridListTile } from '@material-ui/core';
 import { clothesdetailjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
 
 const baseURL = process.env.REACT_APP_URL
 const baseAIUrl = process.env.REACT_APP_AI_URL
@@ -54,7 +55,10 @@ export default function ClothesDetail(props) {
 
   return (
     <Card className={styles.root}>
-      <Box border={2} borderRadius={5} className={styles.paper}>
+      <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+      <Box key="1" border={2} borderRadius={5} className={styles.paper}>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>위시리스트</p>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50 }}>
           <GridList className={styles.gridList} cols={4} cellHeight={250}>
@@ -68,7 +72,7 @@ export default function ClothesDetail(props) {
           </GridList>
         </Box>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>팔로잉 유저 추천</p>
-        <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50 }}>
+        <Box key="2" border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50 }}>
           <GridList className={styles.gridList} cols={4} cellHeight={250}>
             {neighborList && (neighborList.map((item, i) => (
               <GridListTile key={i} height="300px">
@@ -80,7 +84,7 @@ export default function ClothesDetail(props) {
           </GridList>
         </Box>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>AI 맞춤 추천</p>
-        <Box border={2} borderRadius={5} className={styles.paper}>
+        <Box key="3" border={2} borderRadius={5} className={styles.paper}>
         <GridList className={styles.gridList} cols={4} cellHeight={250}>
             {totalList && (totalList.map((item, i) => (
               <GridListTile key={i} height="300px">
@@ -92,6 +96,7 @@ export default function ClothesDetail(props) {
           </GridList>
         </Box>
       </Box>
+      </QueueArim>
     </Card >
   );
 }

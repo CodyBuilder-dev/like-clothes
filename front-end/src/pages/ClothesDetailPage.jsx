@@ -9,6 +9,7 @@ import {
 import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
 import Carousel from '../components/Carousel';
 import { clothesdetailjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -120,7 +121,10 @@ export default function ClothesDetail(props) {
 
   return (
     <Card className={styles.root}>
-      <Box border={2} borderRadius={5} className={styles.paper}>
+      <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+      <Box key='1' border={2} borderRadius={5} className={styles.paper}>
         <Grid container spacing={1}>
           <Grid item md={5} sm={12}>
             {item.clothes_info && <img alt="" src={item.clothes_info[0].img} width="100%" />}
@@ -256,7 +260,7 @@ export default function ClothesDetail(props) {
           {worstImg.length > 0 ? <Carousel imgList={worstImg}></Carousel> : null}
         </Box>
       </Box>
-
+      </QueueArim>
     </Card >
   );
 }

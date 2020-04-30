@@ -159,6 +159,7 @@ export const closetjsx = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(3),
+    paddingLeft: '45px',
     textAlign: 'left',
     color: theme.palette.text.secondary,
   },
