@@ -6,6 +6,8 @@ from tensorflow.keras.applications import mobilenet,mobilenet_v2, nasnet, xcepti
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Dense, Conv2D,MaxPooling2D,GlobalAveragePooling2D, Dropout
 
+from sklearn.cluster import KMeans
+
 def select_pre_model(name,weight,include_top=True) :
     """
     Desc : 원하는 형태와 weight를 가진 pretrained 모델 불러오기
@@ -69,3 +71,6 @@ def load_feature_model() :
     new_model = Model(pre_model.inputs, pre_model.layers[last_layer].output)
 
     return new_model
+
+def load_cluster_model(k=6) :
+    return KMeans(n_clusters = k, random_state  = 0)
