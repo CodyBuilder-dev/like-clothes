@@ -8,11 +8,13 @@ import pandas as pd
 from PIL import Image
 from io import BytesIO
 
+import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.applications import resnet50
 
-from utils.utils_sql import select_data_minor, select_data_idpath, select_mmm_from_id #경로는 이 py파일을 호출한 main기준임
-
+#경로는 이 py파일을 호출한 main기준임
+from utils.utils_sql import select_data_minor, select_data_idpath, select_mmm_from_id, select_all_user
+from utils.utils_sql import select_wish_url, select_user_record,  select_id_from_minors
 #-----------------------학습용 데이터 준비---------------------
 def get_minor_onehot(connection) :
     """
@@ -106,6 +108,95 @@ def get_mmm_from_id(connection,id) :
     cur = select_mmm_from_id(connection,id)
     for major,middle,minor in cur :
         return major,middle,minor
+
+def get_wish_list(connection,email) :
+    """
+    Desc : select_wish_url로부터 얻은 커서에서 wishlist id를 추출해내는 함수
+    In :
+        connection
+        email
+    Out :
+        wish_list
+    """
+    cur = select_wish_url(connection,email)
+    wish_list = []
+    for id in cur :
+        wish_list.append(id[0])
+    
+    return wish_list
+
+def get_user_vector(connection,email,minor_onehot_dict) :
+    """
+    Desc : select_user_record로부터 얻은 유저 기록으로부터 유저 벡터 생성하는 함수
+    In :
+        connection
+        email
+    Out :
+        user_vector
+    """
+    cur = select_user_record(connection,email)
+    user_vector = np.empty(len(minor_onehot_dict))
+    for minor,num in cur :
+        if minor in minor_onehot_dict :  
+            user_vector += minor_onehot_dict[minor]*num
+    
+    return user_vector.astype(int)
+
+def get_alluser_list(connection,num=5000) :
+    cur = select_all_user(connection,num)
+    alluser_list = []
+    for email in cur :
+        alluser_list.append(email[0])
+    return alluser_list
+
+def get_alluser_vector(connection,alluser_list,minor_onehot_dict) :
+    user_vector_dict = {}
+    for user in alluser_list :
+        user_vector=get_user_vector(connection,user,minor_onehot_dict)
+        user_vector_dict[user] = user_vector
+
+    user_vector_array  = np.array(list(user_vector_dict.values()))
+    return user_vector_array
+    
+def get_taste_category(user_vector,minor_onehot_dict) :
+    """
+    Desc : user_vector로부터 유저의 취향에 가까운 taste_category 이름 리스트 반환
+    In :
+        user_vector
+        minor_onehot_dict
+    Out :
+        minor_name_list
+    """
+    vector_mean = user_vector[user_vector>0].mean()
+    taste_category = np.argwhere(user_vector>vector_mean).T
+    
+    minor_index_dict = {}
+    i = 0
+    for key in minor_onehot_dict :
+        minor_index_dict[i] = key
+        i+=1
+    minor_name_list = []
+    for idx in taste_category[0] :
+        minor_name = minor_index_dict[idx]
+        minor_name_list.append(minor_name)
+
+    return minor_name_list
+
+def get_taste_image(connection, email, minor_name_list) :
+    """
+    Desc : 유저의 이메일, 로그기록으로부터 유저의 취향에 맞다고 추측되는 이미지 id 반환
+    In :
+        connection
+        email
+    out :
+        taste_img 
+    """
+    cur = select_id_from_minors(connection,email,minor_name_list)
+    taste_img = []
+    for id in cur :
+        taste_img.append(id[0])
+    return taste_img
+
 #-----------------이미지 데이터 처리-----------------
 def get_image_array(url,fourth_dimension=True) :
     """
@@ -138,5 +229,19 @@ def load_image(image_path):
     img = tf.io.read_file(image_path)
     img = tf.image.decode_jpeg(img, channels=3)
     img = tf.image.resize(img, (224, 224))
+    #img = tf.keras.applications.inception_v3.preprocess_input(img)
+    return img
+
+
+def load_image_fourth(image_path):
+    """
+    Desc : 이미지 파일시스템 경로로부터 직접 이미지 불러오기
+    In : image_path
+    Out : 이미지 텐서
+    """
+    img = tf.io.read_file(image_path)
+    img = tf.image.decode_jpeg(img, channels=3)
+    img = tf.image.resize(img, (224, 224))
+    img = tf.expand_dims(img,axis= 0)
     #img = tf.keras.applications.inception_v3.preprocess_input(img)
     return img

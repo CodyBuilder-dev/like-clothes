@@ -8,13 +8,18 @@ import pandas as pd
 import json
 import pymysql
 
+#import tensorflow as tf
 #from keras.applications import resnet50
 #from tensorflow.keras.applications import resnet50
 
 from utils.utils_sql import connect_db, select_data_idpath, select_minor_from_id
-from utils.utils_data import get_minor_onehot, get_idpath_map,get_data_dict, get_image_array, get_mmm_from_id
+from utils.utils_data import get_minor_onehot, get_idpath_map,get_data_dict, get_mmm_from_id
+from utils.utils_data import get_wish_list, get_user_vector, get_taste_category, get_taste_image
+from utils.utils_data import get_alluser_list,get_alluser_vector
+from utils.utils_data import get_image_array, load_image,load_image_fourth
+
 from utils.utils_prepdata import load_attribution_matrix,load_pickle
-from utils.utils_model import load_class_model,load_feature_model
+from utils.utils_model import load_class_model,load_feature_model,load_cluster_model
 from utils.utils_recommand import calc_cos_sim,over_mean,under_mean,recommand_item
 from utils.utils_classification import choose_top_class
 
@@ -73,10 +78,7 @@ defected_img_url_path = config["defected_img_url_path"]
 id_path_map, id_url_map,id_minor_map = get_idpath_map(db,defected_img_url_path)
 x_dict,y_lael_dict = get_data_dict(id_path_map,id_minor_map,minor_onehot)
 
-
-
 #--------classification model-----------
-#Load Pretrained Model
 print("# classification 모델 불러오기")
 num_category = len(minor_onehot_dict)
 classmodel_weight_path = config["classmodel_weight_path"]
@@ -88,8 +90,77 @@ print("# feature 모델 불러오기")
 feature_model = load_feature_model()
 print("# feature 모델 불러오기 완료")
 
+#------------cluster model--------------------------
+#클러스터용 유저벡터 준비
+alluser_list = get_alluser_list(db,num=5000)
+alluser_vector_array = get_alluser_vector(db,alluser_list,minor_onehot_dict)
+#모델 불러오기
+print('# cluster 모델 불러오기')
+cluster_model = load_cluster_model(k=6)
+print('# cluster 모델 불러오기 완료')
+#모델 학습
+alluser_label = cluster_model.fit_predict(alluser_vector_array)
+#user-label-map생성
+user_label_map = pd.Series(alluser_label,index=alluser_list)
+print(user_label_map)
 #----------------------Routing----------------------------
-from routes.recommand import clothes_feature
+from routes.recommand import clothes_feature,clothes_feature_list
+
+@app.route("/ai/recommand/user", methods=['GET', 'POST'])
+def recommand_clothes() :
+    if request.method == 'GET':
+        return render_template('clothes-user.html')
+
+    if request.method == 'POST':
+        # form으로 날아오는지, Axios로 날아오는지 판별합니다
+        input_byte = request.data
+        print(input_byte)
+        if len(input_byte) == 0 : # Form 데이터로 유저 이메일를 전달
+            user_email = request.form['user_email']
+        else : # axios로부터 유저 이메일를 전달 받습니다  
+            input_str = input_byte.decode('utf-8')
+            input_dict = json.loads(input_str)
+            user_email = input_dict['user_email']
+            
+        print("getdata 결과: ",user_email)
+       
+        # 이메일로부터 위시리스트 이미지 id들을 불러옵니다
+        user_wish_list = get_wish_list(db,user_email)
+        # 이메일로부터 유저 취향 이미지 id들을 불러옵니다
+        user_vector = get_user_vector(db,user_email,minor_onehot_dict)
+        minor_name_list = get_taste_category(user_vector,minor_onehot_dict)
+        user_taste_list = get_taste_image(db,user_email,minor_name_list)
+        
+        # 이메일로부터 주변 유저들 취향 이미지들을 불러옵니다(미구현)
+        input_cluster = cluster_model.predict(user_vector.reshape(1,-1))[0]
+        print(input_cluster)
+        selected_neighbor = user_label_map[user_label_map==input_cluster].sample(1).index[0]
+        print(selected_neighbor)
+        neighbor_list = get_taste_image(db, selected_neighbor, minor_name_list)
+
+        # 개인정보로부터 추출된 id리스트를 처리합니다
+        # 리스트를 가중치를 줘서 합치면서, 중복되는 값들을 제거합니다
+        user_total_list = user_wish_list.copy()
+        user_total_list.extend(user_taste_list)
+        user_total_list = list(set(user_total_list))
+        total_id = user_total_list
+        
+        # 이웃으로부터 추출된 id리스트를 처리합니다
+        neighbor_id = list(set(neighbor_list)-set(total_id))
+
+        # id로부터 minor을 알아냅니다
+        total_minor = []
+        for id in total_id : 
+            total_minor.append(select_minor_from_id(db,id))
+
+        neighbor_minor = []
+        for id in neighbor_id : 
+            neighbor_minor.append(select_minor_from_id(db,id))
+
+        total_recommand_images = clothes_feature_list(total_minor,total_id,id_url_map,pickle_dict,5)
+        neighbor_recommand_images = clothes_feature_list(neighbor_minor,neighbor_id,id_url_map,pickle_dict,5)
+        return {"total_recommand_images":total_recommand_images,
+                "neighbor_recommand_images":neighbor_recommand_images}
 
 @app.route("/ai/recommand/feature", methods=['GET', 'POST'])
 def recommand_feature() :
@@ -117,9 +188,13 @@ def recommand_feature() :
         input_minor = select_minor_from_id(db,input_id)
         input_feature = feature_model.predict(input_img)
         print('[Tst]', input_minor)
-        return clothes_feature(input_id,input_minor,input_feature,id_url_map,pickle_dict)
-
-
+        best_images,worst_images = clothes_feature(input_id,input_minor,input_feature,id_url_map,pickle_dict,10)
+        
+        return {
+        "input_url":id_url_map[input_id], 
+        "best_images":best_images,
+        "worst_images":worst_images
+        }
 @app.route("/ai/recommand/set", methods=['GET', 'POST'])
 def recommand_set() :
     if request.method == 'GET':
@@ -207,9 +282,7 @@ def classification_tag() :
 @app.route("/ai/test", methods=['GET', 'POST'])
 def test() :
     if request.method == 'GET':
-        print()
-        #return str(minor_onehot.columns)
+        #print()
+        return tuple(id_path_map.keys()) #반드시 str,json등으로 보내야함
 if __name__ == '__main__':
-
    app.run(host='0.0.0.0',port=5000,debug = True)
-
