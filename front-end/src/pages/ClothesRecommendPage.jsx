@@ -8,7 +8,6 @@ import { clothesdetailjsx } from '../css/useStyles'
 
 const baseURL = process.env.REACT_APP_URL 
 const baseAIUrl = process.env.REACT_APP_AI_URL
-// const config = {"headers": {"Authorization": localStorage.token}}
 
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();

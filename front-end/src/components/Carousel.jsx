@@ -81,9 +81,9 @@ class Carousel extends React.Component {
           onInitialized={this.handleOnSlideChange}
           onSlideChanged={this.handleOnSlideChange}
           onResized={this.handleOnSlideChange}
-          dotsDisabled={false}
-          mouseTrackingEnabled={true}
-          fadeOutAnimation={true}
+          dotsDisabled='false'
+          mouseTrackingEnabled='true'
+          fadeOutAnimation='true'
         />
       </div>
     )

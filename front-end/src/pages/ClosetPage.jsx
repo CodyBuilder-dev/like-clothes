@@ -247,16 +247,10 @@ export default function Closet(props) {
 
                 <p style={{ marginTop: 30, marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>등록된 옷 보기</span></p>
                 <Box border={2} borderRadius={5} className={styles.paper}>
-                  {userClothesInfo && userClothesInfo.map((v, i) => {
-                    if (i > 0) return (
-                      <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`}>
+                  {userClothesInfo.length > 0 ? userClothesInfo.map((v, i) => (
+                      <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`} key={i}>
                         <img alt="" src={v.img} width="150px" height="150px"></img>
-                      </NavLink>
-                    )
-                    else return (
-                      <p>옷장에 옷이 없어요...</p>
-                    )
-                  })}
+                      </NavLink>)) : <p>옷장에 옷이 없어요...</p>}
                 </Box>
               </div>
             </Grid>
