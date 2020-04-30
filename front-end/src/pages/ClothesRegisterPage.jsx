@@ -14,9 +14,10 @@ import {
   TextField, Button, Table, TableCell,
   TableContainer, TableHead, TableRow,
 } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
 
-function ClothesRegister({ history }) {
+function ClothesRegister({history}) {
   const styles = clothesdetailjsx();
 
   // 최종 데이터 전송
@@ -43,9 +44,7 @@ function ClothesRegister({ history }) {
     axios.post(url, sendData, config)
       .then((res) => {
         console.log(res, '등록완료?')
-        
-        // history.block('옷장에 옷이 등록되었습니다.')
-        // history.goBack();
+        history.push(`/closet?user_email=${localStorage.email}`);
       })
   }
 
@@ -302,8 +301,8 @@ function ClothesRegister({ history }) {
             </Grid>
           </Grid>
           <p>제품 색상 :</p>
-          <Button variant="contained" color="primary" onClick={infoSubmitButton}
-            style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
+            <Button variant="contained" color="primary" onClick={infoSubmitButton}
+              style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
         </div>
       </Box>
     </Card >
