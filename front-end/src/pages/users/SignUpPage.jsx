@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { Link, Redirect } from 'react-router-dom';
 import { Card, Box, Zoom } from '@material-ui/core';
 import SignUpForm from "./SignUpForm";
+import validate from "../../module/validate";
 
 const baseUrl = process.env.REACT_APP_URL
 
 const axios = require("axios");
-const validateSignUpForm = require("./validate").validateSignUpForm;
+const validateSignUpForm = validate.validateSignUpForm;
 
 class SignUp extends Component {
   constructor(props) {
@@ -131,7 +132,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <Card style={{ width: "100%", height: 'calc(100vh - 112px)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
+      <Card style={{ width: "100%", height: 'calc(100vh - 70px)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
         <Box display="flex" flexDirection="row">
           <Box>
             <Zoom in={true}>
