@@ -100,7 +100,7 @@ export default function MultipleSelect(props) {
   return (
     <FormControl variant="outlined" className={classes.formControl}>
       <InputLabel id="demo-simple-select-label">{type}</InputLabel>
-      <Select style={{ width: '150px', height: '43px', backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', margin: '5px 0 0 0', }}
+      <Select style={{ width: '150px', height: '43px', backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', margin: '5px 0 0 0', paddingLeft: 10}}
         labelId="demo-mutiple-name-label"
         id={type}
         multiple
