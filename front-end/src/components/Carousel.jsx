@@ -1,13 +1,18 @@
-import React from 'react'
-import AliceCarousel from 'react-alice-carousel'
+import React from 'react';
+import AliceCarousel from 'react-alice-carousel';
 import { Link } from 'react-router-dom';
-import 'react-alice-carousel/lib/alice-carousel.css'
+import 'react-alice-carousel/lib/alice-carousel.css';
+import '../css/Carousel.css';
  
-class Gallery extends React.Component {
-  state = {
-    currentIndex: 0,
-    itemsInSlide: 1,
-    responsive: { 0: { items: 4 } },
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentIndex: 0,
+      itemsInSlide: 1,
+      responsive: { 0: { items: 4 } },
+      imgList: this.props.imgList,
+    };
   }
  
   slidePrevPage = () => {
@@ -29,30 +34,45 @@ class Gallery extends React.Component {
     const { itemsInSlide, item } = event
     this.setState({ itemsInSlide, currentIndex: item })
   }
+
+  handleImgDelete = (e, i) => {
+    console.log(i,'i?');
+  }
+
+  getImgList = () => {
+    const subscribeList = this.props.imgList;
+    
+  }
  
   render() {
     const { currentIndex, responsive } = this.state
-    const subscribeList = this.props.imgList;
-    const imgList = (subscribeList.length > 0) && subscribeList.map((item) => {
+    // const subscribeList = this.props.imgList;
+    let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {
       let widthVal = '90%'
-      if (subscribeList.length === 1) {
-        widthVal = '22.5%'
-      } else if (subscribeList.length === 2) {
-        widthVal = '45%'
-      } else if (subscribeList.length === 3) {
-        widthVal = '67.5%'
-      }
-      console.log(item)
-      return (<Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}>
-      <img src={item.img} height="300px" width={widthVal} />
-      </Link>
+      // if (subscribeList.length === 1) {
+      //   widthVal = '22.5%'
+      // } else if (subscribeList.length === 2) {
+      //   widthVal = '45%'
+      // } else if (subscribeList.length === 3) {
+      //   widthVal = '67.5%'
+      // }
+      return (
+        <div>
+          {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
+            <div key={i} className="imgDiv" style={{width: widthVal}}>
+              <img className="imgCard" src={item.img} height="300px" />
+              <button className="imgDeleteBtn" onClick={(e) => this.handleImgDelete(e, i)}>삭제버튼</button>
+            </div>
+          {/* </Link> */}
+        </div>
     );
-    });
+    }) : [];
+    console.log(this.state.imgList, '상태 이미지리스트')
 
     return (
       <div>
         <AliceCarousel
-          items={imgList}
+          items={this.imgList}
           slideToIndex={currentIndex}
           responsive={responsive}
           onInitialized={this.handleOnSlideChange}
@@ -67,4 +87,4 @@ class Gallery extends React.Component {
   }
 }
 
-export default Gallery;
+export default Carousel;
