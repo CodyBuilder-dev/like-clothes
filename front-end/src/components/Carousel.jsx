@@ -33,8 +33,7 @@ class Gallery extends React.Component {
   render() {
     const { currentIndex, responsive } = this.state
     const subscribeList = this.props.imgList;
-
-    const imgList = subscribeList.map((item) => {
+    const imgList = (subscribeList.length > 0) && subscribeList.map((item) => {
       let widthVal = '90%'
       if (subscribeList.length === 1) {
         widthVal = '22.5%'
@@ -59,9 +58,9 @@ class Gallery extends React.Component {
           onInitialized={this.handleOnSlideChange}
           onSlideChanged={this.handleOnSlideChange}
           onResized={this.handleOnSlideChange}
-          dotsDisabled='false'
-          mouseTrackingEnabled='true'
-          fadeOutAnimation='true'
+          dotsDisabled={false}
+          mouseTrackingEnabled={true}
+          fadeOutAnimation={true}
         />
       </div>
     )
