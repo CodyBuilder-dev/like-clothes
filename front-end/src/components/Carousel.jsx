@@ -12,6 +12,7 @@ class Carousel extends React.Component {
       itemsInSlide: 1,
       responsive: { 0: { items: 4 } },
       imgList: this.props.imgList,
+      carouselList: [],
     };
   }
  
@@ -39,23 +40,13 @@ class Carousel extends React.Component {
     console.log(i,'i?');
   }
 
-  getImgList = () => {
-    const subscribeList = this.props.imgList;
-    
+  componentDidMount() {
+    this.getImgList()
   }
- 
-  render() {
-    const { currentIndex, responsive } = this.state
-    // const subscribeList = this.props.imgList;
-    let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {
+
+  getImgList = () => {
+    this.state.imgList.length > 0 && this.setState({ carouselList: this.state.imgList.map((item, i) => {
       let widthVal = '90%'
-      // if (subscribeList.length === 1) {
-      //   widthVal = '22.5%'
-      // } else if (subscribeList.length === 2) {
-      //   widthVal = '45%'
-      // } else if (subscribeList.length === 3) {
-      //   widthVal = '67.5%'
-      // }
       return (
         <div>
           {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
@@ -65,14 +56,27 @@ class Carousel extends React.Component {
             </div>
           {/* </Link> */}
         </div>
-    );
-    }) : [];
-    console.log(this.state.imgList, '상태 이미지리스트')
+      );
+    })})
+  }
+ 
+  render() {
+    const { currentIndex, responsive } = this.state
+    // const subscribeList = this.props.imgList;
+    // let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {
+    //   let widthVal = '90%'
+      // if (subscribeList.length === 1) {
+      //   widthVal = '22.5%'
+      // } else if (subscribeList.length === 2) {
+      //   widthVal = '45%'
+      // } else if (subscribeList.length === 3) {
+      //   widthVal = '67.5%'
+      // }
 
     return (
       <div>
         <AliceCarousel
-          items={this.imgList}
+          items={this.state.carouselList}
           slideToIndex={currentIndex}
           responsive={responsive}
           onInitialized={this.handleOnSlideChange}
