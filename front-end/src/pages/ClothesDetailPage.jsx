@@ -197,7 +197,8 @@ export default function ClothesDetail(props) {
                   상세 설명
                   </p>
                 <p style={{ marginLeft: 10 }}>
-                  {item.clothes_info && item.clothes_info[0].description}
+                  {item.clothes_info &&
+                  item.clothes_info[0].description ? item.clothes_info[0].description : '이 옷의 상세 설명이 없어욧'}
                 </p>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <p style={{ color: 'black' }}>

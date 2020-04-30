@@ -32,13 +32,13 @@ const SignInForm = ({
 			<div style={{width: '96%', marginLeft: '2%'}}><form onSubmit={onSubmit} method="POST">
 				<div style={{marginTop: '20px'}}>
         <TextField
-          type='text' name="email" label='E-mail' value={user.email} fullWidth='true'
-          onChange={onChange} errorText={errors.email}
+          type='text' name="email" label='E-mail' value={user.email} fullWidth={true}
+          onChange={onChange}
         /></div>
         <div style={{marginTop: '2px'}}>
 				<TextField
-          type="password" name="password" label='Password' value={user.password} fullWidth='true'
-          onChange={onChange} errorText={errors.password}
+          type="password" name="password" label='Password' value={user.password} fullWidth={true}
+          onChange={onChange}
         /></div>
 
         <div>
