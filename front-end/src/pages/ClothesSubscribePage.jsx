@@ -6,6 +6,8 @@ import { clothesdetailjsx } from '../css/useStyles';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Carousel from '../components/Carousel';
 
+const Subs = '/assets/Subs.png'
+
 const url = process.env.REACT_APP_URL + '/clothes-resv'
 const config = {
   headers: {
@@ -31,9 +33,9 @@ export default function ClothesDetail(props) {
       thisWeek.setDate(thisWeek.getDate() - thisWeek.getDay())
       nextWeek.setDate(nextWeek.getDate() + 7 - nextWeek.getDay())
 
-      res.data.forEach((data)=> {
-        const curWeek  = new Date(data.reserved_date);
-        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()){
+      res.data.forEach((data) => {
+        const curWeek = new Date(data.reserved_date);
+        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()) {
           thisData.push(data)
         } else if (curWeek.getFullYear() === nextWeek.getFullYear() && curWeek.getMonth() === nextWeek.getMonth() && curWeek.getDate() === nextWeek.getDate()) {
           nextData.push(data)
@@ -46,11 +48,11 @@ export default function ClothesDetail(props) {
   }, [update])
 
   const handleImgDelete = (i) => {
-    const params = {'user_reservation_id': nextSubscribe[i].id}
+    const params = { 'user_reservation_id': nextSubscribe[i].id }
     const headers = {
       "Authorization": localStorage.token,
     }
-    axios.delete(url, {params, headers, data: params})
+    axios.delete(url, { params, headers, data: params })
       .then((res) => {
         console.log(res, 'delete결과');
         setUpdate(!update);
@@ -85,7 +87,13 @@ export default function ClothesDetail(props) {
       <Box border={2} borderRadius={5} className={styles.paper}>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 중인 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(true)}</span></p>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50, paddingBottom: 0 }}>
-          {subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> : null}
+          {subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> :
+            <div style={{ width: '100%', textAlign: 'center' }}>
+              <div style={{ display: 'inline-block' }}>
+                <img alt="" src={Subs} width='120' height='100' />
+                <span style={{ fontSize: 50, textAlign: 'center' }}>정보가 없습니다...</span>
+              </div>
+            </div>}
         </Box>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 할 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(false)}</span></p>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>

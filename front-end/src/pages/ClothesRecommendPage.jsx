@@ -67,9 +67,9 @@ export default function ClothesDetail(props) {
             )))}
           </GridList>
         </Box>
-        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>neighbor_recommand</p>
+        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>팔로잉 유저 추천</p>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50 }}>
-          <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
+          <GridList className={styles.gridList} cols={4} cellHeight={250}>
             {neighborList && (neighborList.map((item, i) => (
               <GridListTile key={i} height="300px">
                 <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
@@ -79,9 +79,9 @@ export default function ClothesDetail(props) {
             )))}
           </GridList>
         </Box>
-        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>total</p>
+        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>AI 맞춤 추천</p>
         <Box border={2} borderRadius={5} className={styles.paper}>
-          <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%' }}>
+        <GridList className={styles.gridList} cols={4} cellHeight={250}>
             {totalList && (totalList.map((item, i) => (
               <GridListTile key={i} height="300px">
                 <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
