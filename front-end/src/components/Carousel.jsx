@@ -35,10 +35,6 @@ class Carousel extends React.Component {
     this.setState({ itemsInSlide, currentIndex: item })
   }
 
-  handleImgDelete = (e, i) => {
-    console.log(i,'i?');
-  }
-
   componentDidMount() {
     this.getImgList()
   }
@@ -51,7 +47,7 @@ class Carousel extends React.Component {
           {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
             <div key={i} className="imgDiv" style={{width: widthVal}}>
               <img alt="" className="imgCard" src={item.img} height="300px" />
-              <button className="imgDeleteBtn" onClick={(e) => this.handleImgDelete(e, i)}>삭제버튼</button>
+              <button className="imgDeleteBtn" onClick={() => this.props.deleteBtn(i)}>삭제버튼</button>
             </div>
           {/* </Link> */}
         </div>
@@ -60,6 +56,7 @@ class Carousel extends React.Component {
   }
  
   render() {
+    console.log(this.state.carouselList, '리스트')
     const { currentIndex, responsive } = this.state
     // const subscribeList = this.props.imgList;
     // let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {

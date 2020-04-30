@@ -6,19 +6,22 @@ import { clothesdetailjsx } from '../css/useStyles';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Carousel from '../components/Carousel';
 
+const url = process.env.REACT_APP_URL + '/clothes-resv'
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": localStorage.token,
+  }
+};
+
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
   const [subscribe, setSubscribe] = useState([]);
   const [nextSubscribe, setNextSubscribe] = useState([]);
 
+  const [update, setUpdate] = useState(false);
+
   useEffect(() => {
-    const url = process.env.REACT_APP_URL + '/clothes-resv'
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.token,
-      }
-    };
     axios.get(url, config).then((res) => {
       console.log(res.data, '1, clothes_item_id, 예약된 날짜!');
       const thisData = [];
@@ -28,10 +31,9 @@ export default function ClothesDetail(props) {
       thisWeek.setDate(thisWeek.getDate() - thisWeek.getDay())
       nextWeek.setDate(nextWeek.getDate() + 7 - nextWeek.getDay())
 
-      res.data.forEach((data) => {
-        const curWeek = new Date(data.reserved_date);
-        // console.log(data.reserved_date, curWeek)
-        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()) {
+      res.data.forEach((data)=> {
+        const curWeek  = new Date(data.reserved_date);
+        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()){
           thisData.push(data)
         } else if (curWeek.getFullYear() === nextWeek.getFullYear() && curWeek.getMonth() === nextWeek.getMonth() && curWeek.getDate() === nextWeek.getDate()) {
           nextData.push(data)
@@ -41,7 +43,20 @@ export default function ClothesDetail(props) {
       setSubscribe(thisData);
       setNextSubscribe(nextData);
     })
-  }, [])
+  }, [update])
+
+  const handleImgDelete = (i) => {
+    const params = {'user_reservation_id': nextSubscribe[i].id}
+    const headers = {
+      "Authorization": localStorage.token,
+    }
+    axios.delete(url, {params, headers, data: params})
+      .then((res) => {
+        console.log(res, 'delete결과');
+        setUpdate(!update);
+        setNextSubscribe([]);
+      })
+  }
 
   function formatDate(date) {
     var mymonth = date.getMonth() + 1;
