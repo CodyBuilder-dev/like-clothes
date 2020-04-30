@@ -38,7 +38,7 @@ export default function ClothesDetail(props) {
           nextData.push(data)
         }
       })
-      console.log("thisData", thisData,"nextData", nextData )
+      console.log("thisData", thisData, "nextData", nextData )
       setSubscribe(thisData);
       setNextSubscribe(nextData);
     })
@@ -48,11 +48,11 @@ export default function ClothesDetail(props) {
     <Card className={styles.root}>
       <Box border={2} borderRadius={5} className={styles.paper}>
       <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 중인 목록</p>
-        <Carousel imgList={subscribe}></Carousel>
+        {subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> : null}
       </Box>
       <Box border={2} borderRadius={5} className={styles.paper}>
       <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>구독 할 목록</p>
-        <Carousel imgList={nextSubscribe}></Carousel>
+        {nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe}></Carousel> : null}
       </Box>
     </Card>
   );
