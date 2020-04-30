@@ -43,8 +43,9 @@ function ClothesRegister({ history }) {
     axios.post(url, sendData, config)
       .then((res) => {
         console.log(res, '등록완료?')
-        history.block('옷장에 옷이 등록되었습니다.')
-        history.goBack();
+        
+        // history.block('옷장에 옷이 등록되었습니다.')
+        // history.goBack();
       })
   }
 
