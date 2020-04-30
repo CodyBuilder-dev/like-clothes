@@ -250,7 +250,9 @@ export default function ClothesDetail(props) {
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
           {worstImg && (worstImg.map((item) => (
             <GridListTile key={item} height="300px">
-              <img src={item.img} height="100%"/>
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+                <img src={item.img} height="100%"/>
+              </NavLink>
             </GridListTile>
           )))}
         </GridList>
