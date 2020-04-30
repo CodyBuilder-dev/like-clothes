@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TextField, FormLabel } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 const decodeTypeKorToEng = (type) => {
   switch (type) {

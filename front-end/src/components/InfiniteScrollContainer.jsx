@@ -1,7 +1,7 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
-import { Card, GridList, GridListTile, CardHeader, CardContent } from '@material-ui/core';
+import { GridList, GridListTile, CardContent } from '@material-ui/core';
 import '../css/InfiniteScrollContainer.css'
 
 let numOfAPage = 40, page, numItemsPerColumn = 6, tempList = [];
@@ -38,7 +38,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     tempList = this.props.dataList.map((data, index) => {
       return (
         <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>
-          <img src={data.img} width="100%" style={{ minHeight: 225 }} />
+          <img alt="" src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
           {/* <p class="containerTitle">{data.code_name}</p> */}
           {/* <button className='containerBtn' style={{position:'absolute'}}>상세봐욧</button> */}

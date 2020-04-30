@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Card, Box, Zoom } from '@material-ui/core';
 import SignUpForm from "./SignUpForm";
 import validate from "../../module/validate";
@@ -150,7 +150,7 @@ class SignUp extends Component {
             {this.state.isSuccess && <Redirect to='/choicestyle'></Redirect>}
           </Box>
           <Box style={{ overflow: 'hidden', height: '100%' }}>
-            <img style={{
+            <img alt="" style={{
               width: 'auto',
               zIndex: 0,
               position: 'relative',

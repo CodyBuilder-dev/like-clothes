@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { NavLink, Redirect } from 'react-router-dom'
-import { Avatar, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent, ListItemAvatar } from '@material-ui/core'
-import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined, CodeSharp } from '@material-ui/icons';
+import { Avatar, Drawer, Divider, List, ListItem, ListItemIcon, Button, Card, CardContent } from '@material-ui/core'
+import { Lock, PersonAdd, ExitToApp, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import { appsidedrawerjsx } from '../css/useStyles'
 
@@ -54,7 +54,7 @@ export default function SearchAppBar(props) {
           <List className={styles.drawer}>
             <Card variant="outlined" className={styles.cardContent1}>
               <NavLink to='/'>
-                <img src={Logo} style={{ width: '100%', opacity: 1 }} />
+                <img alt="" src={Logo} style={{ width: '100%', opacity: 1 }} />
               </NavLink>
             </Card>
           </List>

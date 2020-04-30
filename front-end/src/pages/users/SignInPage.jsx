@@ -96,7 +96,7 @@ class SignIn extends Component {
               position: 'relative',
               right: '25%',
               bottom: 50,
-            }} src={SigninBackground}></img>
+            }} alt="" src={SigninBackground}></img>
           </Box>
         </Box>
       </Card>

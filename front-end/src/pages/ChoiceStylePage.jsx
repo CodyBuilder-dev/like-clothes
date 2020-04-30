@@ -7,9 +7,9 @@ import { choicestylejsx } from '../css/useStyles';
 import axios from 'axios';
 import '../css/InfiniteScrollContainer.css';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+// function rand() {
+//   return Math.round(Math.random() * 20) - 10;
+// }
 
 function getModalStyle() {
   // const top = 50 + rand();
@@ -42,7 +42,7 @@ class ChoiceStylePage extends Component {
       if (searchDataList.length > 0) {
         let imgList = searchDataList.map((searchData, index) => {
           return (
-            <img key={index} src={searchData.img} id={searchData.id}
+            <img alt="" key={index} src={searchData.img} id={searchData.id}
               className={this.props.classes.image} style={{ width: "100%", height: "100%", }} />
           )
         });
@@ -98,7 +98,7 @@ class ChoiceStylePage extends Component {
         console.log(err);
       });
 
-    if (++numOfDepth == maxNumOfDepth) {
+    if (++numOfDepth === maxNumOfDepth) {
       this.setState({ open: true, });
     }
     else {

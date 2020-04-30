@@ -120,7 +120,6 @@ export const choicestylejsx = theme => ({
     backgroundColor: "rgba(255, 255, 255, 0.9)",
     width: "300px",
     margin: "0 10% 3% 10%",
-    width: "80%",
     textAlign: "center",
   },
   title: {
