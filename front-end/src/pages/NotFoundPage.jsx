@@ -6,11 +6,11 @@ class NotFound extends PureComponent {
     const { url } = this.props.match || {};
     return (
       <div>
-        <div>
-          { url } 페이지를 찾을 수 없습니다.
+        <div style={{ color: "white" }}>
+          {url} 페이지를 찾을 수 없습니다.
         </div>
         <div>
-          <Link to="/">메인으로 이동</Link>
+          <Link to="/" style={{ color: "white" }}>메인으로 이동</Link>
         </div>
       </div>
     );
