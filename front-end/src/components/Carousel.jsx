@@ -1,5 +1,6 @@
 import React from 'react'
 import AliceCarousel from 'react-alice-carousel'
+import { Link } from 'react-router-dom';
 import 'react-alice-carousel/lib/alice-carousel.css'
  
 class Gallery extends React.Component {
@@ -41,7 +42,11 @@ class Gallery extends React.Component {
       } else if (subscribeList.length === 3) {
         widthVal = '67.5%'
       }
-      return (<img src={item.img} height="300px" width={widthVal} />);
+      console.log(item)
+      return (<Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}>
+      <img src={item.img} height="300px" width={widthVal} />
+      </Link>
+    );
     });
 
     return (
