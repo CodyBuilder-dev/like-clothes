@@ -5,12 +5,12 @@ import pandas as pd
 
 from utils.utils_sql import select_set_item
 
-def calc_cos_sim(A, B):
+def calc_cos_sim(A, B) : 
     A = A.flatten()
     B = B.flatten()
     return dot(A, B)/(norm(A)*norm(B))
 
-def over_mean(scores:pd.Series) :
+def over_mean(scores:pd.Series) : 
     return scores[scores>scores.mean()].index.values
 
 def under_mean(scores:pd.Series) :
