@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Box, Card, GridList, GridListTile, Modal, Paper, Container, Button } from '@material-ui/core';
+import { Box, Card, GridList, GridListTile, Modal, Container, Button } from '@material-ui/core';
 import { searchClothesRandom } from '../module/searchClothesRandom';
 import { withStyles } from '@material-ui/core/styles';
-import { FavoriteRounded } from '@material-ui/icons'
+import { FavoriteRounded, DoneOutlineRounded, ReplayRounded } from '@material-ui/icons'
 import { choicestylejsx } from '../css/useStyles';
 import axios from 'axios';
 import '../css/InfiniteScrollContainer.css';
@@ -22,7 +22,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
-const numItemsPerColumn = 4, maxNumOfChoicedImage = 3, maxNumOfDepth = 5;
+const numItemsPerColumn = 4, maxNumOfChoicedImage = 3, maxNumOfDepth = 3;
 let numOfChoicedImage = 0, numOfDepth = 0;
 
 class ChoiceStylePage extends Component {
@@ -72,7 +72,7 @@ class ChoiceStylePage extends Component {
       this.setState({ choicedItemObject: nextChoicedItemObject, canPush: true, });
     }
     else {
-      alert('너무 많이 골랐쪄 뿌잉');
+      alert(`한 번에 ${maxNumOfChoicedImage}개의 이미지만 선택할 수 있습니다`);
     }
   }
   handleChoice = () => {
@@ -128,36 +128,46 @@ class ChoiceStylePage extends Component {
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
           }}>
+
             <p style={{ fontSize: 35, marginTop: 10, marginLeft: 10 }}>내 스타일 고르기</p>
             <Box border={2} borderRadius={5} style={{
               padding: 24, textAlign: 'center',
               color: 'rgb(128, 128, 128)',
               marginLeft: 30, marginRight: 30
             }}>
-              <p>이 페이지는 옷 추천을 받기 전에 사용자의 취향을 알아보기 위한 페이지입니다.</p>
-              <span>보여지는 이미지 중에서</span>
-              <span style={{ color: 'red' }}><FavoriteRounded style={{ width: 20, height: 20 }} />취향저격</span>
-              <span> 에 성공한 옷을 최대 {maxNumOfChoicedImage}개 골라 주세요!!</span>
-              <p></p>
+              <span>이 페이지는 옷 추천을 받기 전에 사용자의 취향을 알아보기 위한 페이지입니다.</span>
+              <p>
+                <span>보여지는 이미지 중에서</span>
+                <span style={{ color: 'red' }}><FavoriteRounded style={{ width: 20, height: 20 }} />취향저격</span>
+                <span> 에 성공한 옷을 최대 {maxNumOfChoicedImage}개 골라 주세요!!</span>
+              </p>
             </Box>
-            <Container className={this.props.classes.imagecontainer}>
-              <GridList style={{ marginTop: 50, marginBottom: 50}} cols={numItemsPerColumn}>
-                {this.state.imgTags.map((img, index) => (
-                  <GridListTile className='container' style={{ paddingLeft: "0px", textAlign: "center", }} key={index} cols={img.cols || 1}>
-                    <div style={{ overflow: "hidden", justifyContent: "center", alignItems: "center", }}>
-                      {img}
-                      <div class={!!this.state.choicedItemObject[img.props.id] ? "choiced" : "overlay"}
-                        onClick={() => this.handleChoicedClothesId(img.props.id)} />
-                    </div>
-                  </GridListTile>
-                ))}
-              </GridList>
-            </Container>
+            <Box border={2} borderRadius={5} style={{
+              textAlign: 'center',
+              color: 'rgb(128, 128, 128)',
+              margin: 30
+            }}>
+              <Container className={this.props.classes.imagecontainer}>
+                <GridList cols={numItemsPerColumn}>
+                  {this.state.imgTags.map((img, index) => (
+                    <GridListTile className='container' style={{ paddingLeft: "0px", textAlign: "center", }} key={index} cols={img.cols || 1}>
+                      <div style={{ overflow: "hidden", justifyContent: "center", alignItems: "center", }}>
+                        {img}
+                        <div class={!!this.state.choicedItemObject[img.props.id] ? "choiced" : "overlay"}
+                          onClick={() => this.handleChoicedClothesId(img.props.id)} />
+                      </div>
+                    </GridListTile>
+                  ))}
+                </GridList>
+              </Container>
+            </Box>
             <div style={{ textAlign: "center", paddingBottom: "3%" }}>
               <Button
                 variant="contained" color="secondary"
-                disabled={!this.state.canPush} onClick={this.handleChoice}>
-                좋아욧
+                disabled={!this.state.canPush} onClick={this.handleChoice}
+                size="large">
+                <DoneOutlineRounded style={{ marginRight: 20 }} />
+                다 골랐어요 !!
             </Button>
             </div>
           </Box>
@@ -174,8 +184,9 @@ class ChoiceStylePage extends Component {
             <Button
               variant="contained" color="secondary"
               disabled={!this.state.canPush} onClick={() => { this.props.history.replace("/"); }}
-              style={{ align: "center", }}>
-              Main페이지 이동
+              style={{ align: "center" }}>
+              <ReplayRounded style={{ marginRight: 20 }} />
+              메인으로
           </Button>
           </div>
         </Modal>

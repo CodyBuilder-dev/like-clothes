@@ -134,7 +134,8 @@ export const choicestylejsx = theme => ({
     color: "rgba(244, 165, 199, 0.9)",
   },
   imagecontainer: {
-    margin: "0 0 3% 0",
+    margin: "0 0 0 0",
+    padding: 5,
     textAlign: "center",
     // opacity: "0.9",
   },
