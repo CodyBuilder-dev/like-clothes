@@ -53,7 +53,6 @@ const SignUpForm = ({
   return (
     <div className={classes.root}>
       <h1>회원가입</h1>
-
       <div style={{ width: '96%', marginLeft: '2%' }}>
         <form onSubmit={onSubmit} encType="multipart/form-data">
 

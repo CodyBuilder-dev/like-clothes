@@ -4,6 +4,8 @@ import { Card, Box, Zoom } from '@material-ui/core';
 import SignUpForm from "./SignUpForm";
 import validate from "../../module/validate";
 
+
+const SignupBackground = '/assets/SignupBackground.jpg'
 const baseUrl = process.env.REACT_APP_URL
 
 const axios = require("axios");
@@ -132,7 +134,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <Card style={{ width: "100%", height: 'calc(100vh - 70px)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
+      <Card align="center" style={{ width: "100%", height: 'calc(100vh)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
         <Box display="flex" flexDirection="row">
           <Box>
             <Zoom in={true}>
@@ -146,6 +148,15 @@ class SignUp extends Component {
               />
             </Zoom>
             {this.state.isSuccess && <Redirect to='/choicestyle'></Redirect>}
+          </Box>
+          <Box style={{ overflow: 'hidden', height: '100%' }}>
+            <img style={{
+              width: 'auto',
+              zIndex: 0,
+              position: 'relative',
+              right: 100,
+              bottom : 100
+            }} src={SignupBackground}></img>
           </Box>
         </Box>
       </Card >
