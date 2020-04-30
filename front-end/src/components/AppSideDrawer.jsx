@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import { Avatar, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Button, Card, CardContent, ListItemAvatar } from '@material-ui/core'
-import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined } from '@material-ui/icons';
+import { Lock, PersonAdd, ExitToApp, HomeOutlined, FaceOutlined, LocalMallOutlined, StoreOutlined, CodeSharp } from '@material-ui/icons';
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import { appsidedrawerjsx } from '../css/useStyles'
 
@@ -12,15 +12,17 @@ export default function SearchAppBar(props) {
   const styles = appsidedrawerjsx();
   const user = props.authentication.isAuthenticated;
   const user_email = localStorage.email;
-  const [userinfo, setUserinfo] = useState([]);
+  const [userinfo, setUserinfo] = useState({});
+  const [isLogOut, setIsLogOut] = useState(false);
 
   useEffect(() => {
-    const url = process.env.REACT_APP_URL + `/user/${user_email}`
-    axios.get(url).then((res) => {
-      console.log(res, '사이드결과')
-      setUserinfo(res.data.user);
-    })
-  }, [])
+    if (user) {
+      const url = process.env.REACT_APP_URL + `/user/${user_email}`
+      axios.get(url).then((res) => {
+        setUserinfo(res.data.user);
+      })
+    }
+  }, [user]);
 
   const movePage = () => {
     if (!!localStorage.isAuthenticated === false) {
@@ -36,8 +38,8 @@ export default function SearchAppBar(props) {
     localStorage.removeItem('email');
     localStorage.removeItem('nickname');
     localStorage.removeItem('isAuthenticated');
-    window.location.reload();
-    // props.history.replace('/');
+    // window.location.reload();
+    setIsLogOut(true);
   }
 
   return (
@@ -60,7 +62,7 @@ export default function SearchAppBar(props) {
           <Divider />
           <Divider />
           <div className={styles.drawer}>
-            {user === true ?
+            {user ?
               <Card variant="outlined" className={styles.cardContent1}>
                 <CardContent>
                   <NavLink to={`/closet/?user_email=${user_email}`}>
@@ -93,14 +95,6 @@ export default function SearchAppBar(props) {
 
           {user === true &&
             <List className={styles.drawer}>
-              {/* <NavLink
-                style={{ color: 'black', textDecoration: 'none' }}
-                to='/'>
-                <ListItem button className={styles.listContent}>
-                  <ListItemIcon><HomeOutlined /></ListItemIcon>
-                  <p>Home</p>
-                </ListItem>
-              </NavLink> */}
               <NavLink
                 style={{ color: 'black', textDecoration: 'none' }}
                 to={`/closet?user_email=${localStorage.email}`}>
@@ -140,6 +134,7 @@ export default function SearchAppBar(props) {
           }
         </div>
       </Drawer>
+      {isLogOut && <Redirect to='/'></Redirect>}
       <ScrollToTopButton></ScrollToTopButton>
     </div>
   );

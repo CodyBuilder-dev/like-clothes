@@ -11,11 +11,11 @@ import ClothesSubscribe from './pages/ClothesSubscribe';
 import ClothesRecommend from './pages/ClothesRecommend';
 import Closet from './pages/ClosetPage';
 import NotFound from './pages/NotFound';
-import SignUp from './pages/users/SignUp';
 import ChoiceStylePage from './pages/ChoiceStylePage';
 
 import AppSideDrawerContainer from './store/Containers/AppSideDrawerContainer';
 import SignInContainer from './store/Containers/SignInContainer';
+import SignUpContainer from './store/Containers/SignUpContainer';
 
 import { appjs } from './css/useStyles';
 
@@ -38,7 +38,7 @@ function App() {
             <Route path="/clothesrecommend" exact component={ClothesRecommend}/>
             <Route path="/choicestyle" exact component={ChoiceStylePage} />
 
-            <Route path="/signup" exact component={SignUp} />
+            <Route path="/signup" exact component={SignUpContainer} />
             <Route path="/signin" exact component={SignInContainer} />
 
             <Route path="*" component={NotFound} />

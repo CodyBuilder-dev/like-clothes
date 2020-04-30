@@ -98,7 +98,6 @@ class SignUp extends Component {
         localStorage.isAuthenticated = true;
         localStorage.email = res.data.new_user.email;
         localStorage.nickname = res.data.new_user.nickname;
-        this.setState({isSuccess:true});
       } else if (res.data.err === "User email already exist") {
         alert('이메일 중복입니다')
       } else {
@@ -108,6 +107,10 @@ class SignUp extends Component {
         });
       }
     })
+    .then(() => {
+      this.props.setAuthentication(true);
+      this.setState({isSuccess:true});
+    });
   }
 
   validateForm(event) {
