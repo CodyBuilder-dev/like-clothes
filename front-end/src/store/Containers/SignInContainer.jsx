@@ -1,4 +1,4 @@
-import SignIn from '../../pages/users/SignIn';
+import SignIn from '../../pages/users/SignInPage';
 import { connect } from 'react-redux';
 import { setAuthentication } from '../actions/authenticationActions';
 

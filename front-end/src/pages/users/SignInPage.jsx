@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Link, Redirect } from 'react-router-dom';
 import { Card, Box, Zoom } from '@material-ui/core';
 import SignInForm from "./SignInForm";
+import validate from "../../module/validate";
 import SigninVideo from '../../asset/Signin.mp4';
 import SigninVideo2 from '../../asset/Signin2.mp4';
 import SigninBackground from '../../asset/SigninBackground.jpg'
@@ -9,7 +9,7 @@ import SigninBackground from '../../asset/SigninBackground.jpg'
 const baseUrl = process.env.REACT_APP_URL
 
 const axios = require("axios");
-const validateSignInForm = require("./validate").validateSignInForm;
+const validateSignInForm = validate.validateSignInForm;
 
 class SignIn extends Component {
   constructor(props) {
