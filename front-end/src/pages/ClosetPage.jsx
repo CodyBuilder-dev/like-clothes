@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {
   Avatar, ListItem, ListItemAvatar,
-  Card, Box, Grid, MenuItem, Select, TextField, Button, Divider,
+  Card, Box, Grid, MenuItem, Select, TextField, Button,
 } from '@material-ui/core';
 import { Edit, FavoriteBorder, Favorite, AddRounded } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
@@ -246,11 +246,11 @@ export default function Closet(props) {
                 {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
 
                 <p style={{ marginTop: 30, marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>등록된 옷 보기</span></p>
-                <Box className="clothesImage" border={2} borderRadius={5} className={styles.paper}>
+                <Box border={2} borderRadius={5} className={styles.paper}>
                   {userClothesInfo && userClothesInfo.map((v, i) => {
                     if (i > 0) return (
                       <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`}>
-                        <img src={v.img} width="150px" height="150px"></img>
+                        <img alt="" src={v.img} width="150px" height="150px"></img>
                       </NavLink>
                     )
                     else return (

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Card, CardContent, Box, Grid, Divider, ListItem, ListItemAvatar,
-  Typography, Button, Avatar, Table, TableCell,
+  Button, Avatar, Table, TableCell,
   TableContainer, TableHead, TableRow, GridList, GridListTile
 } from '@material-ui/core';
 import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
@@ -43,7 +43,7 @@ export default function ClothesDetail(props) {
 
   const styles = clothesdetailjsx();
   const [item, setItem] = useState({});
-  const [recommend, setRecommend] = useState([]);
+  // const [recommend, setRecommend] = useState([]);
   const [bestImg, setBestImg] = useState([]);
   const [worstImg, setWorstImg] = useState([]);
 
@@ -118,7 +118,7 @@ export default function ClothesDetail(props) {
       <Box border={2} borderRadius={5} className={styles.paper}>
         <Grid container spacing={1}>
           <Grid item md={5} sm={12}>
-            {item.clothes_info && <img src={item.clothes_info[0].img} width="100%" />}
+            {item.clothes_info && <img alt="" src={item.clothes_info[0].img} width="100%" />}
             <CardContent>
               <p style={{ color: 'black' }}>상품명</p>
               <p style={{ color: 'black' }}><Box fontWeight="fontWightBold" fontSize={25}>
@@ -241,7 +241,7 @@ export default function ClothesDetail(props) {
           {bestImg && (bestImg.map((item, i) => (
             <GridListTile key={i} height="300px">
               <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img src={item.img} height="100%"/>
+                <img alt="" src={item.img} height="100%"/>
               </NavLink>
             </GridListTile>
           )))}
@@ -256,7 +256,7 @@ export default function ClothesDetail(props) {
           {worstImg && (worstImg.map((item) => (
             <GridListTile key={item} height="300px">
               <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img src={item.img} height="100%"/>
+                <img alt="" src={item.img} height="100%"/>
               </NavLink>
             </GridListTile>
           )))}

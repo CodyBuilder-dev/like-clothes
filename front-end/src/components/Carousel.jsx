@@ -1,6 +1,5 @@
 import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
-import { Link } from 'react-router-dom';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import '../css/Carousel.css';
  
@@ -51,7 +50,7 @@ class Carousel extends React.Component {
         <div>
           {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
             <div key={i} className="imgDiv" style={{width: widthVal}}>
-              <img className="imgCard" src={item.img} height="300px" />
+              <img alt="" className="imgCard" src={item.img} height="300px" />
               <button className="imgDeleteBtn" onClick={(e) => this.handleImgDelete(e, i)}>삭제버튼</button>
             </div>
           {/* </Link> */}

@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import {
-  Card, CardContent, Box, Grid, Divider,
-  Typography, Button, Avatar, Table, TableCell,
-  TableContainer, TableHead, TableRow, GridList, GridListTile
+  Card, Box, GridList, GridListTile
 } from '@material-ui/core';
-import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
 import { clothesdetailjsx } from '../css/useStyles'
 
 const baseURL = process.env.REACT_APP_URL 
 const baseAIUrl = process.env.REACT_APP_AI_URL
-const config = {"headers": {"Authorization": localStorage.token}}
+// const config = {"headers": {"Authorization": localStorage.token}}
 
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
@@ -66,7 +63,7 @@ export default function ClothesDetail(props) {
           {recommend && (recommend.map((item, i) => (
             <GridListTile key={i} height="300px">
               <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}>
-                <img src={item.img} height="100%" />
+                <img alt="" src={item.img} height="100%" />
               </Link>
             </GridListTile>
           )))}
@@ -79,7 +76,7 @@ export default function ClothesDetail(props) {
           {neighborList && (neighborList.map((item, i) => (
             <GridListTile key={i} height="300px">
               <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img src={item.img} height="100%" />
+                <img alt="" src={item.img} height="100%" />
               </Link>
             </GridListTile>
           )))}
@@ -92,7 +89,7 @@ export default function ClothesDetail(props) {
           {totalList && (totalList.map((item, i) => (
             <GridListTile key={i} height="300px">
               <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                <img src={item.img} height="100%" />
+                <img alt="" src={item.img} height="100%" />
               </Link>
             </GridListTile>
           )))}

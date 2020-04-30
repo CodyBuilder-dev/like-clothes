@@ -5,7 +5,6 @@ import { clothesdetailjsx } from '../css/useStyles';
 
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Carousel from '../components/Carousel';
-import { Redirect } from 'react-router-dom';
 
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
@@ -32,9 +31,9 @@ export default function ClothesDetail(props) {
       res.data.forEach((data)=> {
         const curWeek  = new Date(data.reserved_date);
         // console.log(data.reserved_date, curWeek)
-        if (curWeek.getFullYear() == thisWeek.getFullYear() && curWeek.getMonth() == thisWeek.getMonth() && curWeek.getDate() == thisWeek.getDate()){
+        if (curWeek.getFullYear() === thisWeek.getFullYear() && curWeek.getMonth() === thisWeek.getMonth() && curWeek.getDate() === thisWeek.getDate()){
           thisData.push(data)
-        } else if (curWeek.getFullYear() == nextWeek.getFullYear() && curWeek.getMonth() == nextWeek.getMonth() && curWeek.getDate() == nextWeek.getDate()){
+        } else if (curWeek.getFullYear() === nextWeek.getFullYear() && curWeek.getMonth() === nextWeek.getMonth() && curWeek.getDate() === nextWeek.getDate()){
           nextData.push(data)
         }
       })
