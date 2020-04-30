@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Avatar, ListItem, ListItemAvatar,
+  Avatar, ListItem, ListItemAvatar, Paper,
   Card, Box, Grid, MenuItem, Select, TextField, Button,
 } from '@material-ui/core';
 import { Edit, FavoriteBorder, Favorite, AddRounded } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
 
 const baseUrl = process.env.REACT_APP_URL
 const config = { "headers": { "Authorization": localStorage.token } }
@@ -188,13 +189,17 @@ export default function Closet(props) {
 
   return (
     <Card className={styles.roots}>
-      <Box border={2} borderRadius={5} className={styles.paper}>
+      <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+      <Box key='1' border={2} borderRadius={5} className={styles.paper}>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>내 옷장</p>
         <Grid className={styles.root} style={{ backgroundColor: 'white' }}>
           <Card variant='outlined'>
             <Grid className="myInfo" container style={{ padding: '20px', paddingBottom: 0 }}>
-              <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly">
-                <ListItem style={{ padding: 0, marginTop: 20, marginLeft: 20 }}>
+              <Grid item xs={2}></Grid>
+              <Grid className="myProfile" item xs={3} container direction="row" justify="space-evenly">
+                <ListItem style={{ padding: 0, marginTop: 12, marginLeft: 20 }}>
                   <ListItemAvatar>
                     <Avatar src={userState.profile_img} style={{ width: 50, height: 50, marginRight: 20 }}>
                     </Avatar>
@@ -207,7 +212,8 @@ export default function Closet(props) {
                     onClick={handleFollowClick}></FavoriteBorder>)}
                 </ListItem>
               </Grid>
-              <Grid className="followingfollower" item xs={8} container alignItems="center">
+              <Grid item xs={1}></Grid>
+              <Grid className="followingfollower" item xs={6} container alignItems="center">
                 <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로워 :</p>
                 <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5, marginRight: 30 }}>
                   <span className="followCnt" style={{ width: 50 }}>{followerRes.length}
@@ -249,8 +255,9 @@ export default function Closet(props) {
                 <Box border={2} borderRadius={5} className={styles.paper}>
                   {userClothesInfo.length > 0 ? userClothesInfo.map((v, i) => (
                       <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`} key={i}>
-                        <img alt="" src={v.img} width="150px" height="150px"></img>
-                      </NavLink>)) : <p>옷장에 옷이 없어요...</p>}
+                        <img alt="" src={v.img} width="150px" height="150px" style={{margin: '5px'}}></img>
+                      </NavLink>
+                    )) : <p>옷장에 옷이 없어요...</p>}
                 </Box>
               </div>
             </Grid>
@@ -267,6 +274,7 @@ export default function Closet(props) {
           </Box>
         </Grid>
       </Box>
+      </QueueArim>
     </Card>
   )
 }

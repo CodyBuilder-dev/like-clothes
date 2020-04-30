@@ -7,6 +7,7 @@ import { searchClothesFunc } from '../module/searchClothesFunc';
 import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
 import SearchInput from '../components/SearchInput';
 import { closetjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
 
 const Background = require('../components/Background.jpg')
 
@@ -54,10 +55,11 @@ class MainPage extends PureComponent {
   }
 
   render() {
-    // const { setUser } = this.props;
     return (
       <div>
-        {/* {console.log(this.state)} */}
+        <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
         <AppBar position="fixed" style={{ backgroundImage: `url(${Background})`, paddingLeft: '256px', width: '100%' }}>
           <Toolbar variant='dense' style={{height: 90}}>
             <Grid style={{ width: '10%' }} container justify='center'>
@@ -77,7 +79,7 @@ class MainPage extends PureComponent {
             </Grid>
           </Toolbar>
         </AppBar>
-        <Card styles={{ flexGrow: 1, padding: 16 }}>
+        <Card key="1" styles={{ flexGrow: 1, padding: 16 }}>
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
@@ -88,6 +90,7 @@ class MainPage extends PureComponent {
             }
           </Box>
         </Card>
+        </QueueArim>
       </div>
     )
   };

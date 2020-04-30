@@ -48,8 +48,8 @@ class Carousel extends React.Component {
           {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
             <div key={i} className="imgDiv" style={{width: widthVal}}>
               <img alt="" className="imgCard" src={item.img} height="300px" />
-              <button className="imgDeleteBtn" onClick={() => this.props.deleteBtn(i)}>
-                <DeleteIcon></DeleteIcon></button>
+              <span className="imgDeleteBtn" onClick={() => this.props.deleteBtn(i)}>
+                <DeleteIcon></DeleteIcon></span>
             </div>
           {/* </Link> */}
         </div>

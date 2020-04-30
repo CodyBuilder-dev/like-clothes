@@ -75,10 +75,10 @@ class SignIn extends Component {
 
   render() {
     return (
+      <Zoom in={true}>
       <Card style={{ width: "100%", height: 'calc(100vh - 112px)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
         <Box display="flex" flexDirection="row">
           <Box>
-            <Zoom in={true}>
               <SignInForm
                 onSubmit={this.submitLogin}
                 onChange={this.handleChange}
@@ -87,7 +87,6 @@ class SignIn extends Component {
                 btnState={this.state.btnState}
                 style={{ height: '100%' }}
               />
-            </Zoom>
           </Box>
           <Box style={{ overflow: 'hidden', height: '100%' }}>
             <img style={{
@@ -100,6 +99,7 @@ class SignIn extends Component {
           </Box>
         </Box>
       </Card>
+      </Zoom>
     );
   }
 }

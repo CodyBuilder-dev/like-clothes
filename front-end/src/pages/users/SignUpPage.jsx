@@ -134,10 +134,10 @@ class SignUp extends Component {
 
   render() {
     return (
+      <Zoom in={true}>
       <Card align="center" style={{ width: "100%", height: 'calc(100vh)', backgroundColor: "rgba(0, 0, 0, 0)" }}>
         <Box display="flex" flexDirection="row">
           <Box>
-            <Zoom in={true}>
               <SignUpForm
                 onSubmit={this.validateForm}
                 onChange={this.handleChange}
@@ -146,7 +146,6 @@ class SignUp extends Component {
                 errors={this.state.errors}
                 user={this.state.user}
               />
-            </Zoom>
             {this.state.isSuccess && <Redirect to='/choicestyle'></Redirect>}
           </Box>
           <Box style={{ overflow: 'hidden', height: '100%' }}>
@@ -160,6 +159,7 @@ class SignUp extends Component {
           </Box>
         </Box>
       </Card >
+      </Zoom>
     );
   }
 }

@@ -6,6 +6,7 @@ import { FavoriteRounded, DoneOutlineRounded, ReplayRounded } from '@material-ui
 import { choicestylejsx } from '../css/useStyles';
 import axios from 'axios';
 import '../css/InfiniteScrollContainer.css';
+import QueueArim from 'rc-queue-anim';
 
 // function rand() {
 //   return Math.round(Math.random() * 20) - 10;
@@ -123,7 +124,11 @@ class ChoiceStylePage extends Component {
   render() {
     return (
       <div>
-        <Card styles={{ flexGrow: 1, padding: 16, paddingTop: 0 }}>
+        <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+        <Card key='1' styles={{ flexGrow: 1, padding: 16, paddingTop: 0 }}>
+
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
@@ -190,6 +195,7 @@ class ChoiceStylePage extends Component {
           </Button>
           </div>
         </Modal>
+        </QueueArim>
       </div>
     );
   };
