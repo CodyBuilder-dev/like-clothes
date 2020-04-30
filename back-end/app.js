@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import bodyParser from "body-parser"
 import routes from "./routes"
+import aiRouter from "./routers/aiRouter"
 import userRouter from "./routers/userRouter"
 import clothesRouter from "./routers/clothesRouter"
 import clothesResvRouter from "./routers/clothesResvRouter"
@@ -26,6 +27,7 @@ app.use(swagger);
 app.use(localsMiddleWare);
 app.use(routes.image, express.static(process.env.IMAGE_PATH));
 app.use(routes.user, userRouter);
+app.use("/ai", aiRouter);
 app.use(routes.clothes, clothesRouter);
 app.use(routes.clothes_resv, clothesResvRouter);
 export default app;
