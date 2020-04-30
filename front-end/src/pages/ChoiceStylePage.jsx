@@ -137,7 +137,7 @@ class ChoiceStylePage extends Component {
             }}>
               <span>이 페이지는 옷 추천을 받기 전에 사용자의 취향을 알아보기 위한 페이지입니다.</span>
               <p>
-                <span>보여지는 이미지 중에서</span>
+                <span>보여지는 이미지 중에서 </span>
                 <span style={{ color: 'red' }}><FavoriteRounded style={{ width: 20, height: 20 }} />취향저격</span>
                 <span> 에 성공한 옷을 최대 {maxNumOfChoicedImage}개 골라 주세요!!</span>
               </p>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Input, InputLabel, MenuItem, FormControl, FormLabel, Select } from '@material-ui/core';
+import { Input, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 
 
 const names = {
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: theme.spacing(1),
     // minWidth: 120,
     // maxWidth: 120,
+    marginTop: 5
   },
   chips: {
     display: 'flex',
@@ -97,34 +98,25 @@ export default function MultipleSelect(props) {
   }).catch((err) => { alert(err) });
 
   return (
-    <div>
-      <FormControl variant="outlined" className={classes.formControl}>
-
-        {/*<FormControl className={classes.formControl} style={{minWidth: 200}}>
-      <InputLabel id="demo-mutiple-name-label">{type}</InputLabel>
-      <Select style={{ variant: 'outlined' }}*/}
-
-        {/* <InputLabel id="demo-mutiple-name-label" className={classes.inputLabel}>{type}</InputLabel> */}
-        <FormLabel style={{ color: 'white' }}>{type}</FormLabel>
-        <Select style={{ width: '150px', height: '43px', backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', margin: '5px 0 0 0', }}
-
-          labelId="demo-mutiple-name-label"
-          id={type}
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-          variant='outlined'
-          name={type}
-        >
-          {handleTypeToList().map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div >
+    <FormControl variant="outlined" className={classes.formControl}>
+      <InputLabel id="demo-simple-select-label">{type}</InputLabel>
+      <Select style={{ width: '150px', height: '43px', backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', margin: '5px 0 0 0', }}
+        labelId="demo-mutiple-name-label"
+        id={type}
+        multiple
+        value={personName}
+        onChange={handleChange}
+        input={<Input />}
+        MenuProps={MenuProps}
+        variant='outlined'
+        name={type}
+      >
+        {handleTypeToList().map((name) => (
+          <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
