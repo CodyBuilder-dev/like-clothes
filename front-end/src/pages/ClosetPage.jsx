@@ -146,7 +146,7 @@ export default function Closet(props) {
     <div>
       <p style={{ marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>옷장 소개</span>
         {localStorage.email === userEmail && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}</p>
-      <Box border={2} borderRadius={5} className={styles.paper}>{closetIntro === '' ? '설명이 없습니다.' : closetIntro}</Box>
+      <Box border={2} borderRadius={5} className={styles.paper}>{closetIntro}</Box>
     </div>
   );
 
@@ -199,13 +199,13 @@ export default function Closet(props) {
                     <Avatar src={userState.profile_img} style={{ width: 50, height: 50, marginRight: 20 }}>
                     </Avatar>
                   </ListItemAvatar>
-                  <span>{userState.nickname}</span>
-                </ListItem>
+                  <div style={{marginRight: '20px', display:'inline', width:'50px'}}>{userState.nickname}</div>
                 {!!localStorage.isAuthenticated && (heartFill ?
                   <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
                     onClick={handleFollowClick}></Favorite>
                   : <FavoriteBorder style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
                     onClick={handleFollowClick}></FavoriteBorder>)}
+                </ListItem>
               </Grid>
               <Grid className="followingfollower" item xs={8} container alignItems="center">
                 <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로워 :</p>
@@ -224,7 +224,7 @@ export default function Closet(props) {
                       </MenuItem>
                     ))}</Select></span>
                 </Box>
-                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로잉</p>
+                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로잉 :</p>
                 <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5 }}>
                   <span className="followCnt">{followingRes.length}
                     <Select className={styles.followDrop} name='following' value="" onChange={followSelect}

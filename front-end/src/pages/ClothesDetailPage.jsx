@@ -43,7 +43,7 @@ export default function ClothesDetail(props) {
 
   const styles = clothesdetailjsx();
   const [item, setItem] = useState({});
-  const [recommend, setRecommend] = useState([]);
+  const [recommendImg, setRecommendImg] = useState([]);
   const [bestImg, setBestImg] = useState([]);
   const [worstImg, setWorstImg] = useState([]);
 
@@ -61,6 +61,11 @@ export default function ClothesDetail(props) {
         "img_id": res.clothes_info[0].clothes_id
       }).then((res) => {
         console.log(res, '셋레스')
+        const recomImg = Object.keys(res.data.best_images).map((key) => ({
+          id: key,
+          img: res.data.best_images[key]
+        }))
+        setRecommendImg(recomImg);
       })
 
       const featureUrl = baseAIUrl + '/recommand/feature';
@@ -249,6 +254,15 @@ export default function ClothesDetail(props) {
         <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
           혹시 이런 옷은 어떠세요?
                     </Box></p>
+        <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
+          {recommendImg && (recommendImg.map((item) => (
+            <GridListTile key={item} height="300px">
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+                <img src={item.img} height="100%"/>
+              </NavLink>
+            </GridListTile>
+          )))}
+        </GridList>
         <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
           이 옷과 같이 입을 만한 옷
                     </Box></p>
