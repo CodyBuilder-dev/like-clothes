@@ -30,46 +30,52 @@ export default function ClothesDetail(props) {
   const params = new URLSearchParams(search);
   const item_id = params.get('clothes_item_id');
 
-  // 날짜 관련
+  // 구독 날짜 관련
   const today = new Date();
   const year = today.getFullYear();
   let month = today.getMonth() + 1;
   month = month < 10 ? '0' + month : month;
   let date = today.getDate();
   date = date < 10 ? '0' + date : date;
-  // const day = dayNames[today.getDay()];
   const nowDate = `${year}-${month}-${date}`
 
   console.log(nowDate, today.getDay())
   today.setDate(today.getDate() + 7 - today.getDay())
   console.log(today)
-  // let subscriptDate = Date.now();
-  // // let subscriptData = new Date();
-  // let d = subscriptDate.toString()
-  // console.log(d, '구독날짜?')
 
 
   const styles = clothesdetailjsx();
   const [item, setItem] = useState({});
   const [recommend, setRecommend] = useState([]);
+  const [bestImg, setBestImg] = useState([]);
+  const [worstImg, setWorstImg] = useState([]);
 
   useEffect(() => {
     const url = baseUrl + `/clothes/clothes-item?clothes_item_id=${item_id}`;
     axios.get(url, config).then((res) => {
       console.log(res.data, '페이지옷정보');
-      setItem(res.data);
-    });
-  }, [])
-
-  useEffect(() => {
-    const url = baseAIUrl + '/recommand/clothes-set'
-    axios.post(url, {
-      "img_url": "http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg"
-    }).then((res) => {
-      console.log(res.data, '추천데이터?');
-      setRecommend(res.data);
+      setItem(res.data)
+      return res.data
     })
-  }, [])
+    .then((res) => {
+      const url = baseAIUrl + '/recommand/set'
+      axios.post(url, {
+        "img_url": "http://image.msscdn.net/images/goods_img/20200420/1410977/1410977_1_500.jpg", 
+        "img_id": res.clothes_info[0].clothes_id
+      }).then((res) => {           
+        const bestImg = Object.keys(res.data.best_images).map((key) => ({
+          id: key,
+          img: res.data.best_images[key]
+        }))
+        const worstImg = Object.keys(res.data.worst_images).map((key) => ({
+          id: key,
+          img: res.data.worst_images[key]
+        }))
+        setBestImg(bestImg);
+        setWorstImg(worstImg);
+      })
+    })
+  }, [item_id])
 
   const subscriptButtonClick = () => {
     const url = baseUrl + '/clothes-resv'
@@ -227,9 +233,11 @@ export default function ClothesDetail(props) {
           AI 추천 서비스
                     </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
-          {recommend.best_images && (recommend.best_images.map((item) => (
-            <GridListTile key={item} height="300px">
-              <img src={item} height="100%" />
+          {bestImg && (bestImg.map((item, i) => (
+            <GridListTile key={i} height="300px">
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+                <img src={item.img} height="100%"/>
+              </NavLink>
             </GridListTile>
           )))}
         </GridList>
@@ -240,9 +248,9 @@ export default function ClothesDetail(props) {
           이런 옷은 어떠세요??
                     </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
-          {recommend.worst_images && (recommend.worst_images.map((item) => (
+          {worstImg && (worstImg.map((item) => (
             <GridListTile key={item} height="300px">
-              <img src={item} height="100%" />
+              <img src={item.img} height="100%"/>
             </GridListTile>
           )))}
         </GridList>
