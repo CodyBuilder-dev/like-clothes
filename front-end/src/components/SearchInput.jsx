@@ -29,7 +29,7 @@ export default class SearchInput extends PureComponent {
       // {/* <FormLabel component='legend' style={{ color: 'white', display: 'inline' }}>{this.props.type}</FormLabel> */}
       <TextField type="text" required variant="outlined" margin="dense"
         style={{
-          backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', width: '18%', margin: '20px 0 0 0',
+          backgroundColor: 'white', borderRadius: '5px', border: 'solid 2px black', width: '18%', margin: 0, marginTop: 10
         }}
         placeholder={this.props.type} onChange={this.handleChange} />
 

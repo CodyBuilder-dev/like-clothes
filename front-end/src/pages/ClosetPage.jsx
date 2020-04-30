@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Card, Box, Grid, MenuItem, Select, TextField, Button,
+  Avatar, ListItem, ListItemAvatar,
+  Card, Box, Grid, MenuItem, Select, TextField, Button, Divider,
 } from '@material-ui/core';
-import { Edit, FavoriteBorder, Favorite } from '@material-ui/icons';
+import { Edit, FavoriteBorder, Favorite, AddRounded } from '@material-ui/icons';
 import { closetjsx } from '../css/useStyles'
 
 const baseUrl = process.env.REACT_APP_URL
@@ -111,21 +112,22 @@ export default function Closet(props) {
   const handleFollowClick = () => {
     const url = baseUrl + '/user/follow-user-toggle';
     axios.post(url, { "following_email": userEmail }, config)
-    .then((res) => {
-      setHeartFill(res.data.desc === 'Follow');
-    })
-    .then(() => {
-    let followChkList = [];
-    const wer_url = `${baseUrl}/user/follower-user?user_email=${user_email}`;
-    axios.get(wer_url)
-    .then((res) => {
-      const followerList = res.data;
-      followChkList = followerList.map((follow) => (
-        { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
-      ));
-      setFollowerRes(followChkList);
-    })
-  })};
+      .then((res) => {
+        setHeartFill(res.data.desc === 'Follow');
+      })
+      .then(() => {
+        let followChkList = [];
+        const wer_url = `${baseUrl}/user/follower-user?user_email=${user_email}`;
+        axios.get(wer_url)
+          .then((res) => {
+            const followerList = res.data;
+            followChkList = followerList.map((follow) => (
+              { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
+            ));
+            setFollowerRes(followChkList);
+          })
+      })
+  };
 
   // 옷장 소개 수정
   const [closetIntro, setClosetIntro] = useState(userState.description);
@@ -141,10 +143,10 @@ export default function Closet(props) {
   }
 
   const ClosetIntroView = () => ( // true  
-    <div className={styles.closetIntro}>
-      <span>옷장 소개</span>
-      {localStorage.email === userEmail && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}
-      <Card className={styles.closetIntroContent}>{closetIntro === '' ? '설명이 없습니다.' : closetIntro}</Card>
+    <div>
+      <p style={{ marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>옷장 소개</span>
+        {localStorage.email === userEmail && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}</p>
+      <Box border={2} borderRadius={5} className={styles.paper}>{closetIntro === '' ? '설명이 없습니다.' : closetIntro}</Box>
     </div>
   );
 
@@ -172,11 +174,14 @@ export default function Closet(props) {
     }
 
     return (
-      <div className={styles.closetIntro}>
-        <span>옷장 소개</span>
-        <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>
-        <TextField type="text" color="secondary" value={editIntro} autoFocus fullWidth='true' variant="outlined"
-          onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
+      <div>
+        <p style={{ marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>옷장 소개</span>
+          <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit></p>
+
+        <Box border={2} borderRadius={5} style={{ margin: 0 }}>
+          <TextField type="text" color="secondary" value={editIntro} autoFocus fullWidth='true' variant="outlined"
+            onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
+        </Box>
       </div>
     )
   }
@@ -185,57 +190,87 @@ export default function Closet(props) {
     <Card className={styles.roots}>
       <Box border={2} borderRadius={5} className={styles.paper}>
         <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>내 옷장</p>
-
         <Grid className={styles.root} style={{ backgroundColor: 'white' }}>
-          <Card>
-            <Grid className="myInfo" container style={{ padding: '20px' }}>
-              <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly" alignItems="center" >
-                <img src={userState.profile_img} width="70px" height="70px"></img>
-                <span className="profileName">{userState.nickname}</span>
-                {!!localStorage.isAuthenticated && (heartFill ? 
-                <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
-                onClick={handleFollowClick}></Favorite>
-                : <FavoriteBorder style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
-                onClick={handleFollowClick}></FavoriteBorder>)}
+          <Card variant='outlined'>
+            <Grid className="myInfo" container style={{ padding: '20px', paddingBottom: 0 }}>
+              <Grid className="myProfile" item xs={4} container direction="row" justify="space-evenly">
+                <ListItem style={{ padding: 0, marginTop: 20, marginLeft: 20 }}>
+                  <ListItemAvatar>
+                    <Avatar src={userState.profile_img} style={{ width: 50, height: 50, marginRight: 20 }}>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <span>{userState.nickname}</span>
+                </ListItem>
+                {!!localStorage.isAuthenticated && (heartFill ?
+                  <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
+                    onClick={handleFollowClick}></Favorite>
+                  : <FavoriteBorder style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
+                    onClick={handleFollowClick}></FavoriteBorder>)}
               </Grid>
-              <Grid className="following" item xs={4} container direction="column" alignItems="center">
-                <span className="followTag">Follower</span>
-                <span className="followCnt">{followerRes.length}
-                  <Select className={styles.followDrop} name='follower' value="" onChange={followSelect}
-                  >{followerRes.map((follower) => (
-                    <MenuItem key={follower.email} value={follower.nickname}><img src={follower.img} width='20px' height='20px' /> {follower.nickname}</MenuItem>
-                  ))}</Select></span>
-              </Grid>
-              <Grid className="following" item xs={4} container direction="column" alignItems="center">
-                <span className="followTag">Following</span>
-                <span className="followCnt">{followingRes.length}
-                  <Select className={styles.followDrop} name='following' value="" onChange={followSelect}
-                  >{followingRes.map((following) => (
-                    <MenuItem key={following.email} value={following.nickname}><img src={following.img} width='20px' height='20px' /> {following.nickname}</MenuItem>
-                  ))}</Select></span>
+              <Grid className="followingfollower" item xs={8} container alignItems="center">
+                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로워 :</p>
+                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5, marginRight: 30 }}>
+                  <span className="followCnt" style={{ width: 50 }}>{followerRes.length}
+                    <Select className={styles.followDrop} name='follower' value="" onChange={followSelect}
+                    >{followerRes.map((follower) => (
+                      <MenuItem key={follower.email} value={follower.nickname}>
+                        <ListItem style={{ padding: 0, paddingRight: 20 }}>
+                          <ListItemAvatar>
+                            <Avatar src={follower.img}>
+                            </Avatar>
+                          </ListItemAvatar>
+                          <span>{follower.nickname}</span>
+                        </ListItem>
+                      </MenuItem>
+                    ))}</Select></span>
+                </Box>
+                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로잉</p>
+                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5 }}>
+                  <span className="followCnt">{followingRes.length}
+                    <Select className={styles.followDrop} name='following' value="" onChange={followSelect}
+                    >{followingRes.map((following) => (
+                      <MenuItem key={following.email} value={following.nickname}>
+                        <ListItem style={{ padding: 0, paddingRight: 20 }}>
+                          <ListItemAvatar>
+                            <Avatar src={following.img}>
+                            </Avatar>
+                          </ListItemAvatar>
+                          <span>{following.nickname}</span>
+                        </ListItem></MenuItem>
+                    ))}</Select></span>
+                </Box>
               </Grid>
             </Grid>
             <Grid>
-              {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
+              <div style={{ margin: 15, padding: 15 }}>
+                {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
+
+                <p style={{ marginTop: 30, marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>등록된 옷 보기</span></p>
+                <Box className="clothesImage" border={2} borderRadius={5} className={styles.paper}>
+                  {userClothesInfo && userClothesInfo.map((v, i) => {
+                    if (i > 0) return (
+                      <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`}>
+                        <img src={v.img} width="150px" height="150px"></img>
+                      </NavLink>
+                    )
+                    else return (
+                      <p>옷장에 옷이 없어요...</p>
+                    )
+                  })}
+                </Box>
+              </div>
             </Grid>
           </Card>
-
           <Box className="closet">
             <Grid className="clothesWrite" container justify="flex-end">
-              {localStorage.email === userEmail && <Link to="/clothesregister"><Button>새 옷 등록하기</Button></Link>}
+              {localStorage.email === userEmail && <NavLink to="/clothesregister" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="medium" color="secondary" className={styles.button} style={{ marginRight: 20, marginTop: 20 }}>
+                  <AddRounded style={{ marginRight: 20 }} />
+                새 옷 등록하기
+                </Button>
+              </NavLink>}
             </Grid>
           </Box>
-
-          <Card className="clothesImage">
-            {userClothesInfo && userClothesInfo.map((v, i) => {
-              if (i > 0) return (
-                <Link to={`/clothesdetail/?clothes_item_id=${v.id}`}>
-                  <img src={v.img} width="150px" height="150px"></img>
-                </Link>
-              )
-            }
-            )}
-          </Card>
         </Grid>
       </Box>
     </Card>

@@ -5,9 +5,9 @@ const Background = require('../components/Background.jpg')
 
 export const appjs = makeStyles((theme) => ({
   contents: {
-    width: 'calc(100% - 342px)',
+    width: 'calc(100% - 302px)',
     display: 'flex',
-    marginLeft: '296px',
+    marginLeft: '256px',
     margin: theme.spacing(7),
   },
   background: {
@@ -20,7 +20,7 @@ export const appjs = makeStyles((theme) => ({
   }
 }));
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export const appsidedrawerjsx = makeStyles((theme) => ({
   root: {
@@ -162,6 +162,11 @@ export const closetjsx = makeStyles((theme) => ({
     padding: theme.spacing(3),
     textAlign: 'left',
     color: theme.palette.text.secondary,
+  },
+  button: {
+    width: '100%',
+    fontSize: '15px',
+    opacity: 0.9
   },
   editBtn: {
     marginLeft: '5px',

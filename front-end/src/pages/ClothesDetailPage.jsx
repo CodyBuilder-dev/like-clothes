@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Box, Grid, Divider,
+import {
+  Card, CardContent, Box, Grid, Divider, ListItem, ListItemAvatar,
   Typography, Button, Avatar, Table, TableCell,
-  TableContainer, TableHead, TableRow, GridList, GridListTile } from '@material-ui/core';
+  TableContainer, TableHead, TableRow, GridList, GridListTile
+} from '@material-ui/core';
 import { LocalShipping, FavoriteRounded } from '@material-ui/icons'
 import { clothesdetailjsx } from '../css/useStyles'
 
@@ -20,7 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const baseUrl = process.env.REACT_APP_URL
 const baseAIUrl = process.env.REACT_APP_AI_URL
-const config = {"headers": {"Authorization": localStorage.token}}
+const config = { "headers": { "Authorization": localStorage.token } }
 
 export default function ClothesDetail(props) {
   // 현재페이지 옷 id 가져오기
@@ -79,30 +81,30 @@ export default function ClothesDetail(props) {
     const url = baseUrl + '/clothes-resv'
     const params = { "clothes_item_id": item_id, "reserved_date": nowDate }
     axios.post(url, params, config)
-    .then((res) => {
-      if (res.data === 'You\'re not logged in') {
-        alert('로그인 해주세요 >_')
-      } else if (res.data === 'success') {
-        alert('구독하셨어욧')
-      }
-      console.log(res, '구독클릭')
-    })
+      .then((res) => {
+        if (res.data === 'You\'re not logged in') {
+          alert('로그인 해주세요 >_')
+        } else if (res.data === 'success') {
+          alert('구독하셨어욧')
+        }
+        console.log(res, '구독클릭')
+      })
   }
 
   const wishButtonClick = () => {
     const url = baseUrl + '/clothes/wish-list'
     const params = { "clothes_item_id": item_id }
     axios.post(url, params, config)
-    .then((res) => {
-      if (res.data === 'You\'re not logged in') {
-        alert('로그인 해주세요 >_')
-      } else if (res.data === 'success') {
-        alert('위시리스트에 추가되었어욧')
-      } else if (res.data.desc === 'already wishlist clothes exist') {
-        alert('이미 추가된 옷이에욧')
-      }
-      console.log(res, '위시클릭')
-    })
+      .then((res) => {
+        if (res.data === 'You\'re not logged in') {
+          alert('로그인 해주세요 >_')
+        } else if (res.data === 'success') {
+          alert('위시리스트에 추가되었어욧')
+        } else if (res.data.desc === 'already wishlist clothes exist') {
+          alert('이미 추가된 옷이에욧')
+        }
+        console.log(res, '위시클릭')
+      })
   }
 
   return (
@@ -112,47 +114,37 @@ export default function ClothesDetail(props) {
           <Grid item md={5} sm={12}>
             {item.clothes_info && <img src={item.clothes_info[0].img} width="100%" />}
             <CardContent>
-              <Typography gutterBottom variant="body1" color="textSecondary" component="p">
-                상품명
-              </Typography>
-              <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-                <Box fontWeight="fontWightBold" fontSize={25}>
-                  {item.clothes_info && item.clothes_info[0].brand} {item.clothes_info && item.clothes_info[0].code_name}
-                </Box>
-              </Typography>
-              <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-                <Box fontWeight="fontWightBold" fontSize={13}>
-                  {item.clothes_info && `${item.clothes_info[0].major} > ${item.clothes_info[0].middle} > ${item.clothes_info[0].minor}`}
-                </Box>
-              </Typography>
+              <p style={{ color: 'black' }}>상품명</p>
+              <p style={{ color: 'black' }}><Box fontWeight="fontWightBold" fontSize={25}>
+                {item.clothes_info && item.clothes_info[0].brand} {item.clothes_info && item.clothes_info[0].code_name}
+              </Box></p>
+              <p><Box fontWeight="fontWightBold" fontSize={13}>
+                {item.clothes_info && `${item.clothes_info[0].major} > ${item.clothes_info[0].middle} > ${item.clothes_info[0].minor}`}
+              </Box></p>
             </CardContent>
           </Grid>
           <Divider orientation="vertical" flexItem style={{ margin: 30 }} />
           <Grid item md={6} sm={12} justify="center">
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-                  <Box fontWeight="fontWightBold" fontSize={30} m={1}>
-                    상품 정보
-                    </Box>
-                </Typography>
+                <p style={{ color: 'black' }}><Box fontWeight="fontWightBold" fontSize={30} style={{ marginTop: 10 }}>
+                  상품 정보
+                    </Box></p>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
-                <Typography gutterBottom variant="body1" color="textSecondary" component="p">
-                  상품 태그
-                  </Typography>
-                <Typography variant="h6" component="h2" style={{ marginLeft: 10 }}>
+                <p style={{ color: 'black' }}>상품 태그</p>
+                <p>
                   {console.log(item.clothes_tags, '너를 돌릴 수 있겠지 ?')}
                   {item.clothes_tags &&
                     (item.clothes_tags[0].tag === null ? '이 옷에는 아직 태그가 없어욧' :
                       item.clothes_tags.map((clothes_tag) => {
                         return clothes_tag.tag + ' '
                       }))}
-                </Typography>
+                </p>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
-                <Typography gutterBottom variant="body1" color="textSecondary" component="p">
+                <p style={{ color: 'black' }}>
                   상품 상세정보
-                  </Typography>
-                <TableContainer style={{ padding: 10, marginBottom: 10 }}>
+                  </p>
+                <TableContainer style={{ padding: 0, marginBottom: 10 }}>
                   <Table className={styles.table} size="small">
                     <TableHead>
                       <TableRow>
@@ -170,10 +162,10 @@ export default function ClothesDetail(props) {
                     </TableHead>
                   </Table>
                 </TableContainer>
-                <Typography gutterBottom variant="body1" color="textSecondary" component="p">
+                <p style={{ color: 'black' }}>
                   상품 사이즈
-                  </Typography>
-                <TableContainer style={{ padding: 10, marginBottom: 10 }}>
+                  </p>
+                <TableContainer style={{ padding: 0, marginBottom: 10 }}>
                   <Table className={styles.table} size="small">
                     <TableHead>
                       <TableRow>
@@ -191,36 +183,41 @@ export default function ClothesDetail(props) {
                     </TableHead>
                   </Table>
                 </TableContainer>
-                <Typography gutterBottom variant="body1" color="textSecondary" component="p">
+                <p style={{ color: 'black' }}>
                   상세 설명
-                </Typography>
-                <Typography variant="h6" component="h2" style={{ marginLeft: 10 }}>
+                  </p>
+                <p style={{ marginLeft: 10 }}>
                   {item.clothes_info && item.clothes_info[0].description}
-                </Typography>
+                </p>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
-                <Typography gutterBottom variant="body1" color="textSecondary" component="p">
+                <p style={{ color: 'black' }}>
                   판매자 정보
-                </Typography>
-                <Box style={{ marginLeft: 10 }}>
-                  {item.clothes_info && 
-                    <Link to={`/closet?user_email=${item.clothes_info[0].owner_email}`}
-                      style={{textDecoration: 'none', color: 'black'}}>
-                      <img src={item.clothes_info[0].profile_img} width="20px" height='20px'></img>
-                      <span style={{margin:'10px 5px'}}>{item.clothes_info[0].nickname}</span>
-                    </Link>}
+                  </p>
+                <Box style={{ marginLeft: 0 }}>
+                  {item.clothes_info &&
+                    <NavLink to={`/closet?user_email=${item.clothes_info[0].owner_email}`}
+                      style={{ textDecoration: 'none' }}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar src={item.clothes_info[0].profile_img}>
+                          </Avatar>
+                        </ListItemAvatar>
+                        <span>{item.clothes_info[0].nickname}</span>
+                      </ListItem>
+                    </NavLink>}
                 </Box>
                 <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
                 <Grid container spacing={1}>
                   <Grid item sm={6} xs={12}>
                     <Button variant="contained" size="medium" color="primary" className={styles.button}
-                    onClick={subscriptButtonClick}>
+                      onClick={subscriptButtonClick}>
                       <LocalShipping style={{ marginRight: 20 }} />
                       구독해욧
                     </Button>
                   </Grid>
                   <Grid item sm={6} xs={12}>
                     <Button variant="contained" size="medium" color="secondary" className={styles.button}
-                    onClick={wishButtonClick}>
+                      onClick={wishButtonClick}>
                       <FavoriteRounded style={{ marginRight: 20 }} />
                       좋아욧
                     </Button>
@@ -232,34 +229,30 @@ export default function ClothesDetail(props) {
         </Grid>
       </Box>
       <Box border={2} borderRadius={5} className={styles.paper}>
-        <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-          <Box fontWeight="fontWightBold" fontSize={25} m={1}>
-            AI 추천 서비스
-                    </Box>
-        </Typography>
+        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
+          AI 추천 서비스
+                    </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
           {bestImg && (bestImg.map((item, i) => (
             <GridListTile key={i} height="300px">
-              <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
                 <img src={item.img} height="100%"/>
-              </Link>
+              </NavLink>
             </GridListTile>
           )))}
         </GridList>
-        <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-          <Box fontWeight="fontWightBold" fontSize={25} m={1}>
-            판매자가 올린 다른 옷 보기
-                    </Box>
-        </Typography>
-        <Typography gutterBottom variant="h5" color="textPrimary" component="p">
-          <Box fontWeight="fontWightBold" fontSize={25} m={1}>
-            이런 옷은 어떠세요??
-                    </Box>
-        </Typography>
+        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
+          판매자가 올린 다른 옷 보기
+                    </Box></p>
+        <p><Box fontWeight="fontWightBold" fontSize={25} m={1}>
+          이런 옷은 어떠세요??
+                    </Box></p>
         <GridList className={styles.gridList} cols={5} cellHeight={300} style={{ width: '100%', marginTop: 15, marginBottom: 30 }}>
           {worstImg && (worstImg.map((item) => (
             <GridListTile key={item} height="300px">
-              <img src={item.img} height="100%"/>
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+                <img src={item.img} height="100%"/>
+              </NavLink>
             </GridListTile>
           )))}
         </GridList>

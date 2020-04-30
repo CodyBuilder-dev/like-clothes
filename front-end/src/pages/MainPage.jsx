@@ -59,9 +59,9 @@ class MainPage extends PureComponent {
       <div>
         {/* {console.log(this.state)} */}
         <AppBar position="fixed" style={{ backgroundImage: `url(${Background})`, paddingLeft: '256px', width: '100%' }}>
-          <Toolbar style={{ height: 100 }}>
+          <Toolbar variant='dense' style={{height: 90}}>
             <Grid style={{ width: '10%' }} container justify='center'>
-              <div><h2>검색해욧</h2></div>
+              <h2 style={{ marginTop: 20, marginBottom: 10 }}>검색해욧</h2>
             </Grid>
             <Grid style={{ width: '80%' }} container justify="space-evenly" alignItems="center">
               <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
@@ -81,14 +81,13 @@ class MainPage extends PureComponent {
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
-            paddingTop: 75,
+            paddingTop: 55,
           }}>
             {this.state.searchDataList.length > 0 &&
               <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />
             }
           </Box>
         </Card>
-
       </div>
     )
   };

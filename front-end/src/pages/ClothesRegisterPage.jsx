@@ -12,7 +12,7 @@ import { clothesdetailjsx } from '../css/useStyles'
 import {
   Card, Box, Grid, Divider,
   TextField, Button, Table, TableCell,
-  TableContainer, TableHead, TableRow, 
+  TableContainer, TableHead, TableRow,
 } from '@material-ui/core';
 
 
@@ -43,7 +43,7 @@ function ClothesRegister({ history }) {
     axios.post(url, sendData, config)
       .then((res) => {
         console.log(res, '등록완료?')
-        history.block('등록을 완료했어욧! 옷장 페이지로 이동해욧')
+        history.block('옷장에 옷이 등록되었습니다.')
         history.goBack();
       })
   }
@@ -161,19 +161,18 @@ function ClothesRegister({ history }) {
       <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 80, paddingRight: 80 }}>
         <p style={{ fontSize: 30, marginTop: 10 }}>상품 등록하기</p>
         <div className="WriteClothes" style={{ backgroundColor: 'white' }}>
-          {/* <Grid container spacing={1}>
-            <Grid item md={5} sm={12}> */}
           <Box>
-            <MultipleSelect type="대분류" setSearchFilter={setSearchFilter} />
-            <MultipleSelect type="중분류" setSearchFilter={setSearchFilter} />
+            <p style={{marginBottom:0}}>대분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중분류</p>
+            <span style={{ marginRight: 10 }}><MultipleSelect type="대분류" setSearchFilter={setSearchFilter} /></span>
+            <span style={{ marginRight: 10 }}><MultipleSelect type="중분류" setSearchFilter={setSearchFilter} /></span>
           </Box>
           <Box>
-            <SearchInput type="태그" setSearchFilter={setSearchFilter} />
-            <SearchInput type="상품 이름" setSearchFilter={setSearchFilter} />
-            <SearchInput type="브랜드" setSearchFilter={setSearchFilter} />
-            <Button onClick={() => searchClothesFunc(searchState, setSearchState)} variant="contained" color="secondary" style={{ width: 150 }}>
+            <span style={{ marginRight: 10 }}><SearchInput type="태그" setSearchFilter={setSearchFilter} /></span>
+            <span style={{ marginRight: 10 }}><SearchInput type="상품 이름" setSearchFilter={setSearchFilter} /></span>
+            <span style={{ marginRight: 20 }}><SearchInput type="브랜드" setSearchFilter={setSearchFilter} /></span>
+            <Button onClick={() => searchClothesFunc(searchState, setSearchState)} variant="contained" color="secondary" style={{ width: 150, height: 40, marginTop: 20 }}>
               <Search style={{ marginRight: 10 }}></Search>
-              검색
+              상품 검색
             </Button>
           </Box>
           <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
@@ -184,19 +183,6 @@ function ClothesRegister({ history }) {
               </div>
             )) : null}
           </div>
-
-              {/* 핸들러와 함께 현재 필요없는 기능
-          <p>이미지 등록 :</p>
-          <input
-            style={{ display: "block" }}
-            type="file" multiple
-            name="file"
-            onChange={handleFileInput} />
-          <div className="imagesPreviewContainer">
-            {imagesPreview}
-          </div>
-          <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} /> */}
-
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 120 }}>
               <p>제품 이름 (필수) :</p>
@@ -223,7 +209,6 @@ function ClothesRegister({ history }) {
               /> : <p>{selectData.brand}</p>}
             </Grid>
           </Grid>
-
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 125 }}>
               <p>시즌 :</p>
@@ -238,9 +223,7 @@ function ClothesRegister({ history }) {
               /> : <p>{selectData.season}</p>}
             </Grid>
           </Grid>
-
           <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
-
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 130 }}>
               <p>제품 소개 :</p>
@@ -259,9 +242,7 @@ function ClothesRegister({ history }) {
               />
             </Grid>
           </Grid>
-
           <Divider style={{ margin: 20, marginLeft: 0, marginRight: 0 }} />
-
           <Grid container spacing={1}>
             <Grid style={{ minWidth: 130 }}>
               <p>제품 상세정보 :</p>
@@ -320,22 +301,6 @@ function ClothesRegister({ history }) {
             </Grid>
           </Grid>
           <p>제품 색상 :</p>
-          {/* <div className="checkboxContainer">
-            <label>
-              <input type="radio" name="color" value="red" className="radiobox" />
-              <span className="ico"></span>
-            </label>
-            <label><input type="radio" name="color" value="pink" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="yellow" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="green" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="sky" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="navy" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="purple" className="radiobox" /></label>
-            <label><input type="radio" name="color" value="white" className="radiobox" /></label>
-            <label className="chkFalse"><input type="radio" name="color" value="black" className="radiobox" /></label>
-            <label className="chkTrue"><input type="radio" name="color" value="rainbow" className="radiobox" checked="true" /></label>
-          </div> */}
-
           <Button variant="contained" color="primary" onClick={infoSubmitButton}
             style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
         </div>
