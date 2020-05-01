@@ -95,19 +95,20 @@ class SignUp extends Component {
 
     axios.post(baseUrl + "/user/signup/", formData)
     .then(res => {
+      console.log(res)
       if (res.data.state === 'success') {
         console.log(res.data, '결과데이터')
-        localStorage.token = res.data.new_user.password;
+        localStorage.token = res.data.user.accessToken;
         localStorage.isAuthenticated = true;
-        localStorage.email = res.data.new_user.email;
-        localStorage.nickname = res.data.new_user.nickname;
+        localStorage.email = res.data.user.email;
+        localStorage.nickname = res.data.user.nickname;
       } else if (res.data.err === "User email already exist") {
         alert('이메일 중복입니다')
       } else {
-        alert('회원가입 실패')
-        this.setState({
-          isSuccess: false
-        });
+        alert(res.data)
+        // this.setState({
+        //   isSuccess: false
+        // });
       }
     })
     .then(() => {

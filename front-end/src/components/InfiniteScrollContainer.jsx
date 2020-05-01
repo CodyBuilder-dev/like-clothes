@@ -37,7 +37,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     console.log(this.props.dataList)
     tempList = this.props.dataList.map((data, index) => {
       return (
-        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>
+        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_item_id}`}>
           <img alt="" src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
           <p class="containerTitle">{data.code_name}</p>
