@@ -56,10 +56,15 @@ module.exports = function (sequelize, DataTypes) {
 
   CLOTHES.search_clothes = function (payload) {
     let { tags, brands, code_names, majors, middles, minors } = payload;
-
-    let sql = "SELECT * FROM CLOTHES_AND_CLOTHES_CLASS AS ccc  \
-                LEFT JOIN CLOTHES AS c ON ccc.clothes_id=c.id  \
-                LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id";
+    let sql = "SELECT DISTINCT c.*, ci.id AS clothes_item_id, ci.created AS item_created \
+      FROM CLOTHES_AND_CLOTHES_CLASS AS ccc  \
+      LEFT JOIN CLOTHES AS c ON ccc.clothes_id=c.id  \
+      LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id \
+      LEFT JOIN CLOTHES_ITEM AS ci ON ci.clothes_id = c.id";
+      
+    // let sql = "SELECT * FROM CLOTHES_AND_CLOTHES_CLASS AS ccc  \
+    //             LEFT JOIN CLOTHES AS c ON ccc.clothes_id=c.id  \
+    //             LEFT JOIN CLOTHES_CLASS AS cc ON ccc.clothes_class_id = cc.id";
 
     // console.log({ tags, brands, code_names, majors, middles, minors })
     const tag_sql = getSearchSql(tags, 'tag')
@@ -92,7 +97,9 @@ module.exports = function (sequelize, DataTypes) {
     search_sql += category_minor_sql ? concat_sql + category_minor_sql : '';
 
     sql = search_sql ? sql + ' WHERE ' + search_sql : sql
-    sql = sql + ' LIMIT 200';
+    sql = search_sql ? sql + ' and ': sql + ' where '
+    sql = sql + 'ci.created is not null ORDER BY ci.created desc LIMIT 200';
+    // sql = sql + ' LIMIT 200';
     return sequelize.query(sql, { type: QueryTypes.SELECT });
   }
 

@@ -62,10 +62,15 @@ export const signup = async (req, res) => {
                 phone_num, description, profile_img
             })
             if (new_user) {
+                const accessToken = await new_user.getToken()
                 res.send({
                     state: "success",
-                    new_user
-                });
+                    user: {
+                        email: new_user.dataValues.email,
+                        nickname: new_user.dataValues.nickname,
+                        accessToken: accessToken
+                    }
+                })
             } else { throw new Error("유저 형식이 맞지 않습니다.") }
         } else { 
             throw new Error("User email already exist") }

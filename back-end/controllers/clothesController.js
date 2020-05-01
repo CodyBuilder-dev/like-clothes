@@ -1,4 +1,4 @@
-import { CLOTHES, CLOTHES_ITEM, WISH_LIST } from "../models"
+import { CLOTHES, CLOTHES_ITEM, WISH_LIST, USER_AND_CLOTHES_RECORD } from "../models"
 import { errChk } from "./errChk"
 
 
@@ -17,11 +17,14 @@ export const record_user_clothes = (req, res) => {
     try{
         const signin_user = res.locals.user;
         const clothes_id_list = req.body.clothes_id;
-
+        console.log("aa: ", clothes_id_list)
         clothes_id_list.forEach(clothes_id => {
+            console.log(clothes_id, signin_user)
             USER_AND_CLOTHES_RECORD.create({
                 user_email: signin_user.email,
                 clothes_id
+            }).catch(err => {
+                console.log(err)
             })    
         });
         res.send("success");
@@ -40,7 +43,7 @@ export const register_wish_list_item = (req, res) => {
             user_email: signin_user.email,
             clothes_item_id,
         }).then((wish_list_id)=> {
-            res.send("success", wish_list_id);
+            res.send({status: "success", wish_list_id});
         }).catch(err => {
             errChk(res, err.message, "already wishlist clothes exist");    
         })
