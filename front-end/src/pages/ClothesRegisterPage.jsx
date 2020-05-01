@@ -183,7 +183,7 @@ function ClothesRegister({history}) {
           <div className="section">
             {!!searchDataList ? searchDataList.map((searchData, i) => (
               <div key={i} style={{ display: 'inline', width: "100px", height: '100px' }}>
-                <img alt="" src={searchData.img} width='70px' height='70px' name={i} onClick={searchDataSelect} />
+                <img alt="" src={searchData.img} width='200px' height='200px' name={i} onClick={searchDataSelect} />
               </div>
             )) : null}
           </div>
@@ -304,7 +304,6 @@ function ClothesRegister({history}) {
               </TableContainer>
             </Grid>
           </Grid>
-          <p>제품 색상 :</p>
             <Button variant="contained" color="primary" onClick={infoSubmitButton}
               style={{ width: 150, marginTop: 40, alignContent: 'right' }}>제출하기</Button>
         </div>

@@ -40,8 +40,8 @@ export default class InfiniteScrollContainer extends PureComponent {
         <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_id}`}>
           <img alt="" src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
-          {/* <p class="containerTitle">{data.code_name}</p> */}
-          {/* <button className='containerBtn' style={{position:'absolute'}}>상세봐욧</button> */}
+          <p class="containerTitle">{data.code_name}</p>
+          <button className='containerBtn' style={{position:'absolute'}}>상세봐욧</button>
         </NavLink>
       )
     });

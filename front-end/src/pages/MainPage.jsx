@@ -8,8 +8,15 @@ import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
 import SearchInput from '../components/SearchInput';
 import { closetjsx } from '../css/useStyles'
 import QueueArim from 'rc-queue-anim';
+import { HashLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
 const Background = require('../components/Background.jpg')
+const override = css`
+  display: block:
+  margin: 0 auto:
+  border-color: red:
+  `;
 
 class MainPage extends PureComponent {
   constructor(props) {
@@ -23,6 +30,7 @@ class MainPage extends PureComponent {
       brands: '',
       searchDataList: [],
       page: 0,
+      loading: true,
     };
   }
 
@@ -36,6 +44,7 @@ class MainPage extends PureComponent {
         ...this.state,
         searchDataList: searchDataList,
         page: 0,
+        loading: false,
       });
     else alert('검색 결과가 없습니다.');
   };
@@ -79,15 +88,19 @@ class MainPage extends PureComponent {
             </Grid>
           </Toolbar>
         </AppBar>
+
+        {console.log(this.state.loading, '로딩')}
         <Card key="1" styles={{ flexGrow: 1, padding: 16 }}>
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
             paddingTop: 55,
           }}>
-            {this.state.searchDataList.length > 0 &&
+          {this.state.loading ? <HashLoader css={override} size={100} color={"#9013FE"} loading={this.state.loading}></HashLoader>
+          :
+            this.state.searchDataList.length > 0 &&
               <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />
-            }
+          }
           </Box>
         </Card>
         </QueueArim>
