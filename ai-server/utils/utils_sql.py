@@ -58,8 +58,8 @@ def select_data_idpath(connection) :
     WHERE clothes_class_id IN 
     (SELECT id FROM CLOTHES_CLASS 
     WHERE (major="남" OR major="여") 
-    AND (middle != "" AND middle != "가방" AND middle!="스포츠/용품")) 
-    ORDER  BY clothes_id ASC;"""
+    AND (middle != "" AND middle != "가방" AND middle!="스포츠/용품"))
+    ORDER BY clothes_id ASC;"""
     cur = tmp(sql)
     # cur = connection.cursor()
     # print("선택된 data개수 : ",cur.execute(sql))
@@ -188,16 +188,26 @@ def select_id_from_minors(connection,email,minor_name_list) :
         cursor
     """
     # cur = connection.cursor()
-
-    sql = """SELECT CLOTHES.id FROM USER_AND_CLOTHES_RECORD
-    INNER JOIN CLOTHES ON USER_AND_CLOTHES_RECORD.clothes_id = CLOTHES.id
-    INNER JOIN CLOTHES_AND_CLOTHES_CLASS ON CLOTHES.id = CLOTHES_AND_CLOTHES_CLASS.clothes_id
-    INNER JOIN CLOTHES_CLASS ON CLOTHES_AND_CLOTHES_CLASS.clothes_class_id = CLOTHES_CLASS.id
-    WHERE user_email = '{}'
-    AND minor IN {}
-    AND CLOTHES.id <60001
-    ORDER BY USER_AND_CLOTHES_RECORD.updated DESC
-    LIMIT 100;""".format(email,tuple(minor_name_list))
+    if(len(minor_name_list)) ==1 :
+        sql = """SELECT CLOTHES.id FROM USER_AND_CLOTHES_RECORD
+        INNER JOIN CLOTHES ON USER_AND_CLOTHES_RECORD.clothes_id = CLOTHES.id
+        INNER JOIN CLOTHES_AND_CLOTHES_CLASS ON CLOTHES.id = CLOTHES_AND_CLOTHES_CLASS.clothes_id
+        INNER JOIN CLOTHES_CLASS ON CLOTHES_AND_CLOTHES_CLASS.clothes_class_id = CLOTHES_CLASS.id
+        WHERE user_email = '{}'
+        AND minor = '{}'
+        AND CLOTHES.id <60001
+        ORDER BY USER_AND_CLOTHES_RECORD.updated DESC
+        LIMIT 100;""".format(email,minor_name_list[0])
+    else :
+        sql = """SELECT CLOTHES.id FROM USER_AND_CLOTHES_RECORD
+        INNER JOIN CLOTHES ON USER_AND_CLOTHES_RECORD.clothes_id = CLOTHES.id
+        INNER JOIN CLOTHES_AND_CLOTHES_CLASS ON CLOTHES.id = CLOTHES_AND_CLOTHES_CLASS.clothes_id
+        INNER JOIN CLOTHES_CLASS ON CLOTHES_AND_CLOTHES_CLASS.clothes_class_id = CLOTHES_CLASS.id
+        WHERE user_email = '{}'
+        AND minor IN {}
+        AND CLOTHES.id <60001
+        ORDER BY USER_AND_CLOTHES_RECORD.updated DESC
+        LIMIT 100;""".format(email,tuple(minor_name_list))
 
     # print("선택된 사용자기록 이미지 : ",cur.execute(sql))
     cur = tmp(sql)

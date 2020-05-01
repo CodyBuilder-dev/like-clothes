@@ -168,7 +168,7 @@ def get_taste_category(user_vector,minor_onehot_dict) :
         minor_name_list
     """
     vector_mean = user_vector[user_vector>0].mean()
-    taste_category = np.argwhere(user_vector>vector_mean).T
+    taste_category = np.argwhere(user_vector>=vector_mean).T
     
     minor_index_dict = {}
     i = 0
@@ -179,7 +179,7 @@ def get_taste_category(user_vector,minor_onehot_dict) :
     for idx in taste_category[0] :
         minor_name = minor_index_dict[idx]
         minor_name_list.append(minor_name)
-
+    print("minor_name_list : ",minor_name_list)
     return minor_name_list
 
 def get_taste_image(connection, email, minor_name_list) :

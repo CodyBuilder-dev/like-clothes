@@ -129,13 +129,26 @@ def recommand_clothes() :
         # 이메일로부터 유저 취향 이미지 id들을 불러옵니다
         user_vector = get_user_vector(db,user_email,minor_onehot_dict)
         minor_name_list = get_taste_category(user_vector,minor_onehot_dict)
+        #DB에러로 인해 유저 벡터, minor이름을 받아오지 못한 경우 예외처리
+        if(len(minor_name_list)==0) : 
+            tempdb = connect_db(dbinfo_path)
+            tempcur = tempdb.cursor()
+            tempsql = """SELECT gender FROM USER WHERE email='{}';""".format(user_email)
+            tempcur.execute(tempsql)
+            
+            gender = tempcur.fetchall()[0][0]
+            if gender == 'F' :
+                minor_name_list = ['미니 스커트']
+            elif gender == 'M' :
+                minor_name_list = ['반팔 티셔츠']
+            tempdb.close()
         user_taste_list = get_taste_image(db,user_email,minor_name_list)
         
-        # 이메일로부터 주변 유저들 취향 이미지들을 불러옵니다(미구현)
+        # 이메일로부터 주변 유저들 취향 이미지들을 불러옵니다
         input_cluster = cluster_model.predict(user_vector.reshape(1,-1))[0]
-        print(input_cluster)
+        print("고객의 분류된 타입 : ",input_cluster)
         selected_neighbor = user_label_map[user_label_map==input_cluster].sample(1).index[0]
-        print(selected_neighbor)
+        print("선택된 이웃 : ", selected_neighbor)
         neighbor_list = get_taste_image(db, selected_neighbor, minor_name_list)
 
         # 개인정보로부터 추출된 id리스트를 처리합니다
@@ -281,8 +294,8 @@ def classification_tag() :
         return render_template('clothes-tag.html',best_tags=best_tags)
 @app.route("/ai/test", methods=['GET', 'POST'])
 def test() :
-    if request.method == 'GET':
+    if request.method == 'POST':
         #print()
-        return tuple(id_path_map.keys()) #반드시 str,json등으로 보내야함
+        return str(get_user_vector(db,"rena@ssafy.com",minor_onehot_dict)) #반드시 str,json등으로 보내야함
 if __name__ == '__main__':
    app.run(host='0.0.0.0',port=5001,debug = True)
