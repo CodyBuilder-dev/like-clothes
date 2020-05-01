@@ -197,7 +197,7 @@ export default function Closet(props) {
         <Grid className={styles.root} style={{ backgroundColor: 'white' }}>
           <Card variant='outlined'>
             <Grid className="myInfo" container style={{ padding: '20px', paddingBottom: 0 }}>
-              <Grid item xs={2}></Grid>
+              <Grid item xs={1}></Grid>
               <Grid className="myProfile" item xs={3} container direction="row" justify="space-evenly">
                 <ListItem style={{ padding: 0, marginTop: 12, marginLeft: 20 }}>
                   <ListItemAvatar>
@@ -213,9 +213,9 @@ export default function Closet(props) {
                 </ListItem>
               </Grid>
               <Grid item xs={1}></Grid>
-              <Grid className="followingfollower" item xs={6} container alignItems="center">
+              <Grid className="followingfollower" item xs={7} container alignItems="center">
                 <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로워 :</p>
-                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5, marginRight: 30 }}>
+                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5, marginRight: 50 }}>
                   <span className="followCnt" style={{ width: 50 }}>{followerRes.length}
                     <Select className={styles.followDrop} name='follower' value="" onChange={followSelect}
                     >{followerRes.map((follower) => (
