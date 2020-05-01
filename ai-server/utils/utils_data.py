@@ -1,5 +1,5 @@
 import os
-os.chdir('/home/ubuntu/ai-server')
+# os.chdir('/home/ubuntu/ai-server')
 
 import requests
 import numpy as np

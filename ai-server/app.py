@@ -187,8 +187,8 @@ def recommand_feature() :
         input_img = get_image_array(input_url)
         input_minor = select_minor_from_id(db,input_id)
         input_feature = feature_model.predict(input_img)
-        print('[Tst]', input_minor)
-        best_images,worst_images = clothes_feature(input_id,input_minor,input_feature,id_url_map,pickle_dict,10)
+        print('[Tst]', input_minor) # input_minor_id,input_feature,id_url_map,pickle_dict,num
+        best_images,worst_images = clothes_feature(input_minor,input_feature,id_url_map,pickle_dict,10)
         
         return {
         "input_url":id_url_map[input_id], 
@@ -285,4 +285,4 @@ def test() :
         #print()
         return tuple(id_path_map.keys()) #반드시 str,json등으로 보내야함
 if __name__ == '__main__':
-   app.run(host='0.0.0.0',port=5000,debug = True)
+   app.run(host='0.0.0.0',port=5001,debug = True)
