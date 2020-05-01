@@ -133,9 +133,10 @@ def recommand_clothes() :
         if(len(minor_name_list)==0) : 
             tempdb = connect_db(dbinfo_path)
             tempcur = tempdb.cursor()
-            tempsql = """SELECT gender FROM USER WHERE '{}'""".format(user_email)
-            res = tempcur.execute(tempsql)
-            gender = res.fetchall()[0][0]
+            tempsql = """SELECT gender FROM USER WHERE email='{}';""".format(user_email)
+            tempcur.execute(tempsql)
+            
+            gender = tempcur.fetchall()[0][0]
             if gender == 'F' :
                 minor_name_list = ['미니 스커트']
             elif gender == 'M' :
