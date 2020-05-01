@@ -248,15 +248,15 @@ export default function ClothesDetail(props) {
                     </Box></p>
 
         <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
-          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>AI가 추천해주는 비슷한 옷</p>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷과 유사한 욧's 추천 픽!</p>
           {bestImg.length > 0 ? <Carousel imgList={bestImg}></Carousel> : null}
         </Box>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
-          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷과 같이 입을 만한 옷</p>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷이랑 코디 어때요?</p>
           {recommendImg.length > 0 ? <Carousel imgList={recommendImg}></Carousel> : null}
         </Box>
         <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
-          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>혹시 이런 옷은 어떠세요?</p>
+          <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>혹시.. 이런 옷은 어떠신지..</p>
           {worstImg.length > 0 ? <Carousel imgList={worstImg}></Carousel> : null}
         </Box>
       </Box>
