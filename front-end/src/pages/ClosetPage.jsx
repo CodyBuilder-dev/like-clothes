@@ -1,182 +1,280 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Avatar, ListItem, ListItemAvatar, Paper,
+  Card, Box, Grid, MenuItem, Select, TextField, Button,
+} from '@material-ui/core';
+import { Edit, FavoriteBorder, Favorite, AddRounded } from '@material-ui/icons';
+import { closetjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
 
-// semantic-ui-react Dropdown Css
-import '../css/ClosetPage.css';
-const styleLink = document.createElement("link");
-styleLink.rel = "stylesheet";
-styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
-document.head.appendChild(styleLink);
+const baseUrl = process.env.REACT_APP_URL
+const config = { "headers": { "Authorization": localStorage.token } }
 
+export default function Closet(props) {
+  const styles = closetjsx();
 
-function Closet() {
+  const [followerRes, setFollowerRes] = useState([]);
+  const [followingRes, setFollowingRes] = useState([]);
+  const [userState, setUserState] = useState({ nickname: '', });
+  const [userEmail, setUserEmail] = useState('');
+
+  // url로부터 유저 정보 받아오기 위해 선언 user_email => 옷장 주인
+  const search = props.location.search;
+  const params = new URLSearchParams(search);
+  let user_email = params.get('user_email');
+
   // 유저의 팔로 리스트 서버에서 받아오기
-  const [ routeTarget, setRouteTarget ] = useState('closet');
-  const [ followerRes, setFollowerRes ] = useState([]);
-  const [ followingRes, setFollowingRes ] = useState([]);
-  
+  const [userClothesInfo, setUserClothesInfo] = useState([{ img: '', id: '' }]);
+  const [heartFill, setHeartFill] = useState(false);
+
   useEffect(() => {
-    let follow = ['follower-user', 'following-user', 'follower_edmail', 'following_email']
-    for (let i=0; i<2; i++){
-      let url = `http://i02a401.p.ssafy.io:8000/user/${follow[i]}`;
-      axios.get(url, {'headers': {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjEyM0BnbWFpbC5jb20iLCJpYXQiOjE1ODc0NTQ3NzMsImV4cCI6MTU4NzQ2MTk3M30.uqORKirVsgHeosmtdGJoCwScgxiPjXeB6ceZAjfXK8g'}})
+    setUserEmail(user_email);
+    // 유저 옷장에 있는 옷들 받아오기
+    const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
+    axios.get(closet_url).then((res) => {
+      // 유저 정보로부터 받아온 등록된 옷 정보
+      setUserClothesInfo(res.data.map((v) => ({ img: v.img, id: v.id })));
+    });
+
+    // 유저 정보 받아와 closet 페이지 갱신하기
+    const user_url = process.env.REACT_APP_URL + `/user/${user_email}`;
+    axios.get(user_url).then((res) => {
+      if (res.data.state === 'success') {
+        setUserState(res.data.user);
+        setClosetIntro(res.data.user.description);
+      }
+      else {
+        // 모달로 수정 필요?
+        alert(`잘못된 접근입니다.\n메인으로 이동합니다.`);
+        props.history.replace("/");
+      }
+    });
+
+    // follower-user 받아오기
+    let followChkList = [];
+    const wer_url = `${baseUrl}/user/follower-user?user_email=${user_email}`;
+    axios.get(wer_url)
       .then((res) => {
-        const followList = res.data;
-        // const followList = [{ key: 1, value: 2, flag: 3, text: 4 }, { key: 1, value: 2, flag: 3, text: 4 }];
-        console.log(followList)
-        followList.forEach((follow) => {
-          const followKey = follow.follow[i+2]
-          const followImage = follow.profile_img;
-          const followNickname = follow.nickname;
-          let data = { key: followKey, value: followKey, flag: followImage, text: followNickname }
-          if (i === 0) {
-            setFollowerRes(followerRes => [...followerRes, data])
-          }
-          else {
-            setFollowingRes(followingRes => [...followingRes, data])
-          }
+        const followerList = res.data;
+        followChkList = followerList.map((follow) => (
+          { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
+        ));
+        setFollowerRes(followChkList);
+        return followChkList;
+      }).then(res => {
+        if (user_email !== localStorage.email) {
+          const followChkList = res;
+          // 지금 유저랑 팔로우 관계인지 확인하고 하트 상태 갱신
+          let isHeartFill = false;
+          followChkList.forEach((follower) => {
+            if (follower.email === localStorage.email) {
+              // 여기 있으면 나는 팔로우 관계니까 하트를 색칠해라 !
+              isHeartFill = true;
+            }
+          });
+          setHeartFill(isHeartFill);
+        }
+      })
+
+    // following-user 받아오기
+    const wing_url = `${baseUrl}/user/following-user?user_email=${user_email}`;
+    setFollowingRes([]);
+    axios.get(wing_url)
+      .then((res) => {
+        const followingList = res.data;
+        followingList.forEach((follow) => {
+          let data = { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
+          setFollowingRes(followingRes => [...followingRes, data])
         });
       });
-    }
-  }, []);
-  console.log(followerRes, followingRes, 'state?')
+  }, [user_email]);
 
-  // 드롭다운 팔로 선택 시 선택된 유저 옷장으로 이동
-  const DropdownOnClick = (e) => {
-    let target = e.target.innerText;
-    setRouteTarget(target);
+  // 드롭다운 팔로우 선택 시 선택된 유저 옷장으로 이동
+  const followSelect = (e) => {
+    const name = e.target.name
+    if (name === 'follower') {
+      followerRes.forEach((data) => {
+        if (data.nickname === e.target.value) {
+          props.history.push(`/closet?user_email=${data.email}`);
+        }
+      })
+    } else {
+      followingRes.forEach((data) => {
+        if (data.nickname === e.target.value) {
+          props.history.push(`/closet?user_email=${data.email}`);
+        }
+      })
+    }
   }
 
-  // 옷장 소개 수정 - 내 옷장인지 확인 필요
-  const [ closetIntro, setClosetIntro ] = useState('유림스옷장');
-  const [ isEdit, setIsEdit ] = useState(true);
+  // 팔로우 예쁘게 토글~*_*
+  const handleFollowClick = () => {
+    const url = baseUrl + '/user/follow-user-toggle';
+    axios.post(url, { "following_email": userEmail }, config)
+      .then((res) => {
+        setHeartFill(res.data.desc === 'Follow');
+      })
+      .then(() => {
+        let followChkList = [];
+        const wer_url = `${baseUrl}/user/follower-user?user_email=${user_email}`;
+        axios.get(wer_url)
+          .then((res) => {
+            const followerList = res.data;
+            followChkList = followerList.map((follow) => (
+              { email: follow.email, nickname: follow.nickname, img: follow.profile_img }
+            ));
+            setFollowerRes(followChkList);
+          })
+      })
+  };
 
-  const handleIntroClick = (e) => {
+  // 옷장 소개 수정
+  const [closetIntro, setClosetIntro] = useState(userState.description);
+  const [isEdit, setIsEdit] = useState(true);
+
+  const ClosetIntroUpdate = (data) => {
+    const url = baseUrl + '/user';
+    axios.put(url, { "description": data }, config)
+  }
+
+  const handleIntroClick = () => {
     setIsEdit(false)
   }
 
   const ClosetIntroView = () => ( // true  
     <div>
-      <span>{closetIntro}</span>
-      <button onClick={handleIntroClick}>수정버튼</button>
+      <p style={{ marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>옷장 소개</span>
+        {localStorage.email === userEmail && <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit>}</p>
+      <Box border={2} borderRadius={5} className={styles.paper}>{closetIntro}</Box>
     </div>
   );
 
   const ClosetIntroEdit = () => {  // false
-    const [ editIntro, setEditIntro ] = useState(closetIntro);
+    const [editIntro, setEditIntro] = useState(closetIntro);
 
     const handleIntroChange = (e) => {
       setEditIntro(e.target.value)
     }
 
     const handleIntroBlur = (e) => {
-      setClosetIntro(e.target.value)
+      const newData = e.target.value
+      setClosetIntro(newData)
       setIsEdit(true)
+      ClosetIntroUpdate(newData)
     }
-  
+
     const handleIntroEnter = (e) => {
+      const newData = e.target.value
       if (e.key === 'Enter') {
-      setClosetIntro(e.target.value)
-      setIsEdit(true)
+        setClosetIntro(newData)
+        setIsEdit(true)
+        ClosetIntroUpdate(newData)
       }
     }
 
     return (
       <div>
-        <input type="text" value={editIntro} autoFocus
-          onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></input>
+        <p style={{ marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>옷장 소개</span>
+          <Edit className={styles.editBtn} onClick={handleIntroClick}></Edit></p>
+
+        <Box border={2} borderRadius={5} style={{ margin: 0 }}>
+          <TextField type="text" color="secondary" value={editIntro} autoFocus fullWidth='true' variant="outlined"
+            onChange={handleIntroChange} onBlur={handleIntroBlur} onKeyPress={handleIntroEnter}></TextField>
+        </Box>
       </div>
     )
   }
-  
-  // 팔로우 버튼 - 내 옷장 아닌지 확인 필요
-  const handleFollowClick = (e) => {
-
-  }
-  
 
   return (
-    <div className="myCloset">
-      <div className="myInfo">
-        <div className="myProfile">
-          <span className="profileName">Yulim</span>
-          <button onClick={handleFollowClick}> follow </button>
-          {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
-        </div>
-        <div className="follow">
-          <span className="followTag">Follower</span>
-          <span className="followerCnt">35</span>
-          <span className="followerList">
-            <span className="followerBtn">얍</span>
-            <div className="followerDrop">
-              <Link to="/">swim</Link>
-              <Link to="/">jhj</Link>
-              <Link to="/">kim</Link>
-            </div>
-          </span>
-        </div>
-        <div className="follow">
-          <span className="followTag">Following</span>
-          <span className="followingCnt">35</span>
-        </div>
-      </div>
-      <Dropdown
-        scrolling={true}
-        search
-        selection
-        options={followerRes}
-        onChange={DropdownOnClick}
-      ></Dropdown>
-      <Dropdown
-        scrolling={true}
-        search
-        selection
-        options={followingRes}
-        onChange={DropdownOnClick}
-      ></Dropdown>
+    <Card className={styles.roots}>
+      <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+      <Box key='1' border={2} borderRadius={5} className={styles.paper}>
+        <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10 }}>내 옷장</p>
+        <Grid className={styles.root} style={{ backgroundColor: 'white' }}>
+          <Card variant='outlined'>
+            <Grid className="myInfo" container style={{ padding: '20px', paddingBottom: 0 }}>
+              <Grid item xs={2}></Grid>
+              <Grid className="myProfile" item xs={3} container direction="row" justify="space-evenly">
+                <ListItem style={{ padding: 0, marginTop: 12, marginLeft: 20 }}>
+                  <ListItemAvatar>
+                    <Avatar src={userState.profile_img} style={{ width: 50, height: 50, marginRight: 20 }}>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <div style={{marginRight: '20px', display:'inline', width:'50px'}}>{userState.nickname}</div>
+                {!!localStorage.isAuthenticated && (heartFill ?
+                  <Favorite style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
+                    onClick={handleFollowClick}></Favorite>
+                  : <FavoriteBorder style={{ visibility: userEmail === localStorage.email ? "hidden" : "visible", }}
+                    onClick={handleFollowClick}></FavoriteBorder>)}
+                </ListItem>
+              </Grid>
+              <Grid item xs={1}></Grid>
+              <Grid className="followingfollower" item xs={6} container alignItems="center">
+                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로워 :</p>
+                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5, marginRight: 30 }}>
+                  <span className="followCnt" style={{ width: 50 }}>{followerRes.length}
+                    <Select className={styles.followDrop} name='follower' value="" onChange={followSelect}
+                    >{followerRes.map((follower) => (
+                      <MenuItem key={follower.email} value={follower.nickname}>
+                        <ListItem style={{ padding: 0, paddingRight: 20 }}>
+                          <ListItemAvatar>
+                            <Avatar src={follower.img}>
+                            </Avatar>
+                          </ListItemAvatar>
+                          <span>{follower.nickname}</span>
+                        </ListItem>
+                      </MenuItem>
+                    ))}</Select></span>
+                </Box>
+                <p className="followTag" style={{ fontSize: 20, marginRight: 15 }}>팔로잉 :</p>
+                <Box className="clothesImage" border={2} borderRadius={5} align="center" style={{ width: 100, padding: 5 }}>
+                  <span className="followCnt">{followingRes.length}
+                    <Select className={styles.followDrop} name='following' value="" onChange={followSelect}
+                    >{followingRes.map((following) => (
+                      <MenuItem key={following.email} value={following.nickname}>
+                        <ListItem style={{ padding: 0, paddingRight: 20 }}>
+                          <ListItemAvatar>
+                            <Avatar src={following.img}>
+                            </Avatar>
+                          </ListItemAvatar>
+                          <span>{following.nickname}</span>
+                        </ListItem></MenuItem>
+                    ))}</Select></span>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid>
+              <div style={{ margin: 15, padding: 15 }}>
+                {isEdit ? <ClosetIntroView /> : <ClosetIntroEdit />}
 
-      {routeTarget !== 'closet' && <Redirect to={routeTarget}></Redirect>}
-
-      <div className="closet">
-        <div className="dropMajorDiv">
-          <button className="dropMajorBtn">Major</button>
-          <div className="dropMajorContent">
-            <Link to="/closet">여성</Link>
-            <Link to="/closet">남성</Link>
-            <Link to="/closet">아동</Link>
-          </div>
-        </div>
-        <div className="dropMiddleDiv">
-          <button className="dropMiddleBtn">Middle</button>
-          <div className="dropMiddleContent">
-            <Link to="/closet">상의</Link>
-            <Link to="/closet">하의</Link>
-            <Link to="/closet">신발</Link>
-          </div>
-        </div>
-        <div className="dropMinorDiv">
-          <button className="dropMinorBtn">Minor</button>
-          <div className="dropMinorContent">
-            <Link to="/closet">티셔츠</Link>
-            <Link to="/closet">니트</Link>
-            <Link to="/closet">셔츠</Link>
-          </div>
-        </div>
-        <div className="clothesWrite">
-          <Link to="/clothesresister"><button>새 옷</button></Link>
-        </div>
-      </div>
-
-      <div className="clothesImage">
-        <Link to={`/detail/1`}>
-          <img src="./logo192.png"></img>
-          <p>클릭시 상세페이지로 이동</p>
-        </Link>
-      </div>
-    </div>
+                <p style={{ marginTop: 30, marginBottom: 10 }}><span style={{ fontSize: 22, marginRight: 10 }}>등록된 옷 보기</span></p>
+                <Box border={2} borderRadius={5} className={styles.paper}>
+                  {userClothesInfo.length > 0 ? userClothesInfo.map((v, i) => (
+                      <NavLink to={`/clothesdetail/?clothes_item_id=${v.id}`} key={i}>
+                        <img alt="" src={v.img} width="150px" height="150px" style={{margin: '5px'}}></img>
+                      </NavLink>
+                    )) : <p>옷장에 옷이 없어요...</p>}
+                </Box>
+              </div>
+            </Grid>
+          </Card>
+          <Box className="closet">
+            <Grid className="clothesWrite" container justify="flex-end">
+              {localStorage.email === userEmail && <NavLink to="/clothesregister" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="medium" color="secondary" className={styles.button} style={{ marginRight: 20, marginTop: 20 }}>
+                  <AddRounded style={{ marginRight: 20 }} />
+                새 옷 등록하기
+                </Button>
+              </NavLink>}
+            </Grid>
+          </Box>
+        </Grid>
+      </Box>
+      </QueueArim>
+    </Card>
   )
 }
-
-export default Closet;

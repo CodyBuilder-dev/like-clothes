@@ -1,102 +1,112 @@
 import React, { PureComponent } from "react";
-import ClothesInfo from "./ClothesInfo";
-import ClassificationDropdown from '../components/ClassificationDropdown';
+import { Grid, Button, AppBar, Toolbar, Card, Box } from '@material-ui/core'
+import { withStyles } from '@material-ui/styles'
+import SearchIcon from '@material-ui/icons/Search';
 import MultipleSelect from '../components/MultipleSelect';
-// import axios from 'axios';
+import { searchClothesFunc } from '../module/searchClothesFunc';
+import InfiniteScrollContainer from '../components/InfiniteScrollContainer';
+import SearchInput from '../components/SearchInput';
+import { closetjsx } from '../css/useStyles'
+import QueueArim from 'rc-queue-anim';
+import { HashLoader } from "react-spinners";
+import { css } from "@emotion/core";
 
-let imagePathList = [
-    { id: 1, path: '/assets/images/my_photo.jpg' }
-    , { id: 2, path: 'assets/images/my_photo.jpg' }
-    , { id: 3, path: 'assets/images/my_photo.jpg' }
-  ];
-
-const getImage = () => {
-  // 서버로부터 이미지 받아오기
-
-
-}
-const showImages = imagePathList.map((imageObj, index) => {
-  console.log(imageObj);
-  return (
-    <div key={ index }>
-      <img src = { imageObj.path } alt='' width="100" height="100"></img>
-    </div>
-  )
-});
+const Background = require('../components/Background.jpg')
+const override = css`
+  display: block:
+  margin: 0 auto:
+  border-color: red:
+  `;
 
 class MainPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      searchState: {
-        majors: [],
-        middles: [],
-        minors: [],
-      },
+      tags: '',
+      name: '',
+      majors: [],
+      middles: [],
+      minors: [],
+      brands: '',
+      searchDataList: [],
+      page: 0,
+      loading: true,
     };
   }
 
   componentDidMount() {
-    getImage();
+    searchClothesFunc(this.state, this.setSearchState);
   }
 
-  setSearchState = (type, optionList) => {
-    if (type === '대분류') 
-      this.setState(
-        {...this.state,
-          searchState: {
-            ...this.state.searchState,
-            majors: optionList,
-          }
-        }
-      );
-    else if (type === '중분류')
-      this.setState(
-        {...this.state,
-          searchState: {
-            ...this.state.searchState,
-            middles: optionList,
-          }
-        }
-      );
-    else if (type === '소분류')
-      this.setState(
-        {...this.state,
-          searchState: {
-            ...this.state.searchState,
-            minors: optionList,
-          }
-        }
-      );
-    else alert('타입 선택 에러');
+  setSearchState = (searchDataList) => {
+    if (searchDataList.length > 0)
+      this.setState({
+        ...this.state,
+        searchDataList: searchDataList,
+        page: 0,
+        loading: false,
+      });
+    else alert('검색 결과가 없습니다.');
   };
 
-  render() {
-    const { setUser } = this.props;
+  setSearchFilter = ({ type, filterList }) => {
+    this.setState({
+      ...this.state,
+      [type]: filterList,
+    });
+  }
 
+  nextPage = () => {
+    this.setState({
+      ...this.state,
+      page: this.state.page + 1,
+    })
+  }
+
+  render() {
     return (
       <div>
-        { imagePathList.length && showImages }
-        <ClothesInfo></ClothesInfo>
-        {console.log(this.state)}
-        <div style={{ display: "flex", }}>
-          <ClassificationDropdown type="대분류" setSearchState={this.setSearchState}/>
-          <ClassificationDropdown type="중분류" setSearchState={this.setSearchState}/>
-          <MultipleSelect />
-          
-        </div>
+        <QueueArim type={['right', 'left']} interval={[200, 300]}
+          delay={[0, 1000]} duration={[3000, 5000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+        <AppBar position="fixed" style={{ backgroundImage: `url(${Background})`, paddingLeft: '256px', width: '100%' }}>
+          <Toolbar variant='dense' style={{height: 90}}>
+            <Grid style={{ width: '10%' }} container justify='center'>
+              <h2 style={{ marginTop: 20, marginBottom: 10 }}>검색해욧</h2>
+            </Grid>
+            <Grid style={{ width: '80%' }} container justify="space-evenly" alignItems="center">
+              <MultipleSelect type="대분류" setSearchFilter={this.setSearchFilter} />
+              <MultipleSelect type="중분류" setSearchFilter={this.setSearchFilter} style={{ marginRight: '20px' }} />
+              <SearchInput type="태그" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="브랜드" setSearchFilter={this.setSearchFilter} />
+              <SearchInput type="상품 이름" setSearchFilter={this.setSearchFilter} />
+            </Grid>
+            <Grid style={{ width: '10%' }} container justify='center'>
+              <Button onClick={() => searchClothesFunc(this.state, this.setSearchState)}>
+                <SearchIcon style={{ color: 'white', width: '50px', height: '50px' }}></SearchIcon>
+              </Button>
+            </Grid>
+          </Toolbar>
+        </AppBar>
 
-        { imagePathList.length && showImages }
-        <button onClick={() => setUser('hyeoncheol', 'suppergrammer@gmail.com')}>김현철 추가 버튼</button>
-        <br/>
-        내 이름: {this.props.userName}
-        <br/>
-        내 이메일: {this.props.userEmail}
-        <br/>
+        {console.log(this.state.loading, '로딩')}
+        <Card key="1" styles={{ flexGrow: 1, padding: 16 }}>
+          <Box border={2} borderRadius={5} style={{
+            padding: 24, textAlign: 'center',
+            color: 'rgb(128, 128, 128)',
+            paddingTop: 55,
+          }}>
+          {this.state.loading ? <HashLoader css={override} size={100} color={"#9013FE"} loading={this.state.loading}></HashLoader>
+          :
+            this.state.searchDataList.length > 0 &&
+              <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />
+          }
+          </Box>
+        </Card>
+        </QueueArim>
       </div>
     )
   };
-
 };
 
-export default MainPage;
+export default withStyles(closetjsx)(MainPage);
