@@ -6,7 +6,7 @@ import { Lock, PersonAdd, ExitToApp, FaceOutlined, LocalMallOutlined, StoreOutli
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import { appsidedrawerjsx } from '../css/useStyles'
 
-const Logo = require('./Logo3.png')
+const Logo = '/assets/Logo.png'
 
 export default function SearchAppBar(props) {
   const styles = appsidedrawerjsx();
@@ -58,7 +58,6 @@ export default function SearchAppBar(props) {
               </NavLink>
             </Card>
           </List>
-
           <Divider />
           <Divider />
           <div className={styles.drawer}>

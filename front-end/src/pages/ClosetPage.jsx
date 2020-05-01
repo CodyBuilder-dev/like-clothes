@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Avatar, ListItem, ListItemAvatar, Paper,
+  Avatar, ListItem, ListItemAvatar,
   Card, Box, Grid, MenuItem, Select, TextField, Button,
 } from '@material-ui/core';
 import { Edit, FavoriteBorder, Favorite, AddRounded } from '@material-ui/icons';
