@@ -5,6 +5,7 @@ import {
   Card, Box, GridList, GridListTile } from '@material-ui/core';
 import { clothesdetailjsx } from '../css/useStyles'
 import QueueArim from 'rc-queue-anim';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
 
 const baseURL = process.env.REACT_APP_URL
 const baseAIUrl = process.env.REACT_APP_AI_URL
@@ -75,9 +76,12 @@ export default function ClothesDetail(props) {
         <Box key="2" border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50 }}>
           <GridList className={styles.gridList} cols={4} cellHeight={250}>
             {neighborList && (neighborList.map((item, i) => (
-              <GridListTile key={i} height="300px">
+              <GridListTile key={i} height="300px" style={{position:'relative'}}>
                 <Link to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-                  <img alt="" src={item.img} height="100%" />
+                  <img alt="" className="imgCard" src={item.img} height="100%" />
+                  <span className="similarTag" 
+                  style={{position:'absolute', top:'0', left:'0', color:'violet'}}>
+                  <LoyaltyIcon></LoyaltyIcon></span>
                 </Link>
               </GridListTile>
             )))}
