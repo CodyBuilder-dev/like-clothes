@@ -1,0 +1,152 @@
+.section {
+    margin: 20px;
+}
+.section.down {
+    margin: 10px;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.imageTitle {
+    display: inline-block;
+}
+
+.tablestyle {
+    border: 1px solid gray;
+}
+
+.tableinput {
+    width: 10vw;
+}
+
+th {
+    font-weight: normal;
+}
+
+.submitButton {
+    margin: 20px;
+} 
+
+.imagesPreviewDiv {
+    position: relative;
+    display: inline;
+    width: 150px;
+    height: 150px;
+}
+
+.imageDeleteButton {
+    position: absolute;
+    top: -130px;
+    right: 0px;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.imageDeleteButton a {
+    z-index: 1;
+}
+
+.imagesPreviewDiv:hover .imageDeleteButton {
+    opacity: 1;
+}
+
+
+/* color checkbox */
+/* body {
+    font-family: "helvetica";
+} */
+.checkboxContainer {
+    height: 65px;
+}
+.radiobox {
+    display: inline;
+    margin-bottom: 20px;
+}
+  
+  /* input[type="checkbox"].custom {
+    margin-left: 0;
+    padding: 0;
+  } */
+  
+  input[type=checkbox].css-checkbox {
+    background-color: red;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0px;
+    border: 0;
+  }
+  
+  /* 라벨 속성 */
+  input[type=checkbox].css-checkbox+label.css-label,
+  input[type=checkbox].css-checkbox+label.css-label-red,
+  input[type=checkbox].css-checkbox+label.css-label-yellow,
+  input[type=checkbox].css-checkbox+label.css-label-blue,
+  input[type=checkbox].css-checkbox+label.css-label-purple {
+    /* padding-left: 22px; */
+    height: 150px;
+    width: 150px;
+    display: inline-block;  
+    line-height: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 13px;
+    vertical-align: middle;
+    cursor: pointer;
+    opacity: 1;
+  }
+  
+  input[type=checkbox].css-checkbox+label.css-label:hover,
+  input[type=checkbox].css-checkbox+label.css-label-red:hover,
+  input[type=checkbox].css-checkbox+label.css-label-yellow:hover,
+  input[type=checkbox].css-checkbox+label.css-label-blue:hover,
+  input[type=checkbox].css-checkbox+label.css-label-purple:hover {
+    opacity: 0.5;
+  }
+  
+  input[type=checkbox].css-checkbox:checked+label.css-label,
+  input[type=checkbox].css-checkbox:checked+label.css-label-red,
+  input[type=checkbox].css-checkbox:checked+label.css-label-yellow,
+  input[type=checkbox].css-checkbox:checked+label.css-label-blue,
+  input[type=checkbox].css-checkbox:checked+label.css-label-purple {
+    background-position: 0 -66px;
+  }
+
+
+
+.radiobox {
+    display: inline-block;
+    position: relative;   
+}
+
+input[type=radio] {
+    /* overflow: hidden;
+    display: none;
+    width: 0;
+    height: 0;
+    border: 0 none; */
+}
+
+.radio .ico {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background-repeat:no-repeat;
+    background-size:20px auto;
+    background-image: url("/assets/colors/pink.png");
+}
+
+.radio input:checked + .ico {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background-repeat:no-repeat;
+    background-size:20px auto;
+    background-image: url("/assets/colors/cked_black.png");
+}

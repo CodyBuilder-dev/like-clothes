@@ -1,0 +1,19 @@
+.imgDiv {
+    position: relative;
+}
+
+.imgDeleteBtn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.imgDeleteBtn a {
+    z-index: 1;
+}
+
+.imgDiv:hover .imgDeleteBtn {
+    opacity: 1;
+}

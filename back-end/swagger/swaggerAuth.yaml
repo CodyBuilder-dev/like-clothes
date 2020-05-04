@@ -1,0 +1,21 @@
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+  # /protected:
+  #   get:
+  #     operationId: protectedGet
+  #     description: "Protected endpoint, only accessible to admins and users"
+    
+  #     x-swagger-router-controller: main-controller
+  #     security:
+  #     - Bearer: []
+  #     x-security-scopes:
+  #     - admin
+  #     - user
+
+  #     responses:
+  #       200:
+  #         description: OK
