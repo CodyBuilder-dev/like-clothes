@@ -1,37 +1,41 @@
 import express from "express"
 import routes from "../routes"
 import path from "path"
-
+import { onlyPrivate } from "../middleware"
 import {
     signin,
     social_signin,
-    create_user,
+    signup,
     read_user,
     read_all_user,
     update_user,
     update_password,
     delete_user,
     follow_user_toggle,
+    read_following_user,
+    read_follower_user,
+    profile_upload
 } from "../controllers/userController"
 
 const userRouter = express.Router();
 
-
 userRouter.post(routes.signin, signin);
 userRouter.post(routes.social_signin, social_signin);
-userRouter.post(routes.create_user, create_user);
-userRouter.post(routes.follow_user_toggle, follow_user_toggle);
+userRouter.post(routes.signup, profile_upload.single('profile_img'), signup);
+userRouter.post(routes.follow_user_toggle, onlyPrivate, follow_user_toggle);
 
-userRouter.get(routes.read_user, read_user);
-userRouter.get(routes.read_all_user, read_all_user);
+userRouter.get(routes.following_user, read_following_user);
+userRouter.get(routes.follower_user, read_follower_user);
+userRouter.get(routes.user_email, read_user);
+userRouter.get(routes.home, read_all_user);
 
-userRouter.put(routes.update_user, update_user);
-userRouter.put(routes.update_password, update_password);
 
-userRouter.delete(routes.delete_user, delete_user);
+userRouter.put(routes.home, onlyPrivate, update_user);
+userRouter.put(routes.password, onlyPrivate, update_password);
+
+userRouter.delete(routes.home, delete_user);
 
 export default userRouter;
-
 
 /**
  * @swagger
@@ -102,51 +106,120 @@ export default userRouter;
  *    post:
  *      tags:
  *      - USER
- *      description: 유저 Login API
+ *      description: User Login
  *      produces:
  *      - applicaion/json
+ *      parameters:
+ *      - name: email
+ *        in: body
+ *        description: "사용자 E-mail"
+ *        required: true
+ *        type: string
+ *      - name: password
+ *        in: body
+ *        description: "사용자 password"
+ *        required: true
+ *        type: string
  *      responses:
  *       200:
- *        description: board of selected id column list
+ *        description: Return User Login Object
  *        schema:
- *          type: USER
+ *          type: applicaion/json
  *          items:
  *           $ref: '#/definitions/USER'
  */
 
 /**
  * @swagger
- *  /boards/:id:
+ *  /social-signin:
  *    post:
  *      tags:
- *      - board
- *      description: 게시글을 수정한다.
+ *      - USER
+ *      description: User Social Login
  *      produces:
  *      - applicaion/json
  *      parameters:
- *      - name: boardTtile
+ *      responses:
+ *       200:
+ *        description: Return Social User Social Login Object
+ *        schema:
+ *          type: applicaion/json
+ *          items:
+ *           $ref: '#/definitions/USER'
+ */
+
+/**
+ * @swagger
+ *  /create-user:
+ *    post:
+ *      tags:
+ *      - USER
+ *      description: User Signup
+ *      produces:
+ *      - applicaion/json
+ *      parameters:
+ *      - name: email
  *        in: body
- *        description: "게시글 제목"
+ *        description: "사용자 E-mail"
  *        required: true
  *        type: string
- *      - name: boardContent
+ *      - name: password
  *        in: body
- *        description: "게시글 내용"
+ *        description: "사용자 password"
  *        required: true
  *        type: string
- *      - name: boardState
+ *      - name: nickname
  *        in: body
- *        description: "게시글 상태"
+ *        description: "사용자 nickname"
  *        required: true
- *        type: boolean
- *      - name: boardType
+ *        type: string
+ *      - name: address
  *        in: body
- *        description: "게시글 타입"
+ *        description: "사용자 실 주소"
+ *        required: true
+ *        type: string
+ *      - name: age
+ *        in: body
+ *        description: "사용자 나이"
+ *        required: true
+ *        type: integer
+ *      - name: gender
+ *        in: body
+ *        description: "사용자 성별"
+ *        required: true
+ *        type: string
+ *      - name: phone_num
+ *        in: body
+ *        description: "사용자 이동전화 번호"
+ *        required: true
+ *        type: string
+ *      - name: description
+ *        in: body
+ *        description: "사용자 간략 소개"
  *        required: true
  *        type: string
  *      responses:
  *       200:
- *        description: board of selected id column list
+ *        description: Return User Signup Object
+ *        schema:
+ *          type: applicaion/json
+ *          items:
+ *           $ref: '#/definitions/USER'
+ */
+ 
+/**
+ * @swagger
+ *  /read-user/:email:
+ *    get:
+ *      tags:
+ *      - USER
+ *      description: Read User Info
+ *      produces:
+ *      - applicaion/json
+ *      parameters:
+ *      responses:
+ *       200:
+ *        description: Return One User Info
  *        schema:
  *          type: array
  *          items:

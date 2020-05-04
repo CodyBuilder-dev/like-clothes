@@ -1,0 +1,19 @@
+#root, .App, .landingPage {
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100%;
+}
+
+.box { 
+    position: relative;
+    width: 100%; 
+    height: 100%; 
+}
+
+.mainLink {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}

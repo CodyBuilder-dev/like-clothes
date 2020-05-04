@@ -1,0 +1,484 @@
+tags: 
+- name: CLOTHES SEARCH
+  description: CLOTHES API
+- name: CLOTHES ITEM (WISH LIST)
+  description: CLOTHES API
+- name: CLOTHES ITEM (CLOSET)
+  description: CLOTHES API
+
+definitions:
+  record_user_clotehs_Request:
+    type: object
+    required:
+    - clothes_id
+    properties:
+      clothes_id:
+      type: integer
+      description: 등록하고자 하는 옷의 ID
+
+  register-clothes-item_Request:
+    type: object
+    required:
+    - clothes_id
+    - color
+    - size
+    properties:
+      clothes_id:
+        type: integer
+        description: 등록하고자 하는 옷의 ID
+      color:
+        type: string
+        description: 옷의 색상
+      description:
+        type: string
+        description: 옷의 상세정보
+      size:
+        type: string
+        description: S, M, L, XL, XXL, XXXL 등
+      length:
+        type: integer
+        description: 옷의 총장(길이)
+      shoulder:
+        type: integer
+        description: 옷의 어깨(길이)
+      waist:
+        type: integer
+        description: 옷의 허리둘레(길이)
+      in_closet:
+        type: string
+        description: 옷장 이름
+        
+  deregister-clothes-item_Request:
+    type: object
+    required:
+    - clothes_item_id
+    properties:
+      clothes_item_id:
+        type: integer
+        description: 삭제하고자 하는 clothes_item의 ID
+  
+  register-closet_  Request:
+    type: object
+    required:
+    - clothes_item_id
+    properties:
+      clothes_id:
+        type: integer
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      color:
+        type: string
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      description:
+        type: string
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      size:
+        type: string
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      length:
+        type: integer
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      shoulder:
+        type: integer
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+      waist:
+        type: integer
+        description: 옷장에 등록하고자 하는 clothes_item의 ID
+    
+  deregister-closet_Request:
+    type: object
+    required:
+    - clothes_item_id
+    properties:
+      clothes_item_id:
+        type: integer
+        description: 옷장에서 삭제하고자 하는 clothes_item의 ID
+        
+  mycloset_Response:
+    type: object
+    required: 
+    - user_email
+    - clothes_item_id
+    - in_closet
+    properties:
+      user_email:
+        type: string
+        description: 사용자 E-mail
+      clothes_item_id:
+        type: integer
+        description: 옷장 clothes_item의 ID
+      in_closet:
+        type: integer
+        description: Closet or Wishlist
+        
+  clothes-item_Response:
+    type: object
+    required: 
+    - id
+    - clothes_id
+    - color
+    - size
+    properties:
+      id:
+        type: integer
+        description: 상품고유번호
+      clothes_id:
+        type: integer
+        description: clothes_item의 상품 ID
+      color:
+        type: string
+        description: 옷의 색상
+      description:
+        type: string
+        description: 옷의 상세정보
+      status:
+        type: string
+        description: 옷의 상태(대여중, 대여가능 등)
+      size:
+        type: string
+        description: S, M, L, XL, XXL, XXXL 등
+      length:
+        type: integer
+        description: 옷의 총장(길이)
+      shoulder:
+        type: integer
+        description: 옷의 어깨(길이)
+      waist:
+        type: integer
+        description: 옷의 허리둘레(길이)
+  
+  search-clothes-tag_Response:
+    type: object
+    required: 
+      - id
+      - brand
+      - code_name
+    properties:
+      id:
+        type: integer
+        description: 옷의 상품 ID
+      brand:
+        type: string
+        description: 옷의 브랜드 이름
+      code_name:
+        type: string
+        description: 옷의 이름, 코드네임
+      season:
+        type: string
+        description: 옷의 시즌
+      img:
+        type: string
+        description: 옷의 이미지 주소
+  
+  search-clothes_Response:
+    type: object
+    required: 
+      - id
+      - brand
+      - code_name
+    properties:
+      id:
+        type: integer
+        description: 옷의 상품 ID
+      brand:
+        type: string
+        description: 옷의 브랜드 이름
+      code_name:
+        type: string
+        description: 옷의 이름, 코드네임
+      season:
+        type: string
+        description: 옷의 시즌
+      img:
+        type: string
+        description: 옷의 이미지 주소
+
+path:
+  /api/clothes/wish-list:
+    get:
+      tags:
+      - CLOTHES ITEM (WISH LIST)
+      summary: 위시 리스트에 옷 반환
+      description: Deregister Clothes Item from DB
+      produces:
+      - application/json
+          
+      responses:
+        200:
+          description: OK
+
+    post:
+      tags:
+      - CLOTHES ITEM (WISH LIST)
+      summary: 위시 리스트에 옷 추가
+      description: Deregister Clothes Item from DB
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deregister-clothes-item_body
+        description: /clothes/deregister-clothes-item
+        schema:
+          $ref: '#/definitions/deregister-clothes-item_Request'
+          
+      responses:
+        200:
+          description: OK
+
+    delete:
+      tags:
+      - CLOTHES ITEM (WISH LIST)
+      summary: 위시 리스트에 옷 삭제
+      description: Deregister Clothes Item from DB
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deregister-clothes-item_body
+        description: /clothes/deregister-clothes-item
+        schema:
+          $ref: '#/definitions/deregister-clothes-item_Request'
+          
+      responses:
+        200:
+          description: OK
+          
+  /api/clothes/mycloset:
+    get:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 유저-옷장에 있는 옷들 반환
+      description: Show User Closet
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: user_email
+        description: clothes_item_id what you want to find
+        type: string
+        required: true
+        
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/mycloset_Response'
+
+  /api/clothes/clothes-item:
+    post:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 등록
+      description: Register Clothes Item in DB
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: register-clothes-item_body
+        description: /clothes/register-clothes-item
+        schema:
+          $ref: '#/definitions/register-clothes-item_Request'
+          
+      responses:
+        200:
+          description: OK
+    put:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 옷 정보 (컬러, 사이즈, 등) 수정
+      description: Register Clothes Item in DB
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: register-clothes-item_body
+        description: /clothes/register-clothes-item
+        schema:
+          $ref: '#/definitions/register-clothes-item_Request'
+          
+      responses:
+        200:
+          description: OK
+    get:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 반환
+      description: Read Clothes Item
+      produces:
+      - application/json
+
+      parameters:
+      - in: query
+        name: clothes_item_id
+        description: clothes_item_id what you want to find
+        type: integer
+        required: true
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/clothes-item_Response'
+
+    delete:
+      tags:
+      - CLOTHES ITEM (CLOSET)
+      summary: 옷 정보 (소유자, 컬러, 사이즈, 등) 삭제 (유저가 직접 삭제 NO)
+      description: Read A Clothes Item
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: clothes_item_id
+        description: clothes_item_id what you want to find
+        type: integer
+        required: true
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/clothes-item_Response'
+              
+              
+  /api/clothes/search-clothes-tag:
+    get:
+      tags:
+      - CLOTHES SEARCH
+      summary: 태그로 검색
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: tags
+        description: clothes_item_tag
+        type: string
+        required: true
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/search-clothes-tag_Response'
+              
+  /api/clothes/random-clothes:
+    get:
+      tags: 
+      - CLOTHES
+      summary: 태그
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/search-clothes-tag_Response'
+  
+  /api/clothes/record-user-clothes:
+    post:
+      tags: 
+      - CLOTHES
+      summary: 태그
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: record-clothes-body
+        description: ㅎㅎ
+        schema:
+          $ref: '#/definitions/record_user_clotehs_Request'
+
+  
+    
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/record_user_Response'
+      
+  /api/clothes/search-clothes:
+    get:
+      tags:
+      - CLOTHES SEARCH
+      summary: 태그, 브랜드, 이름, 카테고리로 검색
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: tags
+        description: 상품 태그
+        type: string
+      - in: query
+        name: brands
+        description: 상품 브랜드 이름
+        type: string
+      - in: query
+        name: code_names
+        description: 상품 이름, 코드네임
+        type: string
+      - in: query
+        name: majors
+        description: 상품 Major 태그
+        type: string
+      - in: query
+        name: middles
+        description: 상품 Middle 태그
+        type: string
+      - in: query
+        name: minors
+        description: 상품 Minor 태그
+        type: string
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/search-clothes_Response'
+
+
+  /api/clothes-resv:
+    get:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 로그인한 유저의 구독 정보 확인
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    post:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 옷 구독하기
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    delete:
+      tags:
+      - CLOTHES RESERVATION 
+      summary: 옷 구독 취소하기
+      description: Search Clothes from Input Tag
+      produces:
+      - application/json
+
+    
+  
