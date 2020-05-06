@@ -17,6 +17,15 @@ def under_mean(scores:pd.Series) :
     return scores[scores<scores.mean()].index.values
 
 def recommand_item(connection,major,minor) :
+    """
+    Desc : select_set_item으로부터 받은 id,url을 dict로 만들어 반환하는 함수
+    In :
+        connection
+        major
+        minor
+    Out : 
+        recomman_item_dict
+    """
     cur = select_set_item(connection,major,minor)
     recommand_item_dict = {}
     for id,img in cur :
