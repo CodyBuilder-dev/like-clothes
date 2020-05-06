@@ -154,7 +154,7 @@ def recommand_clothes() :
                     minor_name_list = ['반팔 티셔츠','데님팬츠']
                 else : 
                     minor_name_list = ['반팔 티셔츠','긴팔 티셔츠']
-                tempdb.close()
+
 
         #취향 카테고리 이름으로부터 유저 기록내에 있는 이미지 id를 골라냅니다.
         # 이떄 성별에 맞는 값만 추출할지 어떨지 - (아직 미구현, 상의해보고 해야 함)
