@@ -53,12 +53,12 @@ export default function ClothesDetail(props) {
     const url = baseUrl + `/clothes/clothes-item?clothes_item_id=${item_id}`;
     axios.get(url, config).then((res) => {
       if (!!res.data.clothes_info) {
-        setItem(res.data)
+        setItem(res.data);
       } else {
-        alert('미안해욧ㅠㅠ 메인페이지로 이동해욧')
-        window.location.href="/"
+        alert('미안해욧ㅠㅠ 메인페이지로 이동해욧');
+        window.location.href="/";
       }
-      return res.data
+      return res.data;
     })
       .then((res) => {
         const setUrl = baseAIUrl + '/recommand/set';

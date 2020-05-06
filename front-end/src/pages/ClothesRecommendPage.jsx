@@ -74,20 +74,20 @@ export default function ClothesDetail() {
 
   const taggingList = (neighborList) => (
     neighborList.map((item, i) => (
-      <NavLink to={`/clothesdetail/?clothes_item_id=${item.id}`} key={i} style={{position:'relative'}}>
+      <span to={`/clothesdetail/?clothes_item_id=${item.id}`} key={i} style={{position:'relative'}}>
         <img alt="" src={item.img} height="300px" width="300px" style={{margin: '5px'}} />
         <span className="similarTag" 
           style={{position:'absolute', top:'-290px', left:'7px', color:'violet'}}>
         <LoyaltyIcon></LoyaltyIcon></span>
-      </NavLink>
+      </span>
     ))
   )
 
   const mappingList = (totalList) => (
     totalList && (totalList.map((item, i) => (
-        <NavLink key={i} to={`/clothesdetail/?clothes_item_id=${item.id}`}>
-          <img alt="" src={item.img} height="300px" width="300px" style={{margin: '5px'}} />
-        </NavLink>
+        <span key={i} to={`/clothesdetail/?clothes_item_id=${item.id}`}>
+          <img alt="" src={item.img} height="300px" width="260px" style={{margin: '5px'}} />
+        </span>
     )))
   )
 
