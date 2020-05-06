@@ -353,4 +353,4 @@ def test() :
         except :
             return "df문제 발생"+test_minor
 if __name__ == '__main__':
-   app.run(host='0.0.0.0',port=5001,debug = True)
+   app.run(host='0.0.0.0',port=5000,debug = True)
