@@ -1,0 +1,1235 @@
+[2020-05-06 08:20:57 +0000] [632] [INFO] Starting gunicorn 20.0.4
+[2020-05-06 08:20:57 +0000] [632] [INFO] Listening at: http://0.0.0.0:5000 (632)
+[2020-05-06 08:20:57 +0000] [632] [INFO] Using worker: sync
+[2020-05-06 08:20:57 +0000] [635] [INFO] Booting worker with pid: 635
+2020-05-06 08:21:03.487757: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-06 08:21:03.491991: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300070000 Hz
+2020-05-06 08:21:03.492402: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x42bfe50 executing computations on platform Host. Devices:
+2020-05-06 08:21:03.492437: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+[2020-05-06 08:21:21 +0000] [632] [INFO] Handling signal: hup
+[2020-05-06 08:21:21 +0000] [632] [INFO] Hang up: Master
+[2020-05-06 08:21:21 +0000] [664] [INFO] Booting worker with pid: 664
+2020-05-06 08:21:27.664850: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-06 08:21:27.669144: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300070000 Hz
+2020-05-06 08:21:27.669547: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x42c18c0 executing computations on platform Host. Devices:
+2020-05-06 08:21:27.669584: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:171: RuntimeWarning: Mean of empty slice.
+  vector_mean = user_vector[user_vector>0].mean()
+/home/ubuntu/ai-venv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:172: RuntimeWarning: invalid value encountered in greater_equal
+  taste_category = np.argwhere(user_vector>=vector_mean).T
+[2020-05-06 08:28:50,044] ERROR in app: Exception on /ai/recommand/user [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/ws/likeclothes/ai-server/app.py", line 157, in recommand_clothes
+    tempdb.close()
+NameError: name 'tempdb' is not defined
+# DB연결 성공
+# DB 사용설정 완료
+# Attribution Matrix 불러오기
+# Attribution Matrix 불러오기 완료
+# pickle 파일 불러오기
+# pickle 파일 불러오기 완료
+# minor onehot 정보 불러오기
+# minor onehot 정보 불러오기 완료
+# id-map 정보 불러오기
+# id-map 정보 불러오기 완료
+# classification 모델 불러오기
+# classification 모델 불러오기 완료
+# feature 모델 불러오기
+# feature 모델 불러오기 완료
+# cluster 모델 불러오기
+# cluster 모델 불러오기 완료
+유저-라벨 맵 생성 완료! swim112@ag.com            2
+ssafy50@ssafy.com         2
+qwer2q@qwe.com            2
+hello123@af.com           2
+ssafy20@ssafy.com         2
+                         ..
+ssafy45@ssafy.com         5
+string@gmail.com          5
+ssafy43@ssafy.com         5
+supergrammer@naver.com    5
+swimming@gmail.com        5
+Length: 111, dtype: int32
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['기타 아우터', '레더/라이더스 재킷', '미디 스커트', '블루종/MA-1', '숏 패딩/숏 헤비 아우터', '점프수트', '환절기 코트', '후드 스웨트셔츠/후드 집업']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  0
+선택된 이웃 :  ssafy47@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190328/997781/997781_6_500.jpg","img_id":417}'
+getdata 결과:  417 //image.msscdn.net/images/goods_img/20190328/997781/997781_6_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190328/997781/997781_6_500.jpg","img_id":417}'
+getdata 결과:  417 //image.msscdn.net/images/goods_img/20190328/997781/997781_6_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200326/1368883/1368883_1_500.jpg","img_id":1349}'
+getdata 결과:  1349 //image.msscdn.net/images/goods_img/20200326/1368883/1368883_1_500.jpg
+<Response [200]>
+[Tst] 72
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200326/1368883/1368883_1_500.jpg","img_id":1349}'
+getdata 결과:  1349 //image.msscdn.net/images/goods_img/20200326/1368883/1368883_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg","img_id":25939}'
+getdata 결과:  25939 //image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg","img_id":25939}'
+getdata 결과:  25939 //image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg
+<Response [200]>
+[Tst] 53
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  3@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  41@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200417/1409447/1409447_1_500.jpg","img_id":10726}'
+getdata 결과:  10726 //image.msscdn.net/images/goods_img/20200417/1409447/1409447_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200417/1409447/1409447_1_500.jpg","img_id":10726}'
+getdata 결과:  10726 //image.msscdn.net/images/goods_img/20200417/1409447/1409447_1_500.jpg
+<Response [200]>
+[Tst] 53
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  3@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  swim129@gami.com
+유저기록으로부터 선별된 id : [2088, 2040, 24284, 24286, 27119, 27133, 56710, 33312, 8807, 2010, 27055, 5446, 2017, 29573, 36978, 2001, 27066, 8845, 37074, 18529]
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200415/1405369/1405369_1_500.jpg","img_id":3683}'
+getdata 결과:  3683 //image.msscdn.net/images/goods_img/20200415/1405369/1405369_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200415/1405369/1405369_1_500.jpg","img_id":3683}'
+getdata 결과:  3683 //image.msscdn.net/images/goods_img/20200415/1405369/1405369_1_500.jpg
+<Response [200]>
+[Tst] 124
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  13@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id :[2020-05-06 08:28:59,949] ERROR in app: Exception on /ai/recommand/user [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/ws/likeclothes/ai-server/app.py", line 157, in recommand_clothes
+    tempdb.close()
+NameError: name 'tempdb' is not defined
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:171: RuntimeWarning: Mean of empty slice.
+  vector_mean = user_vector[user_vector>0].mean()
+/home/ubuntu/ai-venv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:172: RuntimeWarning: invalid value encountered in greater_equal
+  taste_category = np.argwhere(user_vector>=vector_mean).T
+[2020-05-06 08:32:13,186] ERROR in app: Exception on /ai/recommand/user [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/ws/likeclothes/ai-server/app.py", line 157, in recommand_clothes
+    tempdb.close()
+NameError: name 'tempdb' is not defined
+[2020-05-06 08:33:36,117] ERROR in app: Exception on /ai/recommand/user [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/ws/likeclothes/ai-server/app.py", line 157, in recommand_clothes
+    tempdb.close()
+NameError: name 'tempdb' is not defined
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:171: RuntimeWarning: Mean of empty slice.
+  vector_mean = user_vector[user_vector>0].mean()
+/home/ubuntu/ai-venv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:172: RuntimeWarning: invalid value encountered in greater_equal
+  taste_category = np.argwhere(user_vector>=vector_mean).T
+[2020-05-06 08:34:07,017] ERROR in app: Exception on /ai/recommand/user [POST]
+Traceback (most recent call last):
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/ai-venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/ws/likeclothes/ai-server/app.py", line 157, in recommand_clothes
+    tempdb.close()
+NameError: name 'tempdb' is not defined
+[2020-05-06 08:43:22 +0000] [664] [INFO] Parent changed, shutting down: <Worker 664>
+[2020-05-06 08:43:22 +0000] [664] [INFO] Worker exiting (pid: 664)
+ [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy41@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  41@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  swim129@gami.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+[2020-05-06 08:45:07 +0000] [1000] [INFO] Starting gunicorn 20.0.4
+[2020-05-06 08:45:07 +0000] [1000] [INFO] Listening at: http://0.0.0.0:5000 (1000)
+[2020-05-06 08:45:07 +0000] [1000] [INFO] Using worker: sync
+[2020-05-06 08:45:07 +0000] [1003] [INFO] Booting worker with pid: 1003
+2020-05-06 08:45:12.771118: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-06 08:45:12.775300: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300070000 Hz
+2020-05-06 08:45:12.775660: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5d49c20 executing computations on platform Host. Devices:
+2020-05-06 08:45:12.775703: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+# DB연결 성공
+# DB 사용설정 완료
+# Attribution Matrix 불러오기
+# Attribution Matrix 불러오기 완료
+# pickle 파일 불러오기
+# pickle 파일 불러오기 완료
+# minor onehot 정보 불러오기
+# minor onehot 정보 불러오기 완료
+# id-map 정보 불러오기
+# id-map 정보 불러오기 완료
+# classification 모델 불러오기
+# classification 모델 불러오기 완료
+# feature 모델 불러오기
+# feature 모델 불러오기 완료
+# cluster 모델 불러오기
+# cluster 모델 불러오기 완료
+유저-라벨 맵 생성 완료! 2@s.com               2
+ssafy20@ssafy.com     2
+ssafy3@ssafy.com      2
+asd231@naver.com      2
+swim113@afga.com      2
+                     ..
+ssafy39@ssafy.com     1
+ssafy50@ssafy.com     1
+ssafy19@ssafy.com     1
+johan327@naver.com    1
+master@naver.com      1
+Length: 111, dtype: int32
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg","img_id":13754}'
+getdata 결과:  13754 //image.msscdn.net/images/goods_img/20190215/955591/955591_1_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['기타 아우터', '레더/라이더스 재킷', '블루종/MA-1', '사파리/헌팅 재킷', '숏 패딩/숏 헤비 아우터', '후드 스웨트셔츠/후드 집업']
+유저기록으로부터 선별된 id : []
+고객의 분류된 타입 :  4
+선택된 이웃 :  4@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy30@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+유저기록으로부터 선별된 id : []
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ayl@naver.com"}'
+getdata 결과:  ayl@naver.com
+해당유저의 위시리스트내 의상 id : [16845, 1349, 3748, 13754]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+유저기록으로부터 선별된 id : []
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy22@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy32@ssafy.com
+유저기록으로부터 선별된 id : [6426, 3013, 6483, 9770, 3028, 9731, 3048, 3039, 3046, 9786, 6427, 6485, 3041, 9732, 6435, 6491, 9763, 9717, 3020, 9754]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  abcd@gmail.com
+유저기록으로부터 선별된 id : [39338, 13575, 49445, 55946, 35226, 20155, 16894, 30983, 3824, 57453, 35242, 49429, 23700, 49266, 39088, 49244, 39547, 57430, 3783, 25755]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  12@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy12@ssafy.com
+유저기록으로부터 선별된 id : [35222, 13596, 25698, 31017, 13605, 20161, 13585, 30963, 49498, 20158, 28288, 28252, 39228, 39212, 39200, 39221]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy17@ssafy.com
+유저기록으로부터 선별된 id : [28276, 30985, 28328, 3857, 23667, 25713, 39367, 28316, 39128, 16903, 49439, 55883, 10518, 49467, 35236, 55920, 7249, 20195, 39086, 57445]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  2@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  rena@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name : /home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:171: RuntimeWarning: Mean of empty slice.
+  vector_mean = user_vector[user_vector>0].mean()
+/home/ubuntu/ai-venv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:172: RuntimeWarning: invalid value encountered in greater_equal
+  taste_category = np.argwhere(user_vector>=vector_mean).T
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:171: RuntimeWarning: Mean of empty slice.
+  vector_mean = user_vector[user_vector>0].mean()
+/home/ubuntu/ai-venv/lib/python3.7/site-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:172: RuntimeWarning: invalid value encountered in greater_equal
+  taste_category = np.argwhere(user_vector>=vector_mean).T
+[2020-05-06 09:39:29 +0000] [1003] [INFO] Parent changed, shutting down: <Worker 1003>
+[2020-05-06 09:39:29 +0000] [1003] [INFO] Worker exiting (pid: 1003)
+ ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy17@ssafy.com
+유저기록으로부터 선별된 id : [28276, 30985, 28328, 3857, 23667, 25713, 39367, 28316, 39128, 16903, 49439, 55883, 10518, 49467, 35236, 55920, 7249, 20195, 39086, 57445]
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  7@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy22@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy46@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  asdashid@a.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy17@ssafy.com
+유저기록으로부터 선별된 id : [28276, 30985, 28328, 3857, 23667, 25713, 39367, 28316, 39128, 16903, 49439, 55883, 10518, 49467, 35236, 55920, 7249, 20195, 39086, 57445]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  swim113@afga.com
+유저기록으로부터 선별된 id : [30970, 16926, 39511, 39603, 39647, 30941, 49376, 13619, 28278, 3769, 10562, 31014, 31011, 16957, 28270, 35293, 7273, 16938, 57481, 49426]
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy30@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  ssafy17@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  8@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  2
+선택된 이웃 :  2@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  asdashid@a.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  s8@s.com
+유저기록으로부터 선별된 id : [2973, 9732, 6418, 3028, 9721, 9712, 9754, 9746, 6435, 9748, 3039, 6413, 9719, 6446, 9774, 3036, 9760, 9717, 3014, 9731]
+[2020-05-06 09:44:10 +0000] [1356] [INFO] Starting gunicorn 20.0.4
+[2020-05-06 09:44:10 +0000] [1356] [INFO] Listening at: http://0.0.0.0:5000 (1356)
+[2020-05-06 09:44:10 +0000] [1356] [INFO] Using worker: sync
+[2020-05-06 09:44:10 +0000] [1359] [INFO] Booting worker with pid: 1359
+2020-05-06 09:44:16.334586: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-06 09:44:16.338959: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300070000 Hz
+2020-05-06 09:44:16.339375: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4dad2a0 executing computations on platform Host. Devices:
+2020-05-06 09:44:16.339416: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+[2020-05-06 09:45:38 +0000] [1356] [INFO] Handling signal: hup
+[2020-05-06 09:45:38 +0000] [1356] [INFO] Hang up: Master
+[2020-05-06 09:45:38 +0000] [1392] [INFO] Booting worker with pid: 1392
+2020-05-06 09:45:44.559521: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2020-05-06 09:45:44.563783: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300070000 Hz
+2020-05-06 09:45:44.564164: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4c4b5f0 executing computations on platform Host. Devices:
+2020-05-06 09:45:44.564202: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+# DB연결 성공
+# DB 사용설정 완료
+# Attribution Matrix 불러오기
+# Attribution Matrix 불러오기 완료
+# pickle 파일 불러오기
+# pickle 파일 불러오기 완료
+# minor onehot 정보 불러오기
+# minor onehot 정보 불러오기 완료
+# id-map 정보 불러오기
+# id-map 정보 불러오기 완료
+# classification 모델 불러오기
+# classification 모델 불러오기 완료
+# feature 모델 불러오기
+# feature 모델 불러오기 완료
+# cluster 모델 불러오기
+# cluster 모델 불러오기 완료
+유저-라벨 맵 생성 완료! 124@gmail.com         4
+15@s.com              4
+7@s.com               4
+ab@gmail.com          4
+0407chan@naver.com    4
+                     ..
+qwer2q@qwe.com        0
+swim113@afga.com      0
+ssafy20@ssafy.com     0
+ssafy48@ssafy.com     0
+ssafy21@ssafy.com     0
+Length: 108, dtype: int32
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['기타 아우터', '레더/라이더스 재킷', '미디 스커트', '블루종/MA-1', '숏 패딩/숏 헤비 아우터', '수트 팬츠/슬랙스', '점프수트', '환절기 코트', '후드 스웨트셔츠/후드 집업']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  2
+선택된 이웃 :  199@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy16@ssafy.com
+유저기록으로부터 선별된 id : [28304, 7204, 35217, 25701, 39174, 23741, 55910, 7201, 39540, 57492, 7221, 49372, 3794, 10541, 13595, 30985, 25724, 13579, 7220, 23788]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  asdashid@a.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  master@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy33@ssafy.com
+유저기록으로부터 선별된 id : [9730, 3017, 6410, 9770, 6435, 9712, 3056, 6441, 9728, 6431, 2980, 9715, 9719, 3012, 3044, 9767, 3028, 3041, 9748, 6432]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  0407chan@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy33@ssafy.com
+유저기록으로부터 선별된 id : [9730, 3017, 6410, 9770, 6435, 9712, 3056, 6441, 9728, 6431, 2980, 9715, 9719, 3012, 3044, 9767, 3028, 3041, 9748, 6432]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  7@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy1@ssafy.com
+유저기록으로부터 선별된 id : [16878, 39164, 23742, 39329, 55924, 23704, 25722, 55898, 55940, 16877, 3816, 35194, 39423, 57436, 20169, 25726, 20133, 57454, 39609, 49448]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  124@gmail.com
+유저기록으로부터 선별된 id : [9760, 6479, 9728, 3026, 3017, 3036, 3041, 3013, 6427, 9774, 6424, 3042, 9731, 9719, 3030, 9746, 6426, 9782, 6431, 6429]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  imspecialone@daum.net
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy34@ssafy.com
+유저기록으로부터 선별된 id : [6485, 2998, 6470, 6426, 9760, 6432, 6408, 9742, 9770, 3020, 9746, 9767, 6491, 6418, 6469, 9714, 6490, 3001, 3056, 9730]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  124@gmail.com
+유저기록으로부터 선별된 id : [9760, 6479, 9728, 3026, 3017, 3036, 3041, 3013, 6427, 9774, 6424, 3042, 9731, 9719, 3030, 9746, 6426, 9782, 6431, 6429]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  43@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy16@ssafy.com
+유저기록으로부터 선별된 id : [28304, 7204, 35217, 25701, 39174, 23741, 55910, 7201, 39540, 57492, 7221, 49372, 3794, 10541, 13595, 30985, 25724, 13579, 7220, 23788]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  7@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy33@ssafy.com
+유저기록으로부터 선별된 id : [9730, 3017, 6410, 9770, 6435, 9712, 3056, 6441, 9728, 6431, 2980, 9715, 9719, 3012, 3044, 9767, 3028, 3041, 9748, 6432]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  0407chan@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  imspecialone@daum.net
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  7@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy1@ssafy.com
+유저기록으로부터 선별된 id : [16878, 39164, 23742, 39329, 55924, 23704, 25722, 55898, 55940, 16877, 3816, 35194, 39423, 57436, 20169, 25726, 20133, 57454, 39609, 49448]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy1@ssafy.com
+유저기록으로부터 선별된 id : [16878, 39164, 23742, 39329, 55924, 23704, 25722, 55898, 55940, 16877, 3816, 35194, 39423, 57436, 20169, 25726, 20133, 57454, 39609, 49448]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy5@ssafy.com
+유저기록으로부터 선별된 id : [9782, 9738, 9719, 3026, 3056, 6441, 6413, 9721, 3013, 6492, 3017, 3014, 3045, 9732, 2998, 6490, 3042, 6432, 9712, 3044]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  s5@s.com
+유저기록으로부터 선별된 id : [6470, 6427, 9719, 6492, 6490, 3042, 3048, 6446, 9727, 9742, 6479, 6426, 2980, 3041, 3010, 3030, 9770, 2990, 3046, 6474]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy5@ssafy.com
+유저기록으로부터 선별된 id : [9782, 9738, 9719, 3026, 3056, 6441, 6413, 9721, 3013, 6492, 3017, 3014, 3045, 9732, 2998, 6490, 3042, 6432, 9712, 3044]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy5@ssafy.com
+유저기록으로부터 선별된 id : [9782, 9738, 9719, 3026, 3056, 6441, 6413, 9721, 3013, 6492, 3017, 3014, 3045, 9732, 2998, 6490, 3042, 6432, 9712, 3044]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  31@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  s5@s.com
+유저기록으로부터 선별된 id : [6470, 6427, 9719, 6492, 6490, 3042, 3048, 6446, 9727, 9742, 6479, 6426, 2980, 3041, 3010, 3030, 9770, 2990, 3046, 6474]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ab@gmail.com
+유저기록으로부터 선별된 id : [57411, 20139, 49345, 49280, 13615, 23696, 7217, 23791, 39119, 13617, 10533, 35252, 49472, 10581, 57440, 25697, 31001, 39172, 49298, 10549]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy5@ssafy.com
+유저기록으로부터 선별된 id : [9782, 9738, 9719, 3026, 3056, 6441, 6413, 9721, 3013, 6492, 3017, 3014, 3045, 9732, 2998, 6490, 3042, 6432, 9712, 3044]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy33@ssafy.com
+유저기록으로부터 선별된 id : [9730, 3017, 6410, 9770, 6435, 9712, 3056, 6441, 9728, 6431, 2980, 9715, 9719, 3012, 3044, 9767, 3028, 3041, 9748, 6432]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy5@ssafy.com
+유저기록으로부터 선별된 id : [9782, 9738, 9719, 3026, 3056, 6441, 6413, 9721, 3013, 6492, 3017, 3014, 3045, 9732, 2998, 6490, 3042, 6432, 9712, 3044]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  aasd@das.dfa
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  imspecialone@daum.net
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy49@ssafy.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  124@gmail.com
+유저기록으로부터 선별된 id : [9760, 6479, 9728, 3026, 3017, 3036, 3041, 3013, 6427, 9774, 6424, 3042, 9731, 9719, 3030, 9746, 6426, 9782, 6431, 6429]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy1@ssafy.com
+유저기록으로부터 선별된 id : [16878, 39164, 23742, 39329, 55924, 23704, 25722, 55898, 55940, 16877, 3816, 35194, 39423, 57436, 20169, 25726, 20133, 57454, 39609, 49448]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy1@ssafy.com
+유저기록으로부터 선별된 id : [16878, 39164, 23742, 39329, 55924, 23704, 25722, 55898, 55940, 16877, 3816, 35194, 39423, 57436, 20169, 25726, 20133, 57454, 39609, 49448]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190328/997783/997783_6_500.jpg","img_id":418}'
+getdata 결과:  418 //image.msscdn.net/images/goods_img/20190328/997783/997783_6_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20190328/997783/997783_6_500.jpg","img_id":418}'
+getdata 결과:  418 //image.msscdn.net/images/goods_img/20190328/997783/997783_6_500.jpg
+<Response [200]>
+[Tst] 52
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  15@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  aasd@das.dfa
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  124@gmail.com
+유저기록으로부터 선별된 id : [9760, 6479, 9728, 3026, 3017, 3036, 3041, 3013, 6427, 9774, 6424, 3042, 9731, 9719, 3030, 9746, 6426, 9782, 6431, 6429]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  s5@s.com
+유저기록으로부터 선별된 id : [6470, 6427, 9719, 6492, 6490, 3042, 3048, 6446, 9727, 9742, 6479, 6426, 2980, 3041, 3010, 3030, 9770, 2990, 3046, 6474]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy22@ssafy.com
+유저기록으로부터 선별된 id : [3029, 3039, 9717, 3028, 6446, 2990, 9719, 6427, 9731, 9786, 3001, 2997, 3017, 6432, 9728, 9714, 3013, 3046, 3041, 3012]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy23@ssafy.com
+유저기록으로부터 선별된 id : [3023, 9747, 6409, 6431, 3036, 3028, 9717, 3014, 6492, 3041, 9728, 3055, 2990, 6413, 9746, 3046, 6479, 6483, 3010, 9714]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy16@ssafy.com
+유저기록으로부터 선별된 id : [28304, 7204, 35217, 25701, 39174, 23741, 55910, 7201, 39540, 57492, 7221, 49372, 3794, 10541, 13595, 30985, 25724, 13579, 7220, 23788]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  31@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy23@ssafy.com
+유저기록으로부터 선별된 id : [3023, 9747, 6409, 6431, 3036, 3028, 9717, 3014, 6492, 3041, 9728, 3055, 2990, 6413, 9746, 3046, 6479, 6483, 3010, 9714]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  s5@s.com
+유저기록으로부터 선별된 id : [6470, 6427, 9719, 6492, 6490, 3042, 3048, 6446, 9727, 9742, 6479, 6426, 2980, 3041, 3010, 3030, 9770, 2990, 3046, 6474]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ab@gmail.com
+유저기록으로부터 선별된 id : [57411, 20139, 49345, 49280, 13615, 23696, 7217, 23791, 39119, 13617, 10533, 35252, 49472, 10581, 57440, 25697, 31001, 39172, 49298, 10549]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  43@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ayl@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  15@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy16@ssafy.com
+유저기록으로부터 선별된 id : [28304, 7204, 35217, 25701, 39174, 23741, 55910, 7201, 39540, 57492, 7221, 49372, 3794, 10541, 13595, 30985, 25724, 13579, 7220, 23788]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  ssafy16@ssafy.com
+유저기록으로부터 선별된 id : [28304, 7204, 35217, 25701, 39174, 23741, 55910, 7201, 39540, 57492, 7221, 49372, 3794, 10541, 13595, 30985, 25724, 13579, 7220, 23788]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  imspecialone@daum.net
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  15@s.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  124@gmail.com
+유저기록으로부터 선별된 id : [9760, 6479, 9728, 3026, 3017, 3036, 3041, 3013, 6427, 9774, 6424, 3042, 9731, 9719, 3030, 9746, 6426, 9782, 6431, 6429]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  swim123@gmail.com
+유저기록으로부터 선별된 id : [15327, 8822, 8845, 27099, 21519, 47525, 47579, 2006, 8784, 29599, 2010, 33297, 8831, 47631, 27086, 47575, 8858, 2038, 47460, 37072]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  asdashid@a.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  0407chan@naver.com
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  4
+선택된 이웃 :  aasd@das.dfa
+유저기록으로부터 선별된 id : []
+선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [414, 480, 497, 1349, 1394]
+유저기록으로부터 선별된 minor_name :  ['맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id :
