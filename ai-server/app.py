@@ -167,7 +167,10 @@ def recommand_clothes() :
         print("고객의 분류된 타입 : ",input_cluster)
         selected_neighbor = user_label_map[user_label_map==input_cluster].sample(1).index[0]
         print("선택된 이웃 : ", selected_neighbor)
-        neighbor_list = get_taste_image(db, selected_neighbor, minor_name_list)
+        neighbor_vector = get_user_vector(db,selected_neighbor,minor_onehot_dict)
+        neighbor_minor_list = get_taste_category(neighbor_vector,minor_onehot_dict)
+        neighbor_list = get_taste_image(db, selected_neighbor, neighbor_minor_list)
+        
         # 해당 이웃의 행동기록이 없어, 이미지 id를 추천받을 수 없는 경우 예외처리
         if(len(neighbor_list) == 0) :
             print("선택된 이웃의 기록이 없어 이웃 추천이 불가능합니다.")
