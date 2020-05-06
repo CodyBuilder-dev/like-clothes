@@ -68,10 +68,6 @@ class Carousel extends React.Component {
  
   render() {
     const { currentIndex, responsive } = this.state
-    // const subscribeList = this.props.imgList;
-    // let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {
-      
-
     return (
       <div>
         <AliceCarousel
@@ -82,8 +78,8 @@ class Carousel extends React.Component {
           onSlideChanged={this.handleOnSlideChange}
           onResized={this.handleOnSlideChange}
           dotsDisabled='false'
-          mouseTrackingEnabled='true'
-          fadeOutAnimation='true'
+          fadeOutAnimation={true}
+          infinite={false}
         />
       </div>
     )
