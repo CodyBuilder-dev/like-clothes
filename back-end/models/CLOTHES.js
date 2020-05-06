@@ -143,8 +143,8 @@ module.exports = function (sequelize, DataTypes) {
       const signin_user_email = signin_user.email
       sql = "SELECT distinct ci.clothes_id, ci.owner_email, ci.color, ci.description, ci.size, ci.length, ci.shoulder, ci.waist, \
       cc.major, cc.middle, cc.minor, c.img, c.code_name, c.brand, c.season, u.profile_img, u.nickname, ci.id, cc.major as 'gender', \
-      case when wl.clothes_item_id != null then 'true' else 'false' end in_wishlist, \
-      case when ur.clothes_item_id != null then 'true' else 'false' end in_reservation \
+      case when wl.clothes_item_id is null then 'false' else 'true' end in_wishlist, \
+      case when ur.clothes_item_id is null then 'false' else 'true' end in_reservation \
       FROM CLOTHES_ITEM AS ci \
       LEFT JOIN USER AS u ON ci.owner_email = u.email \
       LEFT JOIN CLOTHES AS c ON ci.clothes_id = c.id \
