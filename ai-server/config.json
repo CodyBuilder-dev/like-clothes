@@ -1,0 +1,8 @@
+{
+    "dbinfo_path" : "dbinfo-temp.json",
+    "prep_data_path" : "prep_data/",
+    "pickle_path":"prep_data/minor_feature/",
+    "defected_img_url_path" : "prep_data/defected_img_url.csv",
+    "model_name" : "vgg19",
+    "classmodel_weight_path":"models/vgg19/weight-35.h5"
+}

@@ -140,8 +140,9 @@ function ClothesRegister({history}) {
       resolve(searchDataList[e.target.name])
     }).then((res) => {
       const data = res
+      console.log(data)
       setSelectData({ name: data.code_name, brand: data.brand, season: data.season })
-      setSendData({ ...sendData, clothes_id: data.clothes_id })
+      setSendData({ ...sendData, clothes_id: data.id })
     })
   }
 
