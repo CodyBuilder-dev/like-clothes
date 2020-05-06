@@ -44,7 +44,7 @@ class MainPage extends PureComponent {
         ...this.state,
         searchDataList: searchDataList,
         page: 0,
-        loading: false,
+        loading: true,
       });
     else alert('검색 결과가 없습니다.');
   };
@@ -89,18 +89,15 @@ class MainPage extends PureComponent {
           </Toolbar>
         </AppBar>
 
-        {console.log(this.state.loading, '로딩')}
         <Card key="1" styles={{ flexGrow: 1, padding: 16 }}>
+          {/* {this.state.loading ? <HashLoader css={override} size={100} color={"red"} loading={this.state.loading}></HashLoader>: */}
           <Box border={2} borderRadius={5} style={{
             padding: 24, textAlign: 'center',
             color: 'rgb(128, 128, 128)',
             paddingTop: 55,
           }}>
-          {this.state.loading ? <HashLoader css={override} size={100} color={"#9013FE"} loading={this.state.loading}></HashLoader>
-          :
-            this.state.searchDataList.length > 0 &&
-              <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />
-          }
+            {this.state.searchDataList.length > 0 &&
+            <InfiniteScrollContainer dataList={this.state.searchDataList} initPage={this.state.page} nextPage={this.nextPage} setChoicedImgId={this.setChoicedImgId} />}
           </Box>
         </Card>
         </QueueArim>

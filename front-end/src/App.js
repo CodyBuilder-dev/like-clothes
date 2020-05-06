@@ -7,7 +7,6 @@ import SignInContainer from './store/Containers/SignInContainer';
 import SignUpContainer from './store/Containers/SignUpContainer';
 
 import AppSideDrawerContainer from './store/Containers/AppSideDrawerContainer';
-import Landing from './pages/LandingPage';
 import MainPage from './pages/MainPage';
 import ClothesRegister from './pages/ClothesRegisterPage';
 import ClothesDetail from './pages/ClothesDetailPage';
@@ -29,7 +28,6 @@ function App() {
         <div className={styles.contents}>
           <Switch>
             <Route path="/" exact render={() => <MainReduxContainer />} />
-            <Route path="/intro" exact component={Landing} />
             <Route path="/" exact render={() => <MainPage />} />
             <Route path="/clothesregister" exact component={ClothesRegister} />
             <Route path="/closet" exact component={Closet} />

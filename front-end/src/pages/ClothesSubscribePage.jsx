@@ -10,12 +10,12 @@ import QueueArim from 'rc-queue-anim';
 const Subs = '/assets/Subs.png'
 
 const url = process.env.REACT_APP_URL + '/clothes-resv'
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": localStorage.token,
-  }
-};
+// const config = {
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Authorization": localStorage.token,
+//   }
+// };
 
 export default function ClothesDetail(props) {
   const styles = clothesdetailjsx();
@@ -25,8 +25,21 @@ export default function ClothesDetail(props) {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.token,
+      }
+    };
     axios.get(url, config).then((res) => {
-      console.log(res.data, '1, clothes_item_id, 예약된 날짜!');
+      if (res.data === "You\'re not logged in") {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('nickname');
+        localStorage.removeItem('isAuthenticated');
+        alert('로그인 해 주세욧 >_');
+        window.location.href="/"
+      }
       const thisData = [];
       const nextData = [];
       const thisWeek = new Date();
@@ -42,7 +55,6 @@ export default function ClothesDetail(props) {
           nextData.push(data)
         }
       })
-      console.log("thisData", thisData, "nextData", nextData)
       setSubscribe(thisData);
       setNextSubscribe(nextData);
     })
@@ -55,7 +67,6 @@ export default function ClothesDetail(props) {
     }
     axios.delete(url, { params, headers, data: params })
       .then((res) => {
-        console.log(res, 'delete결과');
         setUpdate(!update);
         setNextSubscribe([]);
       })
@@ -91,7 +102,7 @@ export default function ClothesDetail(props) {
         <Box key='1' border={2} borderRadius={5} className={styles.paper}>
           <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 중인 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(true)}</span></p>
           <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 50, paddingBottom: 0 }}>
-            {!!subscribe && subscribe.length > 0 ? <Carousel imgList={subscribe}></Carousel> :
+            {!!subscribe && subscribe.length > 0 ? <Carousel imgList={subscribe} ></Carousel> :
               <div style={{ width: '100%', textAlign: 'left', position: 'relative' }}>
                 <div style={{ display: 'inline-block', marginLeft: '30%' }}>
                   <img alt="" src={Subs} width='120' height='100' />
@@ -102,9 +113,9 @@ export default function ClothesDetail(props) {
                 </div>
               </div>}
           </Box>
-          <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 할 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(false)}</span></p>
+          <p style={{ fontSize: 30, marginTop: 10, marginLeft: 10, marginBottom: 20 }}>구독 예정 목록 <span style={{ fontSize: 20, color: 'red' }}>{printWeek(false)}</span></p>
           <Box key='2' border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
-            {!!nextSubscribe && nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe} deleteBtn={handleImgDelete}></Carousel> :
+            {!!nextSubscribe && nextSubscribe.length > 0 ? <Carousel imgList={nextSubscribe} deleteBtn={handleImgDelete} type='delete'></Carousel> :
               <div style={{ width: '100%', textAlign: 'left', position: 'relative' }}>
                 <div style={{ display: 'inline-block', marginLeft: '30%' }}>
                   <img alt="" src={Subs} width='120' height='100' />

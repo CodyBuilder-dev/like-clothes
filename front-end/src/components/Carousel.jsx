@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom'
 import AliceCarousel from 'react-alice-carousel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import 'react-alice-carousel/lib/alice-carousel.css';
@@ -43,33 +44,33 @@ class Carousel extends React.Component {
   getImgList = () => {
     this.state.imgList.length > 0 && this.setState({ carouselList: this.state.imgList.map((item, i) => {
       let widthVal = '90%'
+      if (this.state.imgList.length === 1) {
+        widthVal = '22.5%'
+      } else if (this.state.imgList.length === 2) {
+        widthVal = '45%'
+      } else if (this.state.imgList.length === 3) {
+        widthVal = '67.5%'
+      }
       return (
         <div>
-          {/* <Link to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}> */}
             <div key={i} className="imgDiv" style={{width: widthVal}}>
-              <img alt="" className="imgCard" src={item.img} height="300px" />
+              <NavLink to={`/clothesdetail/?clothes_item_id=${item.clothes_item_id}`}>
+                <img alt="" className="imgCard" src={item.img} height="300px" />
+              </NavLink>
+              { this.props.type === 'delete' &&
               <span className="imgDeleteBtn" onClick={() => this.props.deleteBtn(i)}>
-                <DeleteIcon></DeleteIcon></span>
+                <DeleteIcon></DeleteIcon></span> }
             </div>
-          {/* </Link> */}
         </div>
       );
     })})
   }
  
   render() {
-    console.log(this.state.carouselList, '리스트')
     const { currentIndex, responsive } = this.state
     // const subscribeList = this.props.imgList;
     // let imgList = (this.state.imgList.length > 0) ? this.state.imgList.map((item, i) => {
-    //   let widthVal = '90%'
-      // if (subscribeList.length === 1) {
-      //   widthVal = '22.5%'
-      // } else if (subscribeList.length === 2) {
-      //   widthVal = '45%'
-      // } else if (subscribeList.length === 3) {
-      //   widthVal = '67.5%'
-      // }
+      
 
     return (
       <div>
