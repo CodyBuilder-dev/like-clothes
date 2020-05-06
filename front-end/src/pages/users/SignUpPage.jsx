@@ -95,9 +95,7 @@ class SignUp extends Component {
 
     axios.post(baseUrl + "/user/signup/", formData)
     .then(res => {
-      console.log(res)
       if (res.data.state === 'success') {
-        console.log(res.data, '결과데이터')
         localStorage.token = res.data.user.accessToken;
         localStorage.isAuthenticated = true;
         localStorage.email = res.data.user.email;

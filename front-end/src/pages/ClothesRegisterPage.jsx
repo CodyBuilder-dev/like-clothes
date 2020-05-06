@@ -43,7 +43,6 @@ function ClothesRegister({history}) {
     const config = { "headers": { "Authorization": localStorage.token } }
     axios.post(url, sendData, config)
       .then((res) => {
-        console.log(res, '등록완료?')
         history.push(`/closet?user_email=${localStorage.email}`);
       })
   }
@@ -140,7 +139,6 @@ function ClothesRegister({history}) {
       resolve(searchDataList[e.target.name])
     }).then((res) => {
       const data = res
-      console.log(data)
       setSelectData({ name: data.code_name, brand: data.brand, season: data.season })
       setSendData({ ...sendData, clothes_id: data.id })
     })
@@ -163,7 +161,7 @@ function ClothesRegister({history}) {
           delay={[0, 1000]} duration={[3000, 5000]}
           ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
       <Box key='1' border={2} borderRadius={5} className={styles.paper} style={{ paddingLeft: 80, paddingRight: 80 }}>
-        <p style={{ fontSize: 30, marginTop: 10 }}>상품 등록하기</p>
+        <p style={{ fontSize: 30, marginTop: 10 }}>옷 등록하기</p>
         <div className="WriteClothes" style={{ backgroundColor: 'white' }}>
           <Box>
             <p style={{marginBottom:0}}>대분류&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중분류</p>

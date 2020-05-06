@@ -28,9 +28,7 @@ class SearchClothes extends Component {
 
   // 옷의 정보를 쿼리로 요청해서 DB데이터를 검색
   handleSearchClick() {
-    console.log(this.state.majors, this.state.middles, this.state.minors)
     let url = `http://i02a401.p.ssafy.io:8000/clothes/search-clothes?tags=${this.state.tags}&code_names=${this.state.name}&majors=${this.state.majors}&minors=${this.state.minors}&middles=${this.state.middles}&brands=${this.state.brands}`;
-    console.log(url,'url')
     let options = {
       method: "GET",
       url: url
