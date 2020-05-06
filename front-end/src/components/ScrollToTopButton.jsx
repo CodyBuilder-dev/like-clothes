@@ -22,14 +22,14 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = () => {    
+  const handleClick = () => {
     SmoothScrolling.scrollTo('back-to-top-anchor');
     // const scroll = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
     // scroll.ScrollTop = 0;
 
     // console.log(anchor, '얘가 나오면 스크롤 ?')
     // if (anchor) {
-      // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
     // }
   };
 
@@ -45,7 +45,7 @@ function ScrollTop(props) {
 export default function SearchAppBar(props) {
   return (
     <ScrollTop {...props}>
-      <Fab color="secondary" size="medium">
+      <Fab color="secondary" size="medium" style={{ zIndex: 100, opacity: 1 }}>
         <KeyboardArrowUp />
       </Fab>
     </ScrollTop>

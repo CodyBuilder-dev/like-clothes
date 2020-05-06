@@ -15,10 +15,11 @@ from tensorflow.keras.applications import resnet50
 #경로는 이 py파일을 호출한 main기준임
 from utils.utils_sql import select_data_minor, select_data_idpath, select_mmm_from_id, select_all_user
 from utils.utils_sql import select_wish_url, select_user_record,  select_id_from_minors
+from utils.utils_sql import select_user_gender
 #-----------------------학습용 데이터 준비---------------------
 def get_minor_onehot(connection) :
     """
-    Desc : select_data_minor로부터 생성된 cursor로부터 onehot인코딩
+    Desc : select_data_minor로부터 생성된 cursor로부터 각 minor category name별 one-hot encoding 불러오기
     In : DB connection
     Out : Pandas Dataframe, Dict (One hot encoding)
     """
@@ -39,7 +40,7 @@ def get_minor_onehot(connection) :
 
 def get_idpath_map(connection,defected_img_url_path='prep_data/defected_img_url.csv') :
     """
-    Desc : select_data_idpath에서 생성된 cursor로부터 id-path/id-minor map을 만드는 함수
+    Desc : select_data_idpath에서 생성된 cursor로부터 id-path/id-url/id-minor map을 만드는 함수
     In : DB cursor
     Out : 깨진 이미지를 제외한 정상 학습 이미지의 id_path_map,id_url_map,id_minor_map
     """
@@ -49,7 +50,7 @@ def get_idpath_map(connection,defected_img_url_path='prep_data/defected_img_url.
     id_url_map = {}
     id_minor_map = {}
 
-    for id,url, minor in cursor :
+    for id,url,minor in cursor :
         id_path_map[id] = f"data/musinsa/{id}.jpg"
         id_url_map[id] = url
         id_minor_map[id] = minor
@@ -122,7 +123,7 @@ def get_wish_list(connection,email) :
     wish_list = []
     for id in cur :
         wish_list.append(id[0])
-    
+    print("해당유저의 위시리스트내 의상 id :",wish_list)
     return wish_list
 
 def get_user_vector(connection,email,minor_onehot_dict) :
@@ -157,10 +158,10 @@ def get_alluser_vector(connection,alluser_list,minor_onehot_dict) :
 
     user_vector_array  = np.array(list(user_vector_dict.values()))
     return user_vector_array
-    
+  
 def get_taste_category(user_vector,minor_onehot_dict) :
     """
-    Desc : user_vector로부터 유저의 취향에 가까운 taste_category 이름 리스트 반환
+    Desc : user_vector로부터 유저가 즐겨 찾는(=취향에 가까운) 40개 중 선택된 taste_category 이름 리스트 반환
     In :
         user_vector
         minor_onehot_dict
@@ -179,15 +180,20 @@ def get_taste_category(user_vector,minor_onehot_dict) :
     for idx in taste_category[0] :
         minor_name = minor_index_dict[idx]
         minor_name_list.append(minor_name)
-    print("minor_name_list : ",minor_name_list)
+
+    print("유저기록으로부터 선별된 minor_name : ",minor_name_list)
+
+
     return minor_name_list
 
 def get_taste_image(connection, email, minor_name_list) :
     """
-    Desc : 유저의 이메일, 로그기록으로부터 유저의 취향에 맞다고 추측되는 이미지 id 반환
+    Desc : 유저의 이메일, 취향 카테고리 입력받고
+        유저 행동기록 중에서 해당 취향 카테고리에 속하는 옷 id 반환
     In :
         connection
         email
+        minor_name_list : 유저 취향에 맞다고 생각되는 minor name list
     out :
         taste_img 
     """
@@ -195,7 +201,20 @@ def get_taste_image(connection, email, minor_name_list) :
     taste_img = []
     for id in cur :
         taste_img.append(id[0])
+    print("유저기록으로부터 선별된 id :",taste_img)
     return taste_img
+
+def get_user_gender(connection, email) : 
+    """
+    Desc : 유저의 이메일로부터 유저 성별 획득
+    In :
+        connection
+        email
+    Out : 
+        gender
+    """
+    cur = select_user_gender(connection,email)
+    return cur[0][0]
 
 #-----------------이미지 데이터 처리-----------------
 def get_image_array(url,fourth_dimension=True) :
