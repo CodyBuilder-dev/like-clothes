@@ -52,9 +52,13 @@ export default function ClothesDetail(props) {
   useEffect(() => {
     const url = baseUrl + `/clothes/clothes-item?clothes_item_id=${item_id}`;
     axios.get(url, config).then((res) => {
-      console.log(res.data, '페이지옷정보');
-      setItem(res.data)
-      return res.data
+      if (!!res.data.clothes_info) {
+        setItem(res.data);
+      } else {
+        alert('미안해욧ㅠㅠ 메인페이지로 이동해욧');
+        window.location.href="/";
+      }
+      return res.data;
     })
       .then((res) => {
         const setUrl = baseAIUrl + '/recommand/set';
@@ -62,7 +66,6 @@ export default function ClothesDetail(props) {
           "img_url": res.clothes_info[0].img,
           "img_id": res.clothes_info[0].clothes_id
         }).then((res) => {
-          console.log(res, '셋레스')
           const recomImg = Object.keys(res.data.best_images).map((key) => ({
             id: key,
             img: res.data.best_images[key]
@@ -75,7 +78,6 @@ export default function ClothesDetail(props) {
           "img_url": res.clothes_info[0].img,
           "img_id": res.clothes_info[0].clothes_id
         }).then((res) => {
-          console.log(res, '피쳐레스')
           const bestImg = Object.keys(res.data.best_images).map((key) => ({
             id: key,
             img: res.data.best_images[key]
@@ -99,8 +101,8 @@ export default function ClothesDetail(props) {
           alert('로그인 해주세요 >_')
         } else if (res.data === 'success') {
           alert('구독하셨어욧')
+          props.history.replace(`?clothes_item_id=${item_id}`)
         }
-        console.log(res, '구독 클릭')
       })
   }
 
@@ -113,11 +115,9 @@ export default function ClothesDetail(props) {
           alert('로그인 해주세요 >_')
         } else if (res.data.status === 'success') {
           alert('위시리스트에 추가되었어욧')
+          // props.history.replace(`?clothes_item_id=${item_id}`)
           window.location.reload();
-        } // else if (res.data.desc === 'already wishlist clothes exist') {
-        //   alert('이미 추가된 옷이에욧')
-        // }
-        console.log(res, '위시 클릭')
+        }
       })
   }
 
@@ -131,10 +131,7 @@ export default function ClothesDetail(props) {
         } else if (res.data.state === 'success') {
           alert('위시리스트에서 제거되었어욧')
           window.location.reload();
-        } // else if (res.data.desc === 'already wishlist clothes exist') {
-        //   alert('이미 추가된 옷이에욧')
-        // }
-        console.log(res, '위시 취소 클릭')
+        }
       })
   }
 
@@ -269,7 +266,7 @@ export default function ClothesDetail(props) {
                     </Box></p>
 
           <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
-            <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷과 유사한 욧's 추천 픽!</p>
+            <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>이 옷과 유사한 욧's 추천!</p>
             {bestImg.length > 0 ? <Carousel imgList={bestImg}></Carousel> : null}
           </Box>
           <Box border={2} borderRadius={5} className={styles.paper} style={{ marginBottom: 20, paddingBottom: 0 }}>
@@ -277,7 +274,7 @@ export default function ClothesDetail(props) {
             {recommendImg.length > 0 ? <Carousel imgList={recommendImg}></Carousel> : null}
           </Box>
           <Box border={2} borderRadius={5} className={styles.paper} style={{ paddingBottom: 0 }}>
-            <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>혹시.. 이런 옷은 어떠신지..</p>
+            <p style={{ fontSize: 25, marginTop: 10, marginLeft: 10 }}>혹시.. 이런 스타일은 어떠신지..</p>
             {worstImg.length > 0 ? <Carousel imgList={worstImg}></Carousel> : null}
           </Box>
         </Box>

@@ -38,7 +38,6 @@ export default function SearchAppBar(props) {
     localStorage.removeItem('email');
     localStorage.removeItem('nickname');
     localStorage.removeItem('isAuthenticated');
-    // window.location.reload();
     setIsLogOut(true);
   }
 

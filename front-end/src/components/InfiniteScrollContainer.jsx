@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
 import { GridList, GridListTile, CardContent } from '@material-ui/core';
@@ -6,6 +7,7 @@ import '../css/InfiniteScrollContainer.css'
 
 let numOfAPage = 40, page, numItemsPerColumn = 6, tempList = [];
 let cols = [3, 1, 2, 1, 1, 2, 1, 1, 2, 1, 3];
+let history = window.history
 
 export default class InfiniteScrollContainer extends PureComponent {
   constructor(props) {
@@ -13,6 +15,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     this.state = {
       isLoading: false,
       imageList: [],
+      prevState: {history},
     }
   }
 
@@ -26,18 +29,51 @@ export default class InfiniteScrollContainer extends PureComponent {
       document.body.scrollTop;
     // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
     if (scrollHeight - innerHeight - scrollTop < 100 && !this.state.isLoading) {
-      console.log("Almost Bottom Of This Browser");
       this.setState({ ...this.state, isLoading: true, imageList: tempList.slice(0, numOfAPage * ++page) });
       setTimeout(() => { this.setState({ ...this.state, isLoading: false, }) }, 500);
     }
   };
 
+  handleChoice = (id) => {
+    const url = `${process.env.REACT_APP_URL}/clothes/record-user-clothes`;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.token,
+      },
+    };
+    const c_id = id.toString()
+    const params = {
+      clothes_id: c_id
+    }
+    axios.post(url, params, config)
+      .then(res => {
+        // res.data === 'youre'
+      })
+      .catch(err => {
+      });
+  }
+
+  // offsetSave = () => {
+  //   const curY = window.pageYOffset;
+  //   console.log(history, '히스토리')
+  //   window.history.replaceState(
+  //     {
+  //       ...prevState,
+  //       scroll: {
+  //         y: curY,
+  //       },
+  //     },
+  //     '',
+  //     location.pathname,
+  //   );
+  // };
+
   initPage = () => {
     page = 0;
-    console.log(this.props.dataList)
     tempList = this.props.dataList.map((data, index) => {
       return (
-        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_item_id}`}>
+        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_item_id}`} onClick={() => this.handleChoice(data.id)}>
           <img alt="" src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
           <p class="containerTitle">{data.code_name}</p>

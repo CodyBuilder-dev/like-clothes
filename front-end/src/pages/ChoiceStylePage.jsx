@@ -51,7 +51,6 @@ class ChoiceStylePage extends Component {
       }
       else reject('error : 검색 결과가 없습니다.');
     }).then((res) => {
-      console.log(res, 'hehe');
       this.setState({
         ...this.state,
         imgTags: res,
@@ -93,10 +92,8 @@ class ChoiceStylePage extends Component {
 
     axios.post(url, params, config)
       .then(res => {
-        console.log('누른 데이터 전달:', res);
       })
       .catch(err => {
-        console.log(err);
       });
 
     if (++numOfDepth === maxNumOfDepth) {

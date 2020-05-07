@@ -30,6 +30,15 @@ export default function Closet(props) {
   const [heartFill, setHeartFill] = useState(false);
 
   useEffect(() => {
+    if (!localStorage.token) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('nickname');
+      localStorage.removeItem('isAuthenticated');
+      alert('로그인 해 주세욧 >_');
+      window.location.href="/"
+    }
+
     setUserEmail(user_email);
     // 유저 옷장에 있는 옷들 받아오기
     const closet_url = process.env.REACT_APP_URL + `/clothes/mycloset?user_email=${user_email}`;
