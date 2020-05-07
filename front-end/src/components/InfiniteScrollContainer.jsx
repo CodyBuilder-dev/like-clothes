@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
 import { GridList, GridListTile, CardContent } from '@material-ui/core';
@@ -33,6 +34,26 @@ export default class InfiniteScrollContainer extends PureComponent {
     }
   };
 
+  handleChoice = (id) => {
+    const url = `${process.env.REACT_APP_URL}/clothes/record-user-clothes`;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.token,
+      },
+    };
+    const c_id = id.toString()
+    const params = {
+      clothes_id: c_id
+    }
+    axios.post(url, params, config)
+      .then(res => {
+        // res.data === 'youre'
+      })
+      .catch(err => {
+      });
+  }
+
   // offsetSave = () => {
   //   const curY = window.pageYOffset;
   //   console.log(history, '히스토리')
@@ -52,7 +73,7 @@ export default class InfiniteScrollContainer extends PureComponent {
     page = 0;
     tempList = this.props.dataList.map((data, index) => {
       return (
-        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_item_id}`} onClick={this.offsetSave}>
+        <NavLink key={index} to={`clothesdetail/?clothes_item_id=${data.clothes_item_id}`} onClick={() => this.handleChoice(data.id)}>
           <img alt="" src={data.img} width="100%" style={{ minHeight: 225 }} />
           <div class='overlay'></div>
           <p class="containerTitle">{data.code_name}</p>
