@@ -6872,3 +6872,163 @@ minor 환절기 코트  num 40
   taste_category = np.argwhere(user_vector>=vector_mean).T
 /home/ubuntu/ws/likeclothes/ai-server/utils/utils_data.py:174: RuntimeWarning: Mean of empty slice.
   vector_mean = user_vector[user_vector>0].mean()
+
+[[ 9 14 16 17 31 38]]
+유저기록으로부터 선별된 minor_name :  ['레깅스', '맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  5
+선택된 이웃 :  ssafy35@ssafy.com
+minor 기타 바지  num 26
+minor 나일론/코치  재킷  num 1
+minor 레깅스  num 37
+minor 맨투맨/스웨트셔츠  num 74
+minor 미니 스커트  num 21
+minor 미니 원피스  num 39
+minor 미디 스커트  num 65
+minor 숏 팬츠  num 6
+minor 수트 팬츠/슬랙스  num 26
+minor 점프수트  num 49
+minor 환절기 코트  num 40
+[ 0  0 26  0  0  0  1  0  0 37  0  0  0  0 74 21 39 65  0  0  0  0  0  0
+  0  0  6 26  0  0  0 49  0  0  0  0  0  0 40  0]
+[[ 9 14 16 17 31 38]]
+유저기록으로부터 선별된 minor_name :  ['레깅스', '맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+b''
+getdata 결과:  hyeonjin@ssafy.com
+해당유저의 위시리스트내 의상 id : [17973, 36354, 13754]
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+유저기록으로부터 선별된 id : []
+고객의 분류된 타입 :  0
+선택된 이웃 :  14@s.com
+minor 미니 스커트  num 1
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[[15]]
+유저기록으로부터 선별된 minor_name :  ['미니 스커트']
+유저기록으로부터 선별된 id : [39262]
+b''
+getdata 결과:  hyeonjin@ssafy.com
+해당유저의 위시리스트내 의상 id : [17973, 36354, 13754]
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[]
+유저기록으로부터 선별된 minor_name :  []
+취향 분석이 어렵습니다. 기본 세팅된 취향으로 추천합니다.
+유저기록으로부터 선별된 id : []
+고객의 분류된 타입 :  0
+선택된 이웃 :  ssafy39@ssafy.com
+minor 미니 스커트  num 1
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[[15]]
+유저기록으로부터 선별된 minor_name :  ['미니 스커트']
+유저기록으로부터 선별된 id : [39262]
+b'{"user_email":"ssafy35@ssafy.com"}'
+getdata 결과:  ssafy35@ssafy.com
+해당유저의 위시리스트내 의상 id : [480, 497, 1349, 1394]
+minor 기타 바지  num 26
+minor 나일론/코치  재킷  num 1
+minor 레깅스  num 37
+minor 맨투맨/스웨트셔츠  num 74
+minor 미니 스커트  num 21
+minor 미니 원피스  num 39
+minor 미디 스커트  num 65
+minor 숏 팬츠  num 6
+minor 수트 팬츠/슬랙스  num 26
+minor 점프수트  num 49
+minor 환절기 코트  num 40
+[ 0  0 26  0  0  0  1  0  0 37  0  0  0  0 74 21 39 65  0  0  0  0  0  0
+  0  0  6 26  0  0  0 49  0  0  0  0  0  0 40  0]
+[[ 9 14 16 17 31 38]]
+유저기록으로부터 선별된 minor_name :  ['레깅스', '맨투맨/스웨트셔츠', '미니 원피스', '미디 스커트', '점프수트', '환절기 코트']
+유저기록으로부터 선별된 id : [9747, 6431, 3044, 3012, 9786, 9742, 9721, 6469, 6485, 9714, 6429, 9727, 6413, 6492, 6441, 2980, 6432, 6483, 3039, 6418]
+고객의 분류된 타입 :  5
+선택된 이웃 :  ssafy36@ssafy.com
+minor 기타 바지  num 101
+minor 레깅스  num 49
+minor 미니 스커트  num 10
+minor 미디 스커트  num 95
+minor 수트 팬츠/슬랙스  num 12
+minor 수트/블레이저 재킷  num 80
+minor 점프수트  num 35
+minor 환절기 코트  num 70
+[  0   0 101   0   0   0   0   0   0  49   0   0   0   0   0  10   0  95
+   0   0   0   0   0   0   0   0   0  12  80   0   0  35   0   0   0   0
+   0   0  70   0]
+[[ 2 17 28 38]]
+유저기록으로부터 선별된 minor_name :  ['기타 바지', '미디 스커트', '수트/블레이저 재킷', '환절기 코트']
+유저기록으로부터 선별된 id : [3826, 57459, 16894, 49346, 16944, 49305, 39333, 13629, 3842, 23742, 7215, 57426, 23730, 28260, 25727, 7270, 13616, 3831, 39128, 3803]
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+<Response [200]>
+[Tst] 82
+b'{"user_email":"sdasd@dad.com"}'
+getdata 결과:  sdasd@dad.com
+해당유저의 위시리스트내 의상 id : []
+minor 롱 패딩/롱 헤비 아우터  num 1
+minor 미니 스커트  num 1
+minor 수트 팬츠/슬랙스  num 1
+minor 트레이닝 재킷  num 1
+minor 후드 스웨트셔츠/후드 집업  num 1
+[0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0
+ 0 0 1]
+[[12 15 27 34 39]]
+유저기록으로부터 선별된 minor_name :  ['롱 패딩/롱 헤비 아우터', '미니 스커트', '수트 팬츠/슬랙스', '트레이닝 재킷', '후드 스웨트셔츠/후드 집업']
+유저기록으로부터 선별된 id : [38743, 12296, 1886, 42553]
+고객의 분류된 타입 :  0
+선택된 이웃 :  rena@ssafy.com
+minor 미니 스커트  num 1
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[[15]]
+유저기록으로부터 선별된 minor_name :  ['미니 스커트']
+유저기록으로부터 선별된 id : [39262]
+b'{"user_email":"swim921@gmail.com"}'
+getdata 결과:  swim921@gmail.com
+해당유저의 위시리스트내 의상 id : [1349, 13754]
+minor 나일론/코치  재킷  num 1
+minor 니트/스웨터/카디건  num 2
+minor 데님 팬츠  num 1
+minor 수트 팬츠/슬랙스  num 1
+[0 0 0 0 0 0 1 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[[7]]
+유저기록으로부터 선별된 minor_name :  ['니트/스웨터/카디건']
+유저기록으로부터 선별된 id : [44145]
+고객의 분류된 타입 :  0
+선택된 이웃 :  swim321@gmail.com
+minor 반팔 티셔츠  num 1
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0]
+[[20]]
+유저기록으로부터 선별된 minor_name :  ['반팔 티셔츠']
+유저기록으로부터 선별된 id : [414]
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+<Response [200]>
+[Tst] 82
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg","img_id":25939}'
+getdata 결과:  25939 //image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg
+<Response [200]>
+[Tst] 53
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg","img_id":25939}'
+getdata 결과:  25939 //image.msscdn.net/images/goods_img/20200310/1342537/1342537_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+<Response [200]>
+[Tst] 82
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg
+b'{"img_url":"//image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg","img_id":29545}'
+getdata 결과:  29545 //image.msscdn.net/images/goods_img/20200301/1328676/1328676_1_500.jpg

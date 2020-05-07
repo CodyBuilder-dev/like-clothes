@@ -16,12 +16,13 @@ export const read_random_clothes = async (req, res) => {
 export const record_user_clothes = (req, res) => {
     try{
         const signin_user = res.locals.user;
-        let clothes_id_list = req.body.clothes_id;
-        clothes_id_list = clothes_id_list.split(',')
+        let clothes_id_list = req.body.clothes_id;  
+        if (typeof clothes_id_list === 'string')      
+            clothes_id_list = clothes_id_list.split(',')
         for (let i = 0; i < clothes_id_list.length; i++) {
             USER_AND_CLOTHES_RECORD.create({
                 user_email: signin_user.email,
-                clothes_id : clothes_id_list
+                clothes_id : clothes_id_list[i]
             }).catch(err => {
                 console.log(err)
             })       
