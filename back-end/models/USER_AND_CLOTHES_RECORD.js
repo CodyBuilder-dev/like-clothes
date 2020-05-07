@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('USER_AND_CLOTHES', {
+  return sequelize.define('USER_AND_CLOTHES_RECORD', {
     user_email: {
       type: DataTypes.STRING(100),
       allowNull: false,
