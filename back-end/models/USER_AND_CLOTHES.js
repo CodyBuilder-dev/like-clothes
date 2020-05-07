@@ -35,6 +35,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
-    tableName: 'USER_AND_CLOTHES'
+    tableName: 'USER_AND_CLOTHES_RECORD'
   });
 };
