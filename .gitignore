@@ -1,5 +1,6 @@
 # AWS cert.pem
 cert.pem
+nohup.out
 
 # model files
 models/

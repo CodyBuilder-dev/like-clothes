@@ -18,6 +18,7 @@ const override = css`
   border-color: red:
   `;
 
+
 class MainPage extends PureComponent {
   constructor(props) {
     super(props);
@@ -32,11 +33,22 @@ class MainPage extends PureComponent {
       page: 0,
       loading: true,
     };
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidUpdate(preProps, preState, snapshot) {
+    console.log("시작입니다. ", this.props)
   }
 
   componentDidMount() {
     searchClothesFunc(this.state, this.setSearchState);
+    window.addEventListener('scroll', this.handleScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  };
+
 
   setSearchState = (searchDataList) => {
     if (searchDataList.length > 0)
@@ -62,6 +74,12 @@ class MainPage extends PureComponent {
       page: this.state.page + 1,
     })
   }
+
+  handleScroll(event) {
+    // console.log('the scroll things', event.path[1].pageYOffset)
+  };
+
+
 
   render() {
     return (

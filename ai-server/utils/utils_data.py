@@ -132,13 +132,15 @@ def get_user_vector(connection,email,minor_onehot_dict) :
     In :
         connection
         email
-    Out :
+    Out : 
         user_vector
     """
     cur = select_user_record(connection,email)
-    user_vector = np.empty(len(minor_onehot_dict))
+    user_vector = np.zeros(len(minor_onehot_dict))
+    
     for minor,num in cur :
-        if minor in minor_onehot_dict :  
+        if minor in minor_onehot_dict :
+            print("minor", minor, " num", num)  
             user_vector += minor_onehot_dict[minor]*num
     
     return user_vector.astype(int)
@@ -168,9 +170,10 @@ def get_taste_category(user_vector,minor_onehot_dict) :
     Out :
         minor_name_list
     """
+    print(user_vector)
     vector_mean = user_vector[user_vector>0].mean()
     taste_category = np.argwhere(user_vector>=vector_mean).T
-    
+    print(taste_category)
     minor_index_dict = {}
     i = 0
     for key in minor_onehot_dict :
